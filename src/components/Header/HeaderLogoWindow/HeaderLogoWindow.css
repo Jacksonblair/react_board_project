@@ -1,0 +1,55 @@
+.header-logo-link-wrapper {
+	height: 100%;
+    width: 100%;
+    display: flex;
+}
+
+.header-logo-window {
+    width: 200px;
+    background: lightgrey;
+    border: 1px solid black;
+    display: flex;
+}
+
+@media screen and (max-width: 1200px) {
+	.header-logo-window {
+		width: 50px;
+	}
+}
+
+.header-logo-window-logo-icon-container {
+	width: 50px;
+	padding: 5px;
+	border: 1px solid grey;
+}
+
+@media screen and (max-width: 400px) {
+	.header-logo-window-logo-icon-container {
+		width: 30px;
+		padding: 0px;
+		border: 1px solid grey;
+	}
+
+	.header-logo-window {
+		width: 30px;
+	}
+}
+
+.header-logo-window-logo-icon {
+	height: 100%;
+	width: 100%;
+	border: 1px solid blue;
+	background: white;
+}
+
+.header-logo-window-logo-text {
+	padding: 5px;
+	border: 1px solid grey;
+	width: -webkit-fill-available;
+}
+
+@media screen and (max-width: 1200px) {
+	.header-logo-window-logo-text {
+		display: none
+	}
+}

@@ -1,0 +1,91 @@
+.app {
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+._container-header {
+	height: 50px;
+	border: 1px solid blue;
+	flex-shrink: 1;
+}
+
+._container-header-center-column {
+	width: 100%;
+	height: 100%;
+	border: 1px solid cyan;
+}
+
+._container-body {
+	flex: 1;
+	border: 1px solid purple;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+._container-footer {
+	height: 50px;
+	flex-shrink: 1;
+	border: 1px solid orange;
+}
+
+._container-sidebar {
+	display: none;
+	height: 400px;
+	width: 300px;
+	position: absolute;
+	top: 50px;
+	right: 0;
+	border: 1px solid grey;
+}
+
+._container-sidebar.visible {
+	display: block;
+}
+
+/* NOTE: Container is just that, don't add any additional styling, do it with other more specific elements */
+._container-center-column {
+	width: 80%;
+	height: 100%;
+	margin-left: 10%;
+	border: 1px solid cyan;
+}
+
+/* Desktop column size */
+@media screen and (min-width: 1201px) {
+	._container-center-column {
+		width: 70%;
+		margin-left: 15%;
+	}
+}
+
+/* Laptop column size */
+@media screen and (max-width: 1200px) {
+	._container-center-column {
+		width: 80%;
+		margin-left: 10%;
+	}
+}
+
+/* Tablet column size */
+@media screen and (max-width: 800px) {
+	._container-center-column {
+		width: 100%;
+		margin-left: 0;
+	}
+}
+
+/* Laptop column size */
+@media screen and (max-width: 400px) {
+	._container-center-column {
+		width: 100%;
+		margin-left: 0;
+	}
+
+	._container-header {
+		height: 30px;
+		border: 1px solid blue;
+		flex-shrink: 1;
+	}
+}

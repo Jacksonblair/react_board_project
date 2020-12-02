@@ -1,0 +1,29 @@
+.header-board-address-window {
+    width: 200px;
+    background: lightgrey;
+    border: 1px solid black;
+    margin-right: auto;
+}
+
+@media screen and (max-width: 800px) {
+	.header-board-address-window  {
+		width: 50px;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	.header-board-address-window  {
+		width: 30px;
+	}
+}
+
+.header-board-address-text {
+	border: 1px solid grey;
+
+}
+
+@media screen and (max-width: 1200px) {
+	.header-board-address-text {
+		display: none
+	}
+}

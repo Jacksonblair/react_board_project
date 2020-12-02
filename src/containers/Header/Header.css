@@ -1,0 +1,7 @@
+.container-header-menu {
+	width: auto;
+    height: -webkit-fill-available;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}

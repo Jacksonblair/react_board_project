@@ -1,0 +1,49 @@
+.calendar-day-container {
+	height: 100%;
+	width: 14.28%;
+	display: flex;
+	justify-content: center;
+    align-items: center;
+}
+
+.calendar-day {
+	height: 80%;
+	width: 80%;
+	transition: 0.3s all;
+	padding: 5px;
+}
+
+.calendar-day.none {
+	background: whitesmoke;
+}
+
+.calendar-day.day {
+	background: lightgrey;
+	font-size: 25px;
+}
+
+.calendar-day.day:hover {
+	background: grey;
+	cursor: pointer;
+}
+
+@media screen and (max-width: 1200px) {
+	.calendar-day-container {
+	}
+}
+
+@media screen and (max-width: 1200px) {
+	.calendar-day-container {
+	}
+}
+
+@media screen and (max-width: 800px) {
+	.calendar-day-container {
+	}
+}
+
+@media screen and (max-width: 400px) {
+	.calendar-day.day {
+		font-size: 6vw;
+	}
+}

@@ -1,0 +1,12 @@
+.container-calendar-viewer-menu {
+	width: 100%;
+	border: 1px solid red;
+	height: 50px;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.container-calendar-viewer-menu form {
+	display: inline-block;
+}

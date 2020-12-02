@@ -1,0 +1,15 @@
+.header-menu-window {
+    width: 50px;
+    background: lightgrey;
+    border: 1px solid black;
+}
+
+.header-menu-window-menu-button {
+    height: 100%;
+    width: 100%;
+}
+
+@media screen and (max-width: 400px) {
+
+
+}
