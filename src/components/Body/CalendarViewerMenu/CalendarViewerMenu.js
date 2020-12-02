@@ -27,16 +27,14 @@ const CalendarViewerMenu = props => {
 
 	// <label htmlFor="cars">Choose a car:</label>
 
-	let months = ["January", "February", "March", "April", "May",
-				"June", "July", "August", "September", "October", "November", "December"]
-	let monthOptions = months.map((month, i) => {
+
+	let monthOptions = props.months.map((month, i) => {
 		return (
 			<option key={`month-option-${i}`} value={i}>{month}</option>
 		)
 	})
 
-	let years = [2020, 2021, 2022, 2023, 2024, 2025, 2026, 2028, 2029]
-	let yearOptions = years.map((year, i) => {
+	let yearOptions = props.years.map((year, i) => {
 		return (
 			<option key={`year-option-${i}`} value={year}>{year}</option>
 		)
@@ -45,46 +43,14 @@ const CalendarViewerMenu = props => {
 	let nextUnitButtons = [
 		(
 			<React.Fragment>
-				<button onClick={() => props.clickedUpdateMonth(props.month - 1)}> PREV MONTH </button>
-				<button onClick={() => props.clickedUpdateMonth(props.month + 1)}> NEXT MONTH </button>
+				<button onClick={() => props.clickedUpdateMonth(props.currentMonth - 1)}> PREV MONTH </button>
+				<button onClick={() => props.clickedUpdateMonth(props.currentMonth + 1)}> NEXT MONTH </button>
 			</React.Fragment>
 		),
 		(
 			<React.Fragment>
-				<button onClick={() => props.clickedUpdateYear(props.year - 1)}> PREV YEAR </button>
-				<button onClick={() => props.clickedUpdateYear(props.year + 1)}> NEXT YEAR </button>
-			</React.Fragment>
-		),
-		( null )
-	]
-
-	let manualUnitButtons = [
-		(		
-			<React.Fragment>
-
-				<label>MONTH</label>
-				<select onChange={() => props.clickedUpdateMonth(event.target.value)} 
-				value={props.month}>			
-					{monthOptions}
-				</select>	
-
-				<label>YEAR</label>
-				<select onChange={() => props.clickedUpdateYear(event.target.value)}
-				value={props.year}>		
-					{yearOptions}	
-				</select>
-
-			</React.Fragment>
-		),
-		(		
-			<React.Fragment>
-
-				<label>MONTH</label>
-				<select onChange={() => props.clickedUpdateMonth(event.target.value)} 
-				value={props.month}>			
-					{monthOptions}
-				</select>	
-
+				<button onClick={() => props.clickedUpdateYear(props.currentYear - 1)}> PREV YEAR </button>
+				<button onClick={() => props.clickedUpdateYear(props.currentYear + 1)}> NEXT YEAR </button>
 			</React.Fragment>
 		),
 		( null )
@@ -98,15 +64,26 @@ const CalendarViewerMenu = props => {
 			</form>
 
 			<label>VIEW</label>
-			<select onChange={() => props.clickedUpdateView(event.target.value)}
-				value={props.unitView}>			
+			<select onChange={() => props.clickedUpdateCalendarUnit(event.target.value)}
+				value={props.calendarUnit}>			
 		 		<option value={0}>Days</option>
 				<option value={1}>Months</option>
 				<option value={2}>Years</option>
 			</select>			
 
-			{nextUnitButtons[props.unitView]}
-			{manualUnitButtons[props.unitView]}
+			{nextUnitButtons[props.calendarUnit]}
+
+			<label>MONTH</label>
+			<select onChange={() => props.clickedUpdateMonth(event.target.value)} 
+			value={props.currentMonth}>			
+				{monthOptions}
+			</select>	
+
+			<label>YEAR</label>
+			<select onChange={() => props.clickedUpdateYear(event.target.value)}
+			value={props.currentYear}>		
+				{yearOptions}	
+			</select>
 
 		</div>
 	)

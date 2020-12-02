@@ -2,7 +2,8 @@ import * as actionTypes from './actions';
 
 const initialState = {
 	month: 0,
-	year: 2020
+	year: 2020,
+	calendarUnit: 0
 }
 
 const reducer = (state = initialState, action) => {
@@ -20,6 +21,11 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				year: action.payload.year
+			}
+		case actionTypes.CALENDAR_UNIT_UPDATE:
+			return {
+				...state,
+				calendarUnit: action.payload.unit
 			}
 	}
 	return state;

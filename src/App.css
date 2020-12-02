@@ -19,9 +19,6 @@
 ._container-body {
 	flex: 1;
 	border: 1px solid purple;
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
 }
 
 ._container-footer {
@@ -46,29 +43,30 @@
 
 /* NOTE: Container is just that, don't add any additional styling, do it with other more specific elements */
 ._container-center-column {
-	width: 80%;
+	width: 1000px;
 	height: 100%;
-	margin-left: 10%;
+	margin: 0 auto;
 	border: 1px solid cyan;
 }
 
-/* Desktop column size */
 @media screen and (min-width: 1201px) {
 	._container-center-column {
-		width: 70%;
-		margin-left: 15%;
+		width: 1000px;
 	}
 }
 
-/* Laptop column size */
 @media screen and (max-width: 1200px) {
 	._container-center-column {
-		width: 80%;
-		margin-left: 10%;
+		width: 900px;
 	}
 }
 
-/* Tablet column size */
+@media screen and (max-width: 1000px) {
+	._container-center-column {
+		width: 800px;
+	}
+}
+
 @media screen and (max-width: 800px) {
 	._container-center-column {
 		width: 100%;
@@ -76,7 +74,6 @@
 	}
 }
 
-/* Laptop column size */
 @media screen and (max-width: 400px) {
 	._container-center-column {
 		width: 100%;
@@ -87,5 +84,39 @@
 		height: 30px;
 		border: 1px solid blue;
 		flex-shrink: 1;
+	}
+}
+
+/* Global visibility animation wrapper*/
+
+.visibility-wrapper {
+	opacity: 1;
+}
+
+.visibility-wrapper.hiding {
+	animation: 0.1s hide linear forwards;
+}
+
+.visibility-wrapper.showing {
+	animation: 0.1s show linear forwards;
+}
+
+/* Global anims */
+
+@keyframes hide {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+@keyframes show {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
 	}
 }

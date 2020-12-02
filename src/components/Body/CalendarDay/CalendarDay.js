@@ -2,9 +2,6 @@ import React, { Component } from 'React'
 import './CalendarDay.css'
 
 const CalendarDay = props => {
-
-	let styles = []
-
 	return (
 		<div className="calendar-day-container">
 			<div 

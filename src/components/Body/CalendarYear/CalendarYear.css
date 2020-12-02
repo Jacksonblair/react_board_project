@@ -1,57 +1,57 @@
-.calendar-day-container {
+.calendar-year-container {
 	height: 100%;
-	width: 14.28%;
+	width: 20%;
 	display: flex;
 	justify-content: center;
-	align-items: center;
+    align-items: center;
 }
 
-.calendar-day {
+.calendar-year {
 	height: 80%;
 	width: 80%;
 	transition: 0.3s all;
 }
 
-.calendar-day.none {
-	background: whitesmoke;
-}
-
-.calendar-day.day {
+.calendar-year {
 	background: lightgrey;
 	font-size: 25px;
 }
 
-.calendar-day.day:hover {
+.calendar-year:hover {
 	background: grey;
 	cursor: pointer;
 }
 
 @media screen and (min-width: 1201px) {
-	.calendar-day-container {
+	.calendar-year-container {
 
 	}
 }
 
 @media screen and (max-width: 1200px) {
-	.calendar-day-container {
+	.calendar-year-container {
 
 	}
 }
 
 @media screen and (max-width: 1000px) {
-	.calendar-day-container {
+	.calendar-year-container {
 
 	}
 }
 
 @media screen and (max-width: 800px) {
-	.calendar-day-container {
+	.calendar-year-container {
 		
 	}
 }
 
 @media screen and (max-width: 400px) {
-	.calendar-day.day {
+	.calendar-year-container {
+		width: 33%;
+	}
+
+	.calendar-year {
 		font-size: 6vw;
 	}
 }

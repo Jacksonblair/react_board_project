@@ -1,27 +1,29 @@
 .container-calendar-viewer {
 	border: 1px solid red;
-    width: 1000px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 .calendar-viewer-row {
 	height: 120px;
 	width: 100%;
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (min-width: 1201px) {
 	.calendar-viewer-row {
 		height: 120px;
 	}
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1200px) {
 	.calendar-viewer-row {
 		height: 110px;
+	}
+}
+
+@media screen and (max-width: 1000px) {
+	.calendar-viewer-row {
+		height: 100px;
 	}
 }
 
@@ -40,5 +42,13 @@
 @media screen and (max-width: 400px) {
 	.calendar-viewer-row {
 		height: 40px;
+	}
+
+	.calendar-viewer-row.month {
+		height: 60px;
+	}
+
+	.calendar-viewer-row.year {
+		height: 60px;
 	}
 }
