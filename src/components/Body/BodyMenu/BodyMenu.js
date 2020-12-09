@@ -2,10 +2,11 @@ import React, { Component } from 'React'
 import './BodyMenu.css'
 
 const BodyMenu = props => {
+
 	return (
 		<div>
-			<button onClick={() => props.clickedUpdateViewType(0)}> CALENDAR </button>
-			<button onClick={() => props.clickedUpdateViewType(1)}> LIST </button>
+			<button onClick={props.clickedCalendarView}> CALENDAR </button>
+			<button onClick={props.clickedListView}> LIST </button>
 		</div>
 	)
 }

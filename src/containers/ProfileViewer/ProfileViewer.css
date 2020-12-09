@@ -1,0 +1,27 @@
+.container-profile-viewer {
+	padding: 5px;
+	display: flex;
+	flex-direction: column;
+}
+
+.profile-viewer-field-container {
+	border: 1px solid grey;
+}
+
+.profile-viewer-field-name {
+	display: inline-block;
+	padding: 5px;
+	font-weight: bold;
+}
+
+.profile-viewer-field-content {
+	display: inline-block;
+}
+
+.edit-profile-button {
+	width: fit-content;
+}
+
+.exit-profile-button {
+	width: fit-content;
+}

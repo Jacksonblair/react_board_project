@@ -1,0 +1,21 @@
+.css-transition {
+	opacity: 1;
+	transition: 0.1s all;
+	transition-timing-function: linear;
+}
+
+.css-transition.exiting {
+	opacity: 0;
+}
+
+.css-transition.exited {
+	opacity: 0;
+}
+
+.css-transition.entering {
+	opacity: 1;
+}
+
+.css-transition.entered {
+	opacity: 1;
+}

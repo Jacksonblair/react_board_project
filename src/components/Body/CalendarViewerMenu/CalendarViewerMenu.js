@@ -1,5 +1,9 @@
 import React, { Component } from 'React'
 import './CalendarViewerMenu.css'
+import {
+	Link,
+	withRouter
+} from "react-router-dom";
 
 const CalendarViewerMenu = props => {
 
@@ -27,66 +31,67 @@ const CalendarViewerMenu = props => {
 
 	// <label htmlFor="cars">Choose a car:</label>
 
-
-	let monthOptions = props.months.map((month, i) => {
-		return (
-			<option key={`month-option-${i}`} value={i}>{month}</option>
-		)
-	})
-
-	let yearOptions = props.years.map((year, i) => {
-		return (
-			<option key={`year-option-${i}`} value={year}>{year}</option>
-		)
-	})
+	let dateRangeNotifiers = [
+		"Selecting Day",
+		"Selecting Range Start",
+		"Selecting Range End"
+	]
 
 	let nextUnitButtons = [
 		(
-			<React.Fragment>
-				<button onClick={() => props.clickedUpdateMonth(props.currentMonth - 1)}> PREV MONTH </button>
-				<button onClick={() => props.clickedUpdateMonth(props.currentMonth + 1)}> NEXT MONTH </button>
-			</React.Fragment>
+			<div className="view-filter-group directions">
+				<div 
+				className="board-sub-menu-button calendar color-2" 
+				onClick={() => props.clickedUpdateMonth(props.currentMonth - 1)}> <i className="fas fa-arrow-left color-4"> </i> &nbsp;Previous Month </div>
+				<div 
+				className="board-sub-menu-button calendar color-2"
+				onClick={() => props.clickedUpdateMonth(props.currentMonth + 1)}> Next month &nbsp;<i className="fas fa-arrow-right color-4"></i> </div>
+			</div>
 		),
 		(
-			<React.Fragment>
-				<button onClick={() => props.clickedUpdateYear(props.currentYear - 1)}> PREV YEAR </button>
-				<button onClick={() => props.clickedUpdateYear(props.currentYear + 1)}> NEXT YEAR </button>
-			</React.Fragment>
+			<div className="view-filter-group directions">
+				<div 
+				className="board-sub-menu-button calendar color-2"  
+				onClick={() => props.clickedUpdateYear(props.currentYear - 1)}> <i className="fas fa-arrow-left color-4"> </i> &nbsp;Previous Year </div>
+				<div 
+				className="board-sub-menu-button calendar color-2"
+				onClick={() => props.clickedUpdateYear(props.currentYear + 1)}> Next Year &nbsp;<i className="fas fa-arrow-right color-4"></i></div>
+			</div>
 		),
 		( null )
 	]
 
 	return (
-		<div className="container-calendar-viewer-menu">
+		<div className="container-calendar-viewer-menu bg-1">
 
-			<form>
-				<input type="text" placeholder="search"/>
-			</form>
-
-			<label>VIEW</label>
-			<select onChange={() => props.clickedUpdateCalendarUnit(event.target.value)}
-				value={props.calendarUnit}>			
-		 		<option value={0}>Days</option>
-				<option value={1}>Months</option>
-				<option value={2}>Years</option>
-			</select>			
+			<div className="view-filter-group">
+				<div className="board-sub-menu-button calendar color-2" onClick={() => props.updateCalendarUnit(0)}>
+					Days
+				</div>
+				<div className="board-sub-menu-button calendar color-2" onClick={() => props.updateCalendarUnit(1)}>
+					Months
+				</div>
+				<div className="board-sub-menu-button calendar color-2" onClick={() => props.updateCalendarUnit(2)}>
+					Years
+				</div>
+			</div>			
 
 			{nextUnitButtons[props.calendarUnit]}
-
-			<label>MONTH</label>
-			<select onChange={() => props.clickedUpdateMonth(event.target.value)} 
-			value={props.currentMonth}>			
-				{monthOptions}
-			</select>	
-
-			<label>YEAR</label>
-			<select onChange={() => props.clickedUpdateYear(event.target.value)}
-			value={props.currentYear}>		
-				{yearOptions}	
-			</select>
 
 		</div>
 	)
 }
 
-export default CalendarViewerMenu
+export default withRouter(CalendarViewerMenu)
+
+{/*				<label>MONTH</label>
+				<select onChange={() => props.clickedUpdateMonth(event.target.value)} 
+				value={props.currentMonth}>			
+					{monthOptions}
+				</select>	
+
+				<label>YEAR</label>
+				<select onChange={() => props.clickedUpdateYear(event.target.value)}
+				value={props.currentYear}>		
+					{yearOptions}	
+				</select>*/}

@@ -7,18 +7,22 @@
 }
 
 .calendar-month {
-	height: 80%;
-	width: 80%;
-	transition: 0.3s all;
+	height: 75%;
+	width: 75%;
+	transition: 0.2s all;
+	border-radius: 5px;
+	font-size: 1.8em;
+    padding: 5%;
+    border: 1px solid #c5cce4;
 }
 
-.calendar-month {
-	background: lightgrey;
-	font-size: 25px;
+.calendar-month.match {
+	border: 2px solid #88b0ff;
+	animation: 1s matchGlow linear infinite;
 }
 
 .calendar-month:hover {
-	background: grey;
+	background: #f2f6fc;
 	cursor: pointer;
 }
 

@@ -1,0 +1,15 @@
+.list-viewer-new-post-button {
+	height: 40px;
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3em;
+    font-weight: 700;
+    transition: 0.2s all;
+}
+
+.list-viewer-new-post-button:hover {
+	color: #2f71f4;
+}

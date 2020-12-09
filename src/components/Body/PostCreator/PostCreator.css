@@ -1,0 +1,8 @@
+.container-post-creator {
+	padding: 5px;
+}
+
+.container-post-creator form {
+	display: flex;
+	flex-direction: column;
+}

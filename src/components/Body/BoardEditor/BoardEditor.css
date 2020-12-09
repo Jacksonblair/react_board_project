@@ -1,0 +1,8 @@
+.container-board-editor {
+	padding: 5px;
+}
+
+.container-board-editor form {
+	display: flex;
+	flex-direction: column;
+}

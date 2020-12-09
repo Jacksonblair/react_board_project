@@ -1,17 +1,18 @@
 import React, { Component } from 'React'
 import './HeaderLogoWindow.css'
+import {
+  Link
+} from "react-router-dom";
 
 const HeaderLogoWindow = props => {
 	return (
-		<div className="header-logo-window">
-			<a href="/" className="header-logo-link-wrapper">
+		<div className="container-header-logo-window border-1">
+
 				<div className="header-logo-window-logo-icon-container">
-					<div className="header-logo-window-logo-icon"/>
+					<div className="header-logo-window-logo-icon bg-2"/>
 				</div>
-				<div className="header-logo-window-logo-text">
-					logo
-				</div>
-			</a>
+
+
 		</div>
 	)
 }

@@ -6,10 +6,16 @@
 	align-items: center;
 }
 
+.calendar-day-container a {
+	width: 75%;
+	height: 75%;
+}
+
 .calendar-day {
-	height: 80%;
-	width: 80%;
-	transition: 0.3s all;
+	height: 100%;
+	width: 100%;
+	transition: 0.2s all;
+	border-radius: 5px;
 }
 
 .calendar-day.none {
@@ -17,13 +23,30 @@
 }
 
 .calendar-day.day {
-	background: lightgrey;
-	font-size: 25px;
+	font-size: 1.8em;
+    padding: 5%;
+    border: 1px solid #c5cce4;
+}
+
+.calendar-day.match {
+	border: 2px solid #88b0ff;
+	animation: 1s matchGlow linear infinite;
 }
 
 .calendar-day.day:hover {
-	background: grey;
+	background: #f2f6fc;
 	cursor: pointer;
+}
+
+@keyframes matchGlow {
+	0% {
+	}
+	50% {
+		background: #c5cce4;
+		border: 2px solid #88b0ff;
+	}
+	100% {
+	}
 }
 
 @media screen and (min-width: 1201px) {

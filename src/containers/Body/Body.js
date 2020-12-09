@@ -1,67 +1,54 @@
 import React, { Component } from 'React'
 import { connect } from 'react-redux'
+import {
+  Switch,
+  Route,
+  Redirect
+} from "react-router-dom";
+import * as actionTypes from '../../store/actions.js'
 import './Body.css'
+
 import BodyMenu from '../../components/Body/BodyMenu/BodyMenu.js'
-import CalendarViewer from '../CalendarViewer/CalendarViewer.js'
-import ListViewer from '../ListViewer/ListViewer.js'
+import ProfileViewer from '../ProfileViewer/ProfileViewer.js'
+import HomeViewer from '../HomeViewer/HomeViewer.js'
+import Board from '../Board/Board.js'
+import CSSTransition from '../Util/CSSTransition/CSSTransition'
 
 class Body extends Component {
 
-	/*
-			Store (day, month)
-				 ---|---
-			Calendar	List
-				|		 |
-			Days Events  |
-			 	|		 |
-			  	 -Event--
-
-	*/
-
 	state = {
-		viewType: 0, /* Calendar Viewer: 0, List Viewer: 1 */
-		hidingViewer: false,
-		showingViewer: false
+
 	}
-	
-	interfaces = [
-		<CalendarViewer/>,
-		<ListViewer/>,
-	]
 
-	updateViewTypeHandler = (viewType) => {
-		if (viewType !== this.state.viewType) {
-
-			this.setState({
-				hidingViewer: true
-			})
-			setTimeout(() => {
-				this.setState({
-					viewType: viewType,
-					hidingViewer: false,
-					showingViewer: true
-				})						
-				setTimeout(() => {
-					this.setState({
-						showingViewer: false
-					})
-				}, 100)	
-			}, 100)
-
-		}
+	getInterface = (index) => {
+		/* The keys for these containers are for ReactCSSTransitionGroup */
+		if (index == 0)
+			return ( <HomeViewer/> )
+		if (index == 1)
+			return ( <Board/> )
+		if (index == 2)
+			return ( <ProfileViewer/> )
 	}
 
 	render() {
-		let viewerWrapperStyle = 
-			`visibility-wrapper ${this.state.hidingViewer ? "hiding" : ""}${this.state.showingViewer ? "showing" : ""}`
-
 		return (
 			<div className="_container-body">
 				<div className="_container-center-column">
-					<BodyMenu clickedUpdateViewType={this.updateViewTypeHandler}/>
-					<div className={viewerWrapperStyle}>
-						{this.interfaces[this.state.viewType]}
-					</div>
+					<Switch>
+						{/* TODO: Check if authed, if not, render landing */}
+						<Route exact path="/">
+							<Redirect to="/home"/>
+						</Route>
+						<Route exact path="/home">
+							{this.getInterface(0)}
+						</Route>
+						<Route path="/board">
+							{this.getInterface(1)}
+						</Route>
+						<Route path="/profile">
+							{this.getInterface(2)}
+						</Route>
+					</Switch>
 				</div>
 			</div>
 		)
@@ -70,13 +57,20 @@ class Body extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-
+		dateRangeType: state.dateRangeType,
+		postToView: state.postToView,
+		boardToView: state.boardToView,
+		posts: state.posts,
+		boards: state.boards,
+		viewType: state.viewType
 	}
 }
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-
+		updateRangeType: (rangeType) => dispatch({ type: actionTypes.DATE_RANGE_TYPE_UPDATE, payload: { rangeType: rangeType }  }), 
+		updateBoardToView: (boardToView) => dispatch({ type: actionTypes.BOARD_TO_VIEW_UPDATE, payload: { boardToView: boardToView }  }), 
+		updatePostToView: (postToView) => dispatch({ type: actionTypes.POST_TO_VIEW_UPDATE, payload: { postToView: postToView }  }), 
 	}
 }
 

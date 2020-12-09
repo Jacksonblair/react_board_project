@@ -1,0 +1,99 @@
+.list-post-container {
+	opacity: 0;
+	transition: 0.2s all;
+	cursor: pointer;
+	display: flex;
+	font-size: 1em;
+	border: 1px solid #939ec1;
+	margin-bottom: 10px;
+	box-shadow: 3px 3px 5px #0000001c;
+	animation: show 0.2s linear forwards;
+}
+
+.list-post-container:hover .list-post-content-container .list-post-title {
+	color: #6d93de;
+}
+
+.list-post-container:hover .list-post-content-container {
+	background: white;
+}
+
+.list-post-container:hover .list-post-date-container {
+	background: #8face5;
+}
+
+.list-post-date-container {
+	width: 50px;
+	padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid #c5cce4;
+	transition: 0.2s all;
+}
+
+.list-post-content-container {
+	padding: 10px;
+	width: -webkit-fill-available;
+	transition: 0.2s all;
+}
+
+.list-post-title {
+	font-size: 1.5em;
+	font-weight: bold;
+	transition: 0.2s all;
+}
+
+.list-post-date-day {
+    font-size: 2.3em;
+    line-height: 1em;
+}
+
+.list-post-date-month {
+
+}
+
+.list-post-content {
+	font-style: italic;
+}
+
+.list-post-author {
+	font-weight: 700;
+}
+
+@media screen and (min-width: 1201px) {
+	.list-post-container {
+
+	}
+}
+
+@media screen and (max-width: 1200px) {
+	.list-post-container {
+
+	}
+}
+
+@media screen and (max-width: 1000px) {
+	.list-post-container {
+
+	}
+}
+
+@media screen and (max-width: 800px) {
+	.list-post-container {
+		
+	}
+}
+
+@media screen and (max-width: 400px) {
+	.list-post-container  {
+		font-size: 0.7em;
+	}
+
+	.list-post-date {
+		width: 40px;
+		height: 40px;
+	}
+
+}

@@ -3,9 +3,11 @@ import './CalendarYear.css'
 
 const CalendarYear = props => {
 
+	let elementClass = `calendar-year ${props.matchesSearchTerm ? "match" : ""} `
+
 	return (
 		<div className="calendar-year-container">
-			<div className="calendar-year" onClick={() => props.clicked(props.year)}>
+			<div className={`${elementClass} bg-3 color-2`} onClick={() => props.clicked(props.year)}>
 				{props.years[props.year]}
 			</div>
 		</div>

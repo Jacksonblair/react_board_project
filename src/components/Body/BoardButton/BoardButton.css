@@ -1,0 +1,10 @@
+.container-board-list-button {
+	height: 50px;
+	width: 100%;
+	border: 1px solid green;
+	cursor: pointer;
+}
+
+.container-board-list-button:hover {
+	background: whitesmoke;
+}

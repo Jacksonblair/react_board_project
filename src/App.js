@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import './App.css'
+import {
+  HashRouter as Router,
+} from "react-router-dom";
 
 import Header from './containers/Header/Header.js'
 import Body from './containers/Body/Body.js'
@@ -22,12 +25,14 @@ class App extends Component {
 
 	render() {
 		return (
-			<div className="app">
-				<Header clickedMenu={this.clickedMenuHandler}/>
-				<Body/>
-				<Footer/>
-				<Sidebar showingMenu={this.state.showingMenu}/>
-			</div>
+			<Router>
+				<div className="app">
+					<Header clickedMenu={this.clickedMenuHandler}/>
+					<Body/>
+					<Footer/>
+					<Sidebar showingMenu={this.state.showingMenu}/>
+				</div>
+			</Router>
 		)
 	}
 }
