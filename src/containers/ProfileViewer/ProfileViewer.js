@@ -29,31 +29,32 @@ class ProfileViewer extends Component {
 
 		return (
 			<div className="container-profile-viewer">
-				<button className="exit-profile-button"onClick={() => this.props.history.goBack()}> 
-					BACK 
-				</button>
-				PROFILE VIEWER
-				{ 
-					!this.state.editingProfile ? 
-					<button className="edit-profile-button" onClick={this.clickedEditProfileHandler}>
-						EDIT PROFILE
-					</button>
-					: <button className="edit-profile-button" onClick={this.clickedEditProfileHandler}>
-						SAVE CHANGES
-					</button>
-				}
-
-				<div className="profile-viewer-field-container"> 
-					<div className="profile-viewer-field-name">
-						E-MAIL
+				<div className="board-sub-menu bg-1 color-2">
+					<div className="board-sub-menu-button" onClick={() => this.props.history.goBack()}> 
+						<i className="fas fa-arrow-left"/>&nbsp;Back
 					</div>
-					<div className="profile-viewer-field-content">
-						{ this.state.editingProfile ? 
-							<input value="email.wot@website.com"/>
-							: <div>email.wot@website.com</div>
+					<div className="board-sub-menu-button" onClick={this.clickedEditProfileHandler}> 
+						{ !this.state.editingProfile ? "Edit Profile" : "Save Changes"}
+					</div>
+				</div>
+
+				<div className="profile-viewer-header">
+					Your Profile
+				</div>
+
+				<div className="board-form">
+					<div className="board-form-text color-2">
+						E-mail:&nbsp;
+						{
+							this.state.editingProfile ?
+							<input defaultValue="email@wot.com"
+							className="board-form-input profile-email"/>
+							: <input disabled defaultValue="email@wot.com"
+							className="board-form-input disabled profile-email"/>
 						}
 					</div>
 				</div>
+
 			</div>
 		)
 	}

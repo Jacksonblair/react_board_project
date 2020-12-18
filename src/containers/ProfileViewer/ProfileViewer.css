@@ -1,27 +1,20 @@
 .container-profile-viewer {
-	padding: 5px;
 	display: flex;
 	flex-direction: column;
 }
 
-.profile-viewer-field-container {
-	border: 1px solid grey;
+.board-form-input.profile-email {
+    font-size: 1em;
+    padding: 5px 10px;
 }
 
-.profile-viewer-field-name {
-	display: inline-block;
-	padding: 5px;
-	font-weight: bold;
+.profile-viewer-header {
+	margin-top: 30px;
+	padding: 10px;
+	font-size: 1.7em;
+    border-bottom: 1px solid #c5cce4;
 }
 
-.profile-viewer-field-content {
-	display: inline-block;
-}
-
-.edit-profile-button {
-	width: fit-content;
-}
-
-.exit-profile-button {
-	width: fit-content;
+.board-form-text .board-form-input.profile-email {
+	margin: 0px;
 }

@@ -1,0 +1,86 @@
+.board-sub-menu {
+	width: 100%;
+    height: 35px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-top: none;
+    box-sizing: border-box;
+}
+
+.board-sub-menu-button {
+	height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: inherit;
+    font-size: 1.1em;
+    padding: 0px 10px;
+    border-right: 1px solid #e6eaf2;
+    box-sizing: border-box;
+    transition: 0.2s all;
+    cursor: pointer;
+    user-select: none;
+}
+
+.board-sub-menu-button:hover {
+	background: #e6eaf2;
+}
+
+.board-sub-menu a {
+	height: 100%;
+}
+
+.board-form {
+	display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.board-form-menu {
+    display: flex;
+    padding: 10px;
+    font-size: 1.3em;
+    align-items: center;
+}
+
+.board-form-text {
+    margin: 10px;
+    height: 50px;
+    font-size: 1.3em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.board-form-input {
+	margin: 10px;
+    border-radius: 5px;
+    border-width: 1px;
+    font-family: inherit;
+    border: 1px solid #c5cce4;
+}
+
+.board-form-input.disabled {
+	background: #f8faff;
+	color: #767d91;
+}
+
+.board-form-button  {
+    width: fit-content;
+    border-radius: 5px;
+    padding: 5px 10px;
+    border: 1px solid #c5cce4;
+    transition: 0.2s all;
+    user-select: none;
+}
+
+.board-form-button:hover {
+    background: #f2f6fc;
+    cursor: pointer;
+}
+
+.board-form-button.submit {
+    margin: 10px auto;
+    font-size: 1.3em;
+}

@@ -38,7 +38,7 @@ class HomeViewer extends Component {
 				finishedLoading: true
 			})
 
-		}, 1000)
+		}, 300)
 	}
 
 	render() {
@@ -52,30 +52,37 @@ class HomeViewer extends Component {
 		})
 
 		let boardList = this.state.finishedLoading ? 
-			<React.Fragment>
-				BOARDS
-				<div className="user-board-list">
-					{boards}
-				</div>
-				<Link to="/board/new">
-					<button>
-						CREATE NEW BOARD
-					</button>
-				</Link>
-			</React.Fragment>
+			<div className="user-board-list">
+				{boards}
+			</div>
 			: <div> LOADING </div>
 	
 		let activityList = this.state.finishedLoading ? 
-			<React.Fragment>
-				ACTIVITY
-			</React.Fragment>
+			<div className="user-activity-list bg-1">
+				<div className="color-2"> 
+					Not much going on right now...
+				</div>
+			</div>
 			: <div> LOADING </div>
+
+
 		return (
 			<div className="container-home-viewer">
 				<div className="container-user-board-list"> 
+					<div className="user-board-list-header color-2">
+						Boards
+					</div>
 					{boardList}
+					<Link to="/board/new">
+						<div className="home-viewer-new-board-button color-4">
+							<i className="fas fa-plus"></i>&nbsp;ADD NEW BOARD
+						</div>
+					</Link>
 				</div>
 				<div className="container-user-activity-list"> 
+					<div className="user-activity-list-header color-2">
+						Activity
+					</div>
 					{activityList}
 				</div>
 			</div>

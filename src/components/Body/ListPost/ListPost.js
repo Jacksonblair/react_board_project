@@ -16,7 +16,12 @@ const ListPost = props => {
 			<div className="list-post-content-container bg-1">
 				<div className="list-post-title color-6"> {props.post.title} </div>
 				<div className="list-post-content color-2"> {props.post.content} </div>
-				<div className="list-post-author color-5"> Posted by: Dave </div>
+				<div className="list-post-author color-5"> 
+					<div className="color-2">
+						Posted by:&nbsp;
+					</div>
+					Dave 
+				</div>
 			</div>
 
 		</div>

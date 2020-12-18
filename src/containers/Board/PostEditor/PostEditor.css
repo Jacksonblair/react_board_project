@@ -1,0 +1,15 @@
+.container-post-editor {
+
+}
+
+.board-form-input.title {
+    font-size: 1.7em;
+    padding: 5px 10px;
+}
+
+.board-form-input.content {
+    padding: 10px;
+	min-height: 150px;
+	resize: vertical;
+	font-size: 1em;
+}

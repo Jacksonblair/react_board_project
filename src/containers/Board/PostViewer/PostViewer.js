@@ -20,9 +20,10 @@ class PostViewer extends Component {
 		post: null
 	}
 
+	months = ["JAN", "FEB", "MAR", "APR", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
+
 	componentDidMount = () => {
 		if (!this.props.postToView.id) {
-			console.log("NO EXISTING POST")
 
 			let post = this.props.posts.filter((post) => {
 				return post.id == this.props.match.params.postid
@@ -41,21 +42,58 @@ class PostViewer extends Component {
 	}
 
 	render() {
+
+		let dd, mm, yyyy
+		if (this.props.postToView.date) {
+			[ dd, mm, yyyy ] = this.props.postToView.date.split('/')
+		}
+
 		let postContent = this.state.finishedLoading ? 
 				<React.Fragment>
-					<Link to={`/board/${this.props.match.params.boardid}/post/${this.props.match.params.postid}/edit`}> 
-						<button>
-							EDIT POST
-						</button>
-					</Link>
-					<div className="post-viewer-post-title">
-						{this.props.postToView.title}
+					<div className="board-sub-menu bg-1">
+						<Link to={`/board/${this.props.match.params.boardid}`}> 
+							<div className="board-sub-menu-button color-2">
+								<i className="fas fa-arrow-left"/>&nbsp;Back
+							</div>
+						</Link>
+						<Link to={`/board/${this.props.match.params.boardid}/post/${this.props.match.params.postid}/edit`}> 
+							<div className="board-sub-menu-button color-2">
+								Edit Post&nbsp;<i className="fas fa-edit"/>
+							</div>
+						</Link>
+						<div className="board-sub-menu-button delete-post color-2">
+							Delete Post&nbsp;<i className="fas fa-times"/>
+						</div>
 					</div>
-					<div className="post-viewer-post-date">
-						{this.props.postToView.date}
-					</div>
-					<div className="post-viewer-post-content">
-						{this.props.postToView.content}
+
+					<div className="post-viewer-post">
+
+						<div className="post-viewer-post-header">
+							<div className="post-viewer-post-date-container bg-5">
+								<div className="post-viewer-post-date-day color-1">
+								 	{dd}
+								</div> 
+								<div className="post-viewer-post-date-month color-1">
+								 	{this.months[parseInt(mm) - 1]}
+								</div> 
+							</div>
+
+							<div className="post-viewer-post-title-container">
+								<div className="post-viewer-post-title">
+									{this.props.postToView.title}
+								</div>
+								<div className="post-viewer-post-author color-2">
+									Posted by:&nbsp;
+									<div className="color-5">
+										Dave
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div className="post-viewer-post-content">
+							{this.props.postToView.content}
+						</div>
 					</div>
 				</React.Fragment>
 				: <div> LOADING </div>

@@ -34,8 +34,8 @@ class CalendarViewer extends Component {
 	"September", "October", "November", "December"]
 	dateRangeTypeText = [
 		null, 
-		( <div><i class="fas fa-times"></i> Getting range start</div> ), 
-		( <div><i class="fas fa-times"></i> Getting range end</div> )
+		( <div><i className="fas fa-times"></i> Getting range start</div> ), 
+		( <div><i className="fas fa-times"></i> Getting range end</div> )
 	]
 
 	clickedDayHandler = (day) => {

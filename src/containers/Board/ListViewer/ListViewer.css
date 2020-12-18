@@ -1,15 +1,29 @@
+.container-list-viewer {
+    height: 100%;
+    border-left: 1px solid #c5cce4;
+    border-right: 1px solid #c5cce4;
+}
+
+.list-viewer-post-list {
+
+}
+
 .list-viewer-new-post-button {
 	height: 40px;
     cursor: pointer;
-    width: 100%;
+    width: fit-content;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 1.3em;
     font-weight: 700;
+    margin: 0 auto;
+}
+
+.list-viewer-new-post-button a {
     transition: 0.2s all;
 }
 
-.list-viewer-new-post-button:hover {
+.list-viewer-new-post-button a:hover {
 	color: #2f71f4;
 }

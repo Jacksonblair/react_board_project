@@ -122,14 +122,16 @@ class ListViewer extends Component {
 					clickedUpdateStartDate={this.updateStartDateHandler}
 					clickedUpdateEndDate={this.updateEndDateHandler}
 					clickedClearFilter={this.clearFilterHandler}/>
-				<Link to={`/board/${this.props.boardToView.id}/post/new`}>
 				<div
 					onClick={this.props.clickedNewPost} 
-					className="list-viewer-new-post-button color-5"> 
-					<i className="fas fa-plus"></i>&nbsp;ADD NEW POST
+					className="list-viewer-new-post-button"> 
+					<Link className="color-4" to={`/board/${this.props.boardToView.id}/post/new`}>
+						<i className="fas fa-plus"></i>&nbsp;ADD NEW POST
+					</Link>
 				</div>
-				</Link>
-				{posts}
+				<div className="list-viewer-post-list">
+					{posts}
+				</div>
 			</div>
 		)
 	}

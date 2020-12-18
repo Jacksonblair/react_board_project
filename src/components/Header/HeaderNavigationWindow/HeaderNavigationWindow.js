@@ -8,7 +8,7 @@ const HeaderNavigationWindow = props => {
 
 	let boardOptions = props.boards.map((board, i) => {
 		return (
-			<div class="board-address-option" value={board.id} key={`board-option-${i}`}>
+			<div className="board-address-option" value={board.id} key={`board-option-${i}`}>
 				{board.name}
 			</div>
 		)
@@ -23,7 +23,7 @@ const HeaderNavigationWindow = props => {
 			</Link>
 			<div className="header-navigation-window-button address color-2">
 				{boardOptions}
-				#{props.boardToView.name}
+				{props.boardToView.name ? "#" + props.boardToView.name : "Select a board"}
 				&nbsp;<i className="fas fa-chevron-down color-4"></i>
 			</div>
 		</div>

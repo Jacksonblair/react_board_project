@@ -8,25 +8,6 @@
 	box-sizing: border-box;
 }
 
-.board-sub-menu-button {
-	height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: inherit;
-    font-size: 1.1em;
-    padding: 0px 10px;
-    border-right: 1px solid #e6eaf2; 
-    box-sizing: border-box;
-    transition: 0.2s all;
-    cursor: pointer;
-    user-select: none;
-}
-
-.board-sub-menu-button:hover {
-	background: #e6eaf2;
-}
-
 .view-filter-group {
 	display: flex;
 	align-items: center;

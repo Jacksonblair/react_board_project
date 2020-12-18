@@ -54,11 +54,6 @@
     font-family: inherit;
 }
 
-.board-search-input-container input:focus {
-	box-shadow: 0px 0px 4px 1px inset #0000002b;
-    border: 1px solid grey;
-}
-
 .board-format-button.edit-board {
 	width: auto;
     font-size: 1.1em;

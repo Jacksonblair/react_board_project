@@ -1,18 +1,72 @@
 .container-home-viewer {
 	display: flex;
 	justify-content: space-around;
-	padding: 5px
+	height: -webkit-fill-available;
+    padding-top: 30px;
 }
 
 .container-user-board-list {
 	width: 50%;
 	height: 100%;
-	border: 1px solid red;
 }
 
 .container-user-activity-list {
 	width: 50%;
-	border: 1px solid red;
+}
+
+.user-board-list-header, .user-activity-list-header  {
+	font-size: 1.6em;
+    font-weight: 500;
+    padding: 5px;
+    font-style: italic;
+    text-align: center;
+	margin-bottom: 10px;
+}
+
+.user-board-list-header {
+}
+
+.user-activity-list-header {
+
+}
+
+.user-board-list {
+	display: flex;
+	flex-direction: column;
+	animation: 0.3s show linear forwards;
+	margin: 0px 20px;
+}
+
+.user-board-list a {
+	margin-bottom: 10px;
+}
+
+.user-activity-list {
+	margin: 0px 30px;
+    border: 1px solid #c5cce4;
+    min-height: 200px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-style: italic;
+	animation: 0.5s show linear forwards;
+}
+
+.home-viewer-new-board-button {
+	height: 40px;
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3em;
+    font-weight: 700;
+    transition: 0.2s all;
+}
+
+.home-viewer-new-board-button:hover {
+	color: #2f71f4;
 }
 
 @media screen and (min-width: 1201px) {

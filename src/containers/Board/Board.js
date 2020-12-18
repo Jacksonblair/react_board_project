@@ -14,12 +14,12 @@ import { AnimatePresence, motion } from "framer-motion"
 import CalendarViewer from './CalendarViewer/CalendarViewer.js'
 import ListViewer from './ListViewer/ListViewer.js'
 import PostViewer from './PostViewer/PostViewer.js'
+import PostEditor from './PostEditor/PostEditor'
+import BoardEditor from './BoardEditor/BoardEditor'
 
 import CSSTransition from '../Util/CSSTransition/CSSTransition'
 import BoardMenu from '../../components/Body/BoardMenu/BoardMenu'
-import BoardEditor from '../../components/Body/BoardEditor/BoardEditor'
 import PostCreator from '../../components/Body/PostCreator/PostCreator'
-import PostEditor from '../../components/Body/PostEditor/PostEditor'
 
 
 class Board extends Component {
@@ -61,7 +61,7 @@ class Board extends Component {
 			this.setState({
 				finishedLoading: true
 			})
-		}, 1000)
+		}, 300)
 	}
 
 	getInterface = (index) => {
@@ -72,16 +72,14 @@ class Board extends Component {
 		if (index == 2)
 			return ( <BoardEditor board={this.props.boardToView}/> )		
 		if (index == 3)
-			return ( <PostViewer post={this.props.postToView}/> )	
+			return ( <PostViewer/> )	
 		if (index == 4)
 			return ( <PostCreator/> )
 		if (index == 5)
-			return ( <PostEditor post={this.props.postToView}/> )
+			return ( <PostEditor/> )
 	}
 
 	render() {
-
-		console.log(this.props)
 
 		return (
 			<React.Fragment>
@@ -103,26 +101,26 @@ class Board extends Component {
 							</motion.div>
 						</Route> 		
 						<Route path="/board/:boardid/post/:postid">	
-							<motion.div initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
+							<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
 							{ this.state.finishedLoading ? this.getInterface(3) : "LOADING" }			
 							</motion.div>
 						</Route> 	
-						<Route path="/board/:boardid/edit">	
+						<Route exact path="/board/:boardid/edit">	
 							<motion.div initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
 							{ this.state.finishedLoading ? this.getInterface(2) : "LOADING" }			
 							</motion.div>
 						</Route> 
-						<Route path="/board/:boardid/list">	
-							<motion.div initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
+						<Route exact path="/board/:boardid/list">	
+							<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
 							{ this.state.finishedLoading ? this.getInterface(1) : "LOADING" }	
 							</motion.div>
 						</Route> 	
-						<Route path="/board/:boardid/calendar">	
+						<Route exact path="/board/:boardid/calendar">	
 							<motion.div initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
 							{ this.state.finishedLoading ? this.getInterface(0) : "LOADING" }	
 							</motion.div>
 						</Route> 	
-						<Route path="/board/:boardid">
+						<Route path="/board/:boardid/">
 							<Redirect to={`${this.props.location.pathname}/list`}/>
 						</Route>
 					</Switch>
