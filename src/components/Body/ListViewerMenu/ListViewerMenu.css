@@ -1,13 +1,3 @@
-.container-list-viewer-menu {
-	width: 100%;
-	height: 35px;
-	display: flex;
-    justify-content: flex-start;
-	align-items: center;
-	border-top: none;
-	box-sizing: border-box;
-}
-
 .view-filter-group .board-sub-menu-button.list:nth-child(2) {
 	border-left: 1px solid #e6eaf2; 
 }
@@ -16,14 +6,20 @@
 	color: red;
 }
 
+.clear-range-button-text {
+	height: 21px;
+}
+
 @media screen and (max-width: 400px) {
 	.container-list-viewer-menu {
-		flex-direction: column;
 		justify-content: unset;
-		height: auto;
 	}
 
 	.view-filter-date-range-button {
 		min-width: 40%;
+	}
+
+	.clear-range-button-text {
+		display: none;		
 	}
 }

@@ -102,8 +102,7 @@ input:focus, textarea:focus {
 	}
 
 	._container-header {
-		height: 30px;
-		border: 1px solid blue;
+		height: 40px;
 		flex-shrink: 1;
 	}
 }

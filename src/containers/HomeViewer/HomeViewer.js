@@ -69,7 +69,7 @@ class HomeViewer extends Component {
 		return (
 			<div className="container-home-viewer">
 				<div className="container-user-board-list"> 
-					<div className="user-board-list-header color-2">
+					<div className="user-board-list-header color-5">
 						Boards
 					</div>
 					{boardList}
@@ -80,7 +80,7 @@ class HomeViewer extends Component {
 					</Link>
 				</div>
 				<div className="container-user-activity-list"> 
-					<div className="user-activity-list-header color-2">
+					<div className="user-activity-list-header color-5">
 						Activity
 					</div>
 					{activityList}

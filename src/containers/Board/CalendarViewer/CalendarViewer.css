@@ -1,5 +1,6 @@
 .container-calendar-viewer {
-
+	border-left: 1px solid #c5cce4;
+    border-right: 1px solid #c5cce4;
 }
 
 .calendar-viewer-header-date {
@@ -12,10 +13,11 @@
 }
 
 .calendar-viewer-row {
-	height: 120px;
+	height: 13vw;
+	max-height: 120px;
 	width: 100%;
 	display: flex;
-	justify-content: center;
+	justify-content: space-around;
 }
 
 .calendar-viewer-date-range-text {
@@ -32,39 +34,19 @@
 	color: red;
 }
 
-@media screen and (min-width: 1201px) {
-	.calendar-viewer-row {
-		height: 120px;
-	}
-}
-
-@media screen and (max-width: 1200px) {
-	.calendar-viewer-row {
-		height: 110px;
-	}
-}
-
-@media screen and (max-width: 1000px) {
-	.calendar-viewer-row {
-		height: 100px;
-	}
-}
-
-@media screen and (max-width: 800px) {
-	.calendar-viewer-row {
-		height: 90px;
-	}
-}
-
-@media screen and (max-width: 600px) {
-	.calendar-viewer-row {
-		height: 70px;
-	}
-}
-
 @media screen and (max-width: 400px) {
+	.container-calendar-viewer .board-sub-menu {
+		flex-direction: column;
+	}
+
+	.container-calendar-viewer .board-sub-menu .view-filter-group:nth-child(2) {
+		border-top: 1px solid #e6eaf2;
+		justify-content: center;
+		width: 100%;
+	}
+
 	.calendar-viewer-row {
-		height: 40px;
+
 	}
 
 	.calendar-viewer-row.month {
@@ -73,5 +55,10 @@
 
 	.calendar-viewer-row.year {
 		height: 60px;
+	}
+	
+	.calendar-viewer-header-date {
+		padding-top: 10px;
+		font-size: 1.5em;
 	}
 }

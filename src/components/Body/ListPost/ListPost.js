@@ -8,7 +8,6 @@ const ListPost = props => {
 
 	return (
 		<div className="list-post-container" onClick={props.clicked}>
-
 			<div className="list-post-date-container bg-5">
 				<div className="list-post-date-day color-1"> {dd} </div>
 				<div className="list-post-date-month color-1"> {months[parseInt(mm) - 1]} </div>

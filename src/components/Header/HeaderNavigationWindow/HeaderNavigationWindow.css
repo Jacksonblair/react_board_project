@@ -2,7 +2,7 @@
     width: auto;
     margin-right: auto;
     display: flex;
-    height: 50px;
+    height: 100%;
 }
 
 .board-address-option {
@@ -18,13 +18,14 @@
 }
 
 .header-navigation-window-button.home {
-	height: 50px;
-	width: 50px;
+	height: 100%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	transition: 0.2s all;
     border-right: 1px solid #c5cce4;
+    flex-basis: 50px;
+    flex-shrink: 0;
 }
 
 .header-navigation-window-button.home:hover {
@@ -37,16 +38,21 @@
 }
 
 .header-navigation-window-button.address {
-    width: -webkit-fill-available;
+    min-width: 150px;
     height: 100%;
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     padding: 0px 10px;
     font-size: 1.2em;
     font-style: italic;
     font-weight: 700;
     cursor: pointer;
     transition: 0.1s all;
+}
+
+.header-navigation-window-button.address i {
+	margin-left: auto;
 }
 
 
@@ -61,7 +67,7 @@
 
 @media screen and (max-width: 400px) {
 	.header-navigation-window  {
-		width: 60px;
+
 	}
 
 	.header-navigation-window-text {
@@ -73,7 +79,13 @@
 	}
 
 	.header-navigation-window-button.address {
-		width: 30px;
+		width: auto;
+		min-width: 0px;
+		font-size: 5vw;
+	}
+
+	.header-navigation-window-button.home {
+	    flex-basis: 40px;
 	}
 
 }

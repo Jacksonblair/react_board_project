@@ -41,3 +41,22 @@
 .board-button-board-post-count {
 	font-weight: bold;
 }
+
+@media screen and (max-width: 400px) {
+	.container-board-button {
+		box-shadow: none;
+		margin-bottom: 0px;
+		font-size: 0.9em;
+		padding: 5px;
+	}
+
+	.user-activity-list {
+		margin: 0px;
+		border-radius: 0px;
+	}
+
+	.board-button-board-name {
+		font-size: 1.5em;
+	}
+
+}

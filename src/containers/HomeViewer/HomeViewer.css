@@ -7,7 +7,7 @@
 
 .container-user-board-list {
 	width: 50%;
-	height: 100%;
+	height: auto;
 }
 
 .container-user-activity-list {
@@ -17,28 +17,23 @@
 .user-board-list-header, .user-activity-list-header  {
 	font-size: 1.6em;
     font-weight: 500;
-    padding: 5px;
+    padding: 5px 10px;
     font-style: italic;
-    text-align: center;
-	margin-bottom: 10px;
 }
 
 .user-board-list-header {
+    text-align: left;
 }
 
 .user-activity-list-header {
-
+	margin-top: 20px;
+    text-align: center;
 }
 
 .user-board-list {
 	display: flex;
 	flex-direction: column;
 	animation: 0.3s show linear forwards;
-	margin: 0px 20px;
-}
-
-.user-board-list a {
-	margin-bottom: 10px;
 }
 
 .user-activity-list {
@@ -54,8 +49,8 @@
 }
 
 .home-viewer-new-board-button {
-	height: 40px;
     cursor: pointer;
+    padding: 5px;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -63,6 +58,9 @@
     font-size: 1.3em;
     font-weight: 700;
     transition: 0.2s all;
+    border: 1px solid #d3d9eb;
+    box-sizing: border-box;
+    user-select: none;
 }
 
 .home-viewer-new-board-button:hover {
@@ -92,6 +90,7 @@
 @media screen and (max-width: 400px) {
 	.container-home-viewer {
 		flex-direction: column;
+		justify-content: unset;
 		align-items: center;
 		padding: 0px;
 	}
@@ -103,4 +102,19 @@
 	.container-user-activity-list {
 		width: 100%;
 	}
+
+	.user-board-list-header {
+		margin-bottom: 0px;
+		font-size: 1.3em;
+	}
+
+	.user-activity-list-header {
+		text-align: left;
+		font-size: 1.3em;
+	}
+
+	.home-viewer-new-board-button {
+		font-size: 1em;
+	}
+
 }

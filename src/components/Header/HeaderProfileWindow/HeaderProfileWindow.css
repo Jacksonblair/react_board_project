@@ -7,6 +7,7 @@
     border-left: 1px solid #c5cce4;
     cursor: pointer;
     transition: 0.2s all;
+    border-right: 1px solid #c5cce4;
 }
 
 .header-profile-window:hover {
@@ -42,7 +43,7 @@
 
 @media screen and (max-width: 1200px) {
 	.header-profile-window {
-		width: 50px;
+
 	}
 	.header-profile-window-user-details {
 		display: none
@@ -51,12 +52,14 @@
 
 @media screen and (max-width: 400px) {
 	.header-profile-window {
-	    width: 30px;
+	    width: auto;
+	    height: 100%;
 	}
 
 	.header-profile-window-user-icon-container {
-		width: 30px;
-		padding: 0px;
+	    width: 30px;
+	    height: 30px;
+        margin: 0px 5px;
 	}
 }
 

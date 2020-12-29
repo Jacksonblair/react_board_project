@@ -13,12 +13,8 @@ const CalendarDay = props => {
 
 	return (
 		<div className="calendar-day-container">
-			<Link to={`/board/${props.match.params.boardid}/list`}>
-				<div 
-				className={`${elementClass} bg-3 color-2`}
-				onClick={props.clicked ? () => props.clicked(props.day) : null }>
-					{props.day == -1 ? null : props.day }
-				</div> 
+			<Link onClick={props.clicked ? () => props.clicked(props.day) : null } className={`${elementClass} bg-3 color-2`} to={`/board/${props.match.params.boardid}/list`}>
+				{props.day == -1 ? null : props.day }
 			</Link>
 		</div>
 	)

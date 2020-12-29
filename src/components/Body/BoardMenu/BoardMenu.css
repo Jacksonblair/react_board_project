@@ -4,7 +4,7 @@
 }
 
 .board-menu-board-name {
-	font-size: 30px;
+	font-size: 1.7em;
 	padding: 15px;
 	padding-bottom: 5px;
 	font-weight: bold;
@@ -69,8 +69,21 @@
 @media screen and (max-width: 400px) {
 
 	.board-menu-board-name {
-		font-size: 20px;
+		font-size: 1.2em;
 		font-weight: bold;
+        padding: 5px;
 	}
+
+    .container-board-menu-buttons {
+
+    }
+
+    .edit-board-button-text {
+        display: none;
+    }
+
+    .edit-board-button-icon {
+
+    }
 
 }

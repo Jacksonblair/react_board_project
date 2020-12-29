@@ -8,15 +8,11 @@ const BoardMenu = props => {
 
 	let menuButtons = props.loaded ? 
 		<React.Fragment>
-			<Link to={`/board/${props.board.id}/calendar`} replace>
-				<div className={"board-format-button color-2"}>
-					<i className="far fa-calendar-alt"></i>
-				</div>
+			<Link className="board-format-button color-2" to={`/board/${props.board.id}/calendar`} replace>
+				<i className="far fa-calendar-alt"></i>
 			</Link>
-			<Link to={`/board/${props.board.id}/list`} replace>
-				<div className={"board-format-button color-2"}>
-					<i className="fas fa-th-list"></i>
-				</div>
+			<Link className={"board-format-button color-2"} to={`/board/${props.board.id}/list`} replace>
+				<i className="fas fa-th-list"></i>
 			</Link>
 			<div className={"board-search-input-container"}>
 				<input 
@@ -25,9 +21,12 @@ const BoardMenu = props => {
 				value={props.searchTerm}
 				placeholder="Search..."/>
 			</div>
-			<Link to={`/board/${props.board.id}/edit`} replace>
-				<div className="board-format-button edit-board color-2">
-					EDIT BOARD
+			<Link className="board-format-button edit-board color-2" to={`/board/${props.board.id}/edit`} replace>
+				<div className="edit-board-button-text"> 
+					EDIT BOARD&nbsp;
+				</div>
+				<div className="edit-board-button-icon"> 
+					<i className="fas fa-cog"></i>
 				</div>
 			</Link>
 		</React.Fragment>

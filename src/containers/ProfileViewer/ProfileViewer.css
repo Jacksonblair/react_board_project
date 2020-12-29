@@ -18,3 +18,11 @@
 .board-form-text .board-form-input.profile-email {
 	margin: 0px;
 }
+
+@media screen and (max-width: 400px) {
+	.profile-viewer-header {
+		margin-top: 0px;
+		padding: 5px;
+		font-size: 1.2em;
+	}
+}

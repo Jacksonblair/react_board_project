@@ -2,6 +2,8 @@
 	height: 100%;
     display: flex;
     flex-direction: column;
+    border-left: 1px solid #c5cce4;
+    border-right: 1px solid #c5cce4;
 }
 
 .board-sub-menu-button.delete-post:hover {
@@ -9,11 +11,11 @@
 }
 
 .post-viewer-post {
-    margin-top: 30px;
     padding: 10px;
     display: flex;
     flex-direction: column;
     border-radius: 10px;
+    font-size: 1em;
 }
 
 .post-viewer-post-header {
@@ -37,6 +39,13 @@
     line-height: 1em;
 }
 
+.post-viewer-post-title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .post-viewer-post-title {
 	font-size: 1.8em;
 	font-weight: 700;
@@ -57,4 +66,25 @@
 	margin-top: 10px;
 	padding: 10px;
 	font-size: 1.1em;
+}
+
+@media screen and (max-width: 400px) {
+
+    .post-viewer-post {
+        padding: 5px;
+        font-size: 0.8em;
+    }
+
+    .post-viewer-post-header {
+        padding-bottom: 5px;
+    }
+
+    .post-viewer-post-date-container {
+        width: 40px;
+    }
+
+    .post-viewer-post-content {
+        padding: 5px;
+        margin-top: 0px;
+    }
 }

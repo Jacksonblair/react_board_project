@@ -9,15 +9,18 @@
 }
 
 .list-viewer-new-post-button {
-	height: 40px;
     cursor: pointer;
-    width: fit-content;
+    padding: 5px;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 1.3em;
     font-weight: 700;
-    margin: 0 auto;
+    transition: 0.2s all;
+    border: 1px solid #d3d9eb;
+    box-sizing: border-box;
+    user-select: none;
 }
 
 .list-viewer-new-post-button a {
@@ -26,4 +29,10 @@
 
 .list-viewer-new-post-button a:hover {
 	color: #2f71f4;
+}
+
+@media screen and (max-width: 400px) {
+    .list-viewer-new-post-button {
+        font-size: 1em;        
+    }
 }

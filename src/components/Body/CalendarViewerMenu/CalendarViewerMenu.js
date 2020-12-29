@@ -62,7 +62,7 @@ const CalendarViewerMenu = props => {
 	]
 
 	return (
-		<div className="container-calendar-viewer-menu bg-1">
+		<div className="board-sub-menu bg-1">
 
 			<div className="view-filter-group">
 				<div className="board-sub-menu-button calendar color-2" onClick={() => props.updateCalendarUnit(0)}>

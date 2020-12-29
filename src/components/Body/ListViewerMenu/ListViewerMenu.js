@@ -66,24 +66,23 @@ const ListViewerMenu = props => {
 
 	return (
 
-		<div className="container-list-viewer-menu bg-1">
+		<div className="board-sub-menu bg-1">
 
 			<div className="view-filter-group">
-				<Link to={`/board/${props.match.params.boardid}/calendar`}>
-					<div className="board-sub-menu-button list color-2" onClick={props.clickedUpdateStartDate}>
-						From: {dateRanges[0]}
-					</div>
+				<Link className="board-sub-menu-button list color-2" onClick={props.clickedUpdateStartDate} to={`/board/${props.match.params.boardid}/calendar`}>
+					From: {dateRanges[0]}
 				</Link>
-				<Link to={`/board/${props.match.params.boardid}/calendar`}>
-					<div className="board-sub-menu-button list color-2" onClick={props.clickedUpdateEndDate}>
-						To: {dateRanges[1]}
-					</div>
+				<Link onClick={props.clickedUpdateEndDate} className="board-sub-menu-button list color-2" to={`/board/${props.match.params.boardid}/calendar`}>
+					To: {dateRanges[1]}
 				</Link>
 			</div>			
 
 			<div className="view-filter-group">
 				<div className="board-sub-menu-button list clear-range color-2" onClick={props.clickedClearFilter}>
-					Clear Range &nbsp;<i className="fas fa-times"></i>
+					<div className="clear-range-button-text">
+						Clear Range &nbsp;
+					</div>
+					<i className="fas fa-times"></i>
 				</div>
 			</div>			
 

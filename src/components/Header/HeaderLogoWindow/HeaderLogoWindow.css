@@ -1,38 +1,37 @@
 .container-header-logo-window {
 	display: flex;
-    padding: 0px 5px;
     justify-content: center;
     align-items: center;
     border-right: 1px solid #c5cce4;
+    height: 100%;
+    width: 50px;
 }
 
 .header-logo-window-logo-icon-container {
-	height: 30px;
-	width: 30px;
-	padding: 0px 5px;
+	height: auto;
+	width: auto;
 }
 
 .header-logo-window-logo-icon {
-    height: -webkit-fill-available;
-    width: -webkit-fill-available;
+    height: 40px;
+    width: 40px;
 	border-radius: 100%;
 }
 
 @media screen and (max-width: 1200px) {
 	.container-header-logo-window {
-		width: 50px;
+
 	}
 }
 
-
 @media screen and (max-width: 400px) {
-	.header-logo-window-logo-icon-container {
-		width: 30px;
-		padding: 0px;
-		border: 1px solid grey;
+	.header-logo-window-logo-icon {
+	    height: 30px;
+	    width: 30px;
 	}
 
 	.container-header-logo-window {
-		width: 30px;
+		flex-basis: 40px;
+    	flex-shrink: 0;
 	}
 }

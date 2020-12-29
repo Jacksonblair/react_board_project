@@ -6,15 +6,13 @@ import {
 
 const HeaderProfileWindow = props => {
 	return (
-		<Link to="/profile">
-			<div className="header-profile-window">
-				<div className="header-profile-window-user-icon-container">
-						<div className="header-profile-window-user-icon bg-3"/>
-				</div>
-				<div className="header-profile-window-user-details color-2">
-					<div>
-						Firstname
-					</div>
+		<Link to="/profile" className="header-profile-window">
+			<div className="header-profile-window-user-icon-container">
+					<div className="header-profile-window-user-icon bg-3"/>
+			</div>
+			<div className="header-profile-window-user-details color-2">
+				<div>
+					Firstname
 				</div>
 			</div>
 		</Link>

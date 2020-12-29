@@ -30,6 +30,7 @@
 }
 
 @media screen and (max-width: 400px) {
-
-
+    .window-menu-button-bar {
+        height: 3px;
+    }
 }
