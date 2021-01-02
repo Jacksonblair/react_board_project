@@ -15,30 +15,14 @@ class HomeViewer extends Component {
 	}
 
 	componentDidMount = () => {
-		/* TODO: REAL API CALL */
-		/* Fake API call to backend for user boards */
-		setTimeout(() => {
 
-			this.props.updateBoards([
-				{
-					id: 0,
-					name: "Board name 1",
-				},
-				{
-					id: 1,
-					name: "Board name 2",
-				},
-				{
-					id: 2,
-					name: "Board name 3",
-				}
-			])
-  
-			this.setState({
-				finishedLoading: true
-			})
+		/* If we go back to home, set boardToView in store to an empty object */
+		this.props.updateBoardToView({})
 
-		}, 300)
+		this.setState({
+			finishedLoading: true
+		})
+
 	}
 
 	render() {
@@ -54,6 +38,11 @@ class HomeViewer extends Component {
 		let boardList = this.state.finishedLoading ? 
 			<div className="user-board-list">
 				{boards}
+				<Link to="/board/new">
+					<div className="home-viewer-new-board-button color-4">
+						<i className="fas fa-plus"></i>&nbsp;ADD NEW BOARD
+					</div>
+				</Link>
 			</div>
 			: <div> LOADING </div>
 	
@@ -73,11 +62,6 @@ class HomeViewer extends Component {
 						Boards
 					</div>
 					{boardList}
-					<Link to="/board/new">
-						<div className="home-viewer-new-board-button color-4">
-							<i className="fas fa-plus"></i>&nbsp;ADD NEW BOARD
-						</div>
-					</Link>
 				</div>
 				<div className="container-user-activity-list"> 
 					<div className="user-activity-list-header color-5">
@@ -99,6 +83,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
+		updateBoardToView: (boardToView) => dispatch({ type: actionTypes.BOARD_TO_VIEW_UPDATE, payload: { boardToView: boardToView }}),
 		updateBoards: (boards) => dispatch({ type: actionTypes.BOARDS_UPDATE, payload: { boards: boards }}),
 	}
 }

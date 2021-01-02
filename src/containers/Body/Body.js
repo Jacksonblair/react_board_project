@@ -12,6 +12,10 @@ import BodyMenu from '../../components/Body/BodyMenu/BodyMenu.js'
 import ProfileViewer from '../ProfileViewer/ProfileViewer.js'
 import HomeViewer from '../HomeViewer/HomeViewer.js'
 import Board from '../Board/Board.js'
+import BoardCreator from '../BoardCreator/BoardCreator'
+import Login from '../Login/Login.js'
+import Register from '../Register/Register.js'
+
 import CSSTransition from '../Util/CSSTransition/CSSTransition'
 
 class Body extends Component {
@@ -25,9 +29,15 @@ class Body extends Component {
 		if (index == 0)
 			return ( <HomeViewer/> )
 		if (index == 1)
-			return ( <Board/> )
+			return ( <BoardCreator/> )
 		if (index == 2)
-			return ( <ProfileViewer/> )
+			return ( <Board/> )
+		if (index == 3)
+			return ( <ProfileViewer/> )		
+		if (index == 4)
+			return ( <Login/> )		
+		if (index == 5)
+			return ( <Register/> )
 	}
 
 	render() {
@@ -42,11 +52,20 @@ class Body extends Component {
 						<Route exact path="/home">
 							{this.getInterface(0)}
 						</Route>
-						<Route path="/board">
+						<Route exact path="/board/new">
 							{this.getInterface(1)}
 						</Route>
-						<Route path="/profile">
+						<Route path="/board">
 							{this.getInterface(2)}
+						</Route>
+						<Route exact path="/profile">
+							{this.getInterface(3)}
+						</Route>
+						<Route exact path="/login">
+							{this.getInterface(4)}
+						</Route>
+						<Route exact path="/register">
+							{this.getInterface(5)}
 						</Route>
 					</Switch>
 				</div>

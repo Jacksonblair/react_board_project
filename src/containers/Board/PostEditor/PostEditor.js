@@ -72,6 +72,9 @@ class PostEditor extends Component {
 				</div>
 
 				<form className="board-form">
+					<div className="board-form-title color-2">
+						Edit post
+					</div>
 					<div className="board-form-menu">
 						Date:&nbsp;
 						<div className="board-form-button menu bg-3 color-2">

@@ -38,11 +38,10 @@ class ProfileViewer extends Component {
 					</div>
 				</div>
 
-				<div className="profile-viewer-header">
-					Your Profile
-				</div>
-
 				<div className="board-form">
+					<div className="board-form-title color-2">
+						Your Profile
+					</div>
 					<div className="board-form-text color-2">
 						E-mail:&nbsp;
 						{

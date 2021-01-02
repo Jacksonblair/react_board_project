@@ -39,11 +39,47 @@
     padding: 10px;
 }
 
+.board-form.login {
+    align-items: center;
+}
+
 .board-form-menu {
     display: flex;
     padding: 10px;
     font-size: 1.3em;
     align-items: center;
+}
+
+.board-form-title {
+	text-align: center;
+    padding: 5px;
+    font-size: 1.5em;
+    border-bottom: 1px solid #c5cce4;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.board-form-input.title {
+    font-size: 1.2em;
+    padding: 5px 10px;
+}
+
+.board-form-input.content {
+    padding: 10px;
+	min-height: 150px;
+	resize: vertical;
+	font-size: 1.2em;
+}
+
+.board-form-input.email {
+    font-size: 1.2em;
+    padding: 5px 10px;
+    width: fit-content;
+}
+
+.board-form-input.password {
+    font-size: 1.2em;
+    padding: 5px 10px;
 }
 
 .board-form-text {
@@ -61,6 +97,13 @@
     border-width: 1px;
     font-family: inherit;
     border: 1px solid #c5cce4;
+}
+
+.board-form-input-error {
+    font-size: 1.2em;
+    color: #ff5454;
+    font-style: italic;
+    margin-top: -5px;
 }
 
 .board-form-input.disabled {
@@ -105,6 +148,10 @@
     .board-form-text {
         margin: 5px;
         height: auto;
+    }
+
+    .board-form-title {
+    	margin-bottom: 5px;
     }
 
 }

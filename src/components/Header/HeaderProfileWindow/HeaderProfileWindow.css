@@ -1,4 +1,4 @@
-.header-profile-window {
+.header-profile-window, .header-auth-window {
 	height: 100%;
     width: auto;
     display: flex;
@@ -8,6 +8,10 @@
     cursor: pointer;
     transition: 0.2s all;
     border-right: 1px solid #c5cce4;
+}
+
+.header-auth-window .header-auth-window-button:nth-child(1) {
+	border-left: none;
 }
 
 .header-profile-window:hover {
@@ -39,6 +43,24 @@
 	width: 35px;
     height: 35px;
 	margin: 0px 10px;
+}
+
+.header-auth-window-button {
+	padding: 0px 10px;
+    border-left: 1px solid#c5cce4;
+    height: 100%;
+    font-size: 1.2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.1s all;
+    font-style: italic;
+    font-weight: 700;
+}
+
+.header-auth-window-button:hover {
+	background: white;
+	color: #e6eaf2;
 }
 
 @media screen and (max-width: 1200px) {

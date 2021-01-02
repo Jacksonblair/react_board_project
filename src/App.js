@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import * as actionTypes from './store/actions.js'
 import './App.css'
 import {
   HashRouter as Router,
@@ -23,6 +25,40 @@ class App extends Component {
 		})
 	}
 
+	componentDidMount = () => {
+
+		/*
+			On mount, check if we have a cookie stored with authentication details
+			
+
+		*/
+
+		/* TODO: REAL API CALL */
+		/*
+		Fake API call to backend for user boards 
+		We need to do this app.js, because the boards needs to..
+		..be available in multiple containers in the app
+
+		After this initial GET, we also set whether or not the user is authed
+		*/
+
+		this.props.updateBoards([
+			{
+				id: 0,
+				name: "Board name 1asdasd",
+			},
+			{
+				id: 1,
+				name: "Board name 2asdasdasdsad",
+			},
+			{
+				id: 2,
+				name: "Board name 3asdasdasdsadasdasd",
+			}
+		])
+
+	}
+
 	render() {
 		return (
 			<Router>
@@ -37,4 +73,16 @@ class App extends Component {
 	}
 }
 
-export default App
+const mapStateToProps = (state) => {
+	return {
+
+	}
+}
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		updateBoards: (boards) => dispatch({ type: actionTypes.BOARDS_UPDATE, payload: { boards: boards }}),
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

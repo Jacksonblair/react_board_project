@@ -1,5 +1,7 @@
 .container-board-editor {
-
+    border-left: 1px solid #c5cce4;
+    border-right: 1px solid #c5cce4;
+    height: 100%;
 }
 
 .board-form-input.board-name {

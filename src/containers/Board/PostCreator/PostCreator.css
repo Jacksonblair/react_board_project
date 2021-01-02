@@ -1,5 +1,7 @@
 .container-post-creator {
-	padding: 5px;
+    border-left: 1px solid #c5cce4;
+    border-right: 1px solid #c5cce4;
+    height: 100%;
 }
 
 .container-post-creator form {

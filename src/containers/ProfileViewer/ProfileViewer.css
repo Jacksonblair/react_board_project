@@ -1,6 +1,9 @@
 .container-profile-viewer {
 	display: flex;
 	flex-direction: column;
+    border-left: 1px solid #c5cce4;
+    border-right: 1px solid #c5cce4;
+    height: 100%;
 }
 
 .board-form-input.profile-email {
@@ -8,21 +11,10 @@
     padding: 5px 10px;
 }
 
-.profile-viewer-header {
-	margin-top: 30px;
-	padding: 10px;
-	font-size: 1.7em;
-    border-bottom: 1px solid #c5cce4;
-}
-
 .board-form-text .board-form-input.profile-email {
 	margin: 0px;
 }
 
 @media screen and (max-width: 400px) {
-	.profile-viewer-header {
-		margin-top: 0px;
-		padding: 5px;
-		font-size: 1.2em;
-	}
+
 }

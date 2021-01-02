@@ -8,6 +8,7 @@ const initialState = {
 	Profile Viewer: 2
 	*/
 	
+	authed: false,
 	viewType: 0,
 	month: 0,
 	year: 2020,
@@ -39,6 +40,11 @@ const reducer = (state = initialState, action) => {
 	// log(action)
 
 	switch (action.type) {
+		case actionTypes.AUTH_UPDATE:
+			return {
+				...state,
+				authed: action.payload.authed
+			}		
 		case actionTypes.SEARCH_TERM_UPDATE:
 			return {
 				...state,

@@ -42,7 +42,9 @@ class Header extends Component {
 							boards={this.props.boards}
 							boardToView={this.props.boardToView}
 							clickedHome={this.clickedHomeHandler}/>
-						<HeaderProfileWindow clickedProfile={this.clickedProfileHandler}/>
+						<HeaderProfileWindow 
+							authed={this.props.authed}
+							clickedProfile={this.clickedProfileHandler}/>
 						<HeaderMenuWindow clickedMenu={this.props.clickedMenu}/>
 					</div>
 				</div>
@@ -54,6 +56,7 @@ class Header extends Component {
 
 const mapStateToProps = (state) => {
 	return {
+		authed: state.authed,
 		boards: state.boards,
 		boardToView: state.boardToView
 	}

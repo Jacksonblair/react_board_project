@@ -40,6 +40,9 @@ class BoardEditor extends Component {
 				</div>
 
 				<form className="board-form">
+					<div className="board-form-title color-2">
+						Edit board
+					</div>
 					<input type="text" 
 					className="board-form-input board-name"
 					onChange={() => this.nameChangedHandler(event.target.value)} 

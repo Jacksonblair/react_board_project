@@ -5,19 +5,64 @@
     height: 100%;
 }
 
+.header-navigation-address-dropdown {
+    height: 100%;
+    position: relative;
+}
+
+.header-navigation-address-dropdown:hover .board-address-options {
+	display: flex;
+}
+
+.board-address-current-board {
+	width: auto;
+	height: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0px 10px;
+	cursor: pointer;
+    font-size: 1.2em;
+    font-style: italic;
+    font-weight: 700;
+}
+
+.board-address-current-board:hover {
+	box-shadow: 0px 0px 4px 0px inset #767d91;
+}
+
+.current-board-name {
+    white-space: nowrap;
+}
+
+.board-address-options {
+    font-size: 1.2em;
+	position: absolute;
+    display: none;
+    flex-direction: column;
+    top: 100%;
+    border: 1px solid #c5cce4;
+}
+
 .board-address-option {
-	display: none;
+	padding: 5px 10px;
+	font-size: 1em;
+	cursor: pointer;
+	border-bottom: 1px solid #c5cce4;
+	transition: 0.1s all;
 }
 
-.header-navigation-window-text {
-
+.board-address-option:hover {
+	background: white;
 }
 
-.header-navigation-window-button.home i {
+
+
+.header-navigation-window-button i {
 	font-size: 1.6em;
 }
 
-.header-navigation-window-button.home {
+.header-navigation-window-button {
 	height: 100%;
 	display: flex;
 	justify-content: center;
@@ -28,36 +73,13 @@
     flex-shrink: 0;
 }
 
-.header-navigation-window-button.home:hover {
+.header-navigation-window-button:hover {
 	background: white;
 }
 
-.header-navigation-window-button.home:hover i {
+.header-navigation-window-button:hover i {
 	color: #e6eaf2;
 	transition: 0.2s all;
-}
-
-.header-navigation-window-button.address {
-    min-width: 150px;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 0px 10px;
-    font-size: 1.2em;
-    font-style: italic;
-    font-weight: 700;
-    cursor: pointer;
-    transition: 0.1s all;
-}
-
-.header-navigation-window-button.address i {
-	margin-left: auto;
-}
-
-
-.header-navigation-window-button.address:hover {
-	box-shadow: 0px 0px 4px 0px inset #767d91;
 }
 
 
@@ -78,14 +100,10 @@
 		width: 30px;
 	}
 
-	.header-navigation-window-button.address {
+	.header-navigation-window-button {
 		width: auto;
 		min-width: 0px;
-		font-size: 5vw;
-	}
-
-	.header-navigation-window-button.home {
-	    flex-basis: 40px;
+		flex-basis: 40px;
 	}
 
 }

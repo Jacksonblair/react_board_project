@@ -5,7 +5,8 @@ import {
 } from "react-router-dom";
 
 const HeaderProfileWindow = props => {
-	return (
+
+	let headerProfileContent = props.authed ? 
 		<Link to="/profile" className="header-profile-window">
 			<div className="header-profile-window-user-icon-container">
 					<div className="header-profile-window-user-icon bg-3"/>
@@ -16,6 +17,19 @@ const HeaderProfileWindow = props => {
 				</div>
 			</div>
 		</Link>
+		: <div className="header-auth-window">
+			<Link to="/login" className="header-auth-window-button color-2">
+				Log In
+			</Link>
+			<Link to="/register" className="header-auth-window-button color-2">
+				Register
+			</Link>
+		</div>
+
+	return (
+		<React.Fragment>
+			{headerProfileContent}
+		</React.Fragment>
 	)
 }
 

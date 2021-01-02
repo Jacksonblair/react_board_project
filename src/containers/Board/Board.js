@@ -15,11 +15,11 @@ import CalendarViewer from './CalendarViewer/CalendarViewer.js'
 import ListViewer from './ListViewer/ListViewer.js'
 import PostViewer from './PostViewer/PostViewer.js'
 import PostEditor from './PostEditor/PostEditor'
+import PostCreator from './PostCreator/PostCreator'
 import BoardEditor from './BoardEditor/BoardEditor'
 
 import CSSTransition from '../Util/CSSTransition/CSSTransition'
 import BoardMenu from '../../components/Body/BoardMenu/BoardMenu'
-import PostCreator from '../../components/Body/PostCreator/PostCreator'
 
 
 class Board extends Component {
@@ -34,11 +34,7 @@ class Board extends Component {
 		/* Get this board AND posts on mount */
 
 		setTimeout(() => {
-			this.props.updateBoardToView(
-			{
-				id: 0,
-				name: "Board name 1",
-			})
+			this.props.updateBoardToView(this.props.boards[0])
 			this.props.updatePosts([
 				{
 					id: 0,
@@ -90,13 +86,13 @@ class Board extends Component {
 				board={this.props.boardToView}/>
 				<AnimatePresence location={this.props.location} key={this.props.location.pathname}>
 					<Switch>	
-						<Route key="rt-1" exact path="/board/:boardid/post/:postid/edit">	
-							<motion.div initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
+						<Route exact path="/board/:boardid/post/:postid/edit">	
+							<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
 								{ this.state.finishedLoading ? this.getInterface(5) : "LOADING" }
 							</motion.div>
 						</Route> 	
-						<Route path="/board/:boardid/post/new">	
-							<motion.div initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
+						<Route exact path="/board/:boardid/post/new">	
+							<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
 							{ this.state.finishedLoading ? this.getInterface(4) : "LOADING" }			
 							</motion.div>
 						</Route> 		
@@ -106,7 +102,7 @@ class Board extends Component {
 							</motion.div>
 						</Route> 	
 						<Route exact path="/board/:boardid/edit">	
-							<motion.div initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
+							<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
 							{ this.state.finishedLoading ? this.getInterface(2) : "LOADING" }			
 							</motion.div>
 						</Route> 
@@ -116,7 +112,7 @@ class Board extends Component {
 							</motion.div>
 						</Route> 	
 						<Route exact path="/board/:boardid/calendar">	
-							<motion.div initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
+							<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
 							{ this.state.finishedLoading ? this.getInterface(0) : "LOADING" }	
 							</motion.div>
 						</Route> 	
