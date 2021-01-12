@@ -5,106 +5,70 @@
 	font-size: 15px;
 	font-family: 'Roboto', sans-serif;
 	overflow-y:scroll;
+	position: relative;
 }
+
+/* Global component styles */
+
+
 
 a {
 	text-decoration: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-shadow: none;
+	font-family: inherit;
 }
 
-input:focus, textarea:focus {
-	box-shadow: 0px 0px 4px 1px inset #0000002b;
+a:hover {
+
+}
+
+a:focus {
+	outline: none;
+	box-shadow: 0px 0px 0px 2px blue inset;
+}
+
+input {
+	font-family: inherit;
+}
+
+input:focus, textarea:focus, select:focus {
+	box-shadow: inset 0px 0px 0px 2px blue, inset 0px 0px 5px 5px lightgrey;
     border: 1px solid #c5cce4;
     outline: none;
 }
 
-._container-header {
-	height: 50px;
-	flex-shrink: 1;
-	box-shadow: 0px 0px 5px 0px #00000066;
-	z-index: 5;
-	border-bottom: 1px solid #c5cce4;
+button {
+	box-shadow: none;
+	font-family: inherit;
 }
 
-._container-header-center-column {
-	width: 100%;
-	height: 100%;
+button:hover {
+
 }
 
-._container-body {
-	flex: 1;
-	z-index: 4;
+button:focus {
+	outline: none;
+	box-shadow: 0px 0px 0px 2px blue inset;
 }
 
-._container-footer {
-	height: 50px;
-	flex-shrink: 1;
-	border: 1px solid orange;
+.fas.fa-asterisk {
+	animation: 2s spin linear infinite;
+	color: grey;
 }
 
-._container-sidebar {
-	display: none;
-	height: 400px;
-	width: 300px;
-	position: absolute;
-	top: 50px;
-	right: 0;
-	border: 1px solid grey;
-}
-
-._container-sidebar.visible {
-	display: block;
-}
-
-/* NOTE: Container is just that, don't add any additional styling, do it with other more specific elements */
-._container-center-column {
-	width: 1000px;
-	height: 100%;
-	margin: 0 auto;
-	display: flex;
-	flex-direction: column;
-}
-
-/* Style for framer motion wrappers */
-.motion-div {
-	flex: 1;
-	height: 100%;
-}
-
-@media screen and (min-width: 1201px) {
-	._container-center-column {
-		width: 1000px;
+@keyframes spin {
+	100% {
+		transform: rotate(360deg);
 	}
 }
 
-@media screen and (max-width: 1200px) {
-	._container-center-column {
-		width: 900px;
-	}
-}
+/* Mobile Styling */
+@media screen and (max-width: 450px) {
 
-@media screen and (max-width: 1000px) {
-	._container-center-column {
-		width: 800px;
-	}
-}
 
-@media screen and (max-width: 800px) {
-	._container-center-column {
-		width: 100%;
-		margin-left: 0;
-	}
-}
-
-@media screen and (max-width: 400px) {
-	._container-center-column {
-		width: 100%;
-		margin-left: 0;
-	}
-
-	._container-header {
-		height: 40px;
-		flex-shrink: 1;
-	}
 }
 
 
@@ -143,18 +107,6 @@ input:focus, textarea:focus {
 	color: #e6eaf2;
 }
 
-.color-4 {
-	color: #d0d0d0;
-}
-
-.color-5 {
-	color: #6d93de;
-}
-
-.color-6 {
-	color: #3f4761;
-}
-
 .bg-1 {
 	background: #f8faff;
 }
@@ -167,15 +119,9 @@ input:focus, textarea:focus {
 	background: #e6eaf2;
 }
 
-.bg-4 {
-	background: #d0d0d0;
-}
 
-.bg-5 {
-	background: #6d93de;
+/* Style for framer motion wrappers */
+.motion-div {
+	flex: 1;
+	height: 100%;
 }
-
-.bg-6 {
-	background: #3f4761;
-}
-

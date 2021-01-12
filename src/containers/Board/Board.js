@@ -1,147 +1,108 @@
 import React, { Component } from 'React'
-import { connect } from 'react-redux'
-import * as actionTypes from '../../store/actions.js'
 import './Board.css'
+import { connect } from 'react-redux'
+import axios from 'axios'
 import {
 	Switch,
 	Route,
-	Link,
-	withRouter,
-	Redirect
+	Redirect,
+	withRouter
 } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion"
+import * as actionTypes from '../../store/actions.js'
 
-import CalendarViewer from './CalendarViewer/CalendarViewer.js'
-import ListViewer from './ListViewer/ListViewer.js'
-import PostViewer from './PostViewer/PostViewer.js'
-import PostEditor from './PostEditor/PostEditor'
-import PostCreator from './PostCreator/PostCreator'
-import BoardEditor from './BoardEditor/BoardEditor'
-
-import CSSTransition from '../Util/CSSTransition/CSSTransition'
-import BoardMenu from '../../components/Body/BoardMenu/BoardMenu'
-
+import BoardMenu from '../../components/Body/Board/BoardMenu/BoardMenu.js'
+import BoardListViewer from '../../components/Body/Board/BoardListViewer/BoardListViewer.js'
+import BoardCalendarViewer from '../../components/Body/Board/BoardCalendarViewer/BoardCalendarViewer.js'
+import Post from '../Post/Post.js'
 
 class Board extends Component {
 
 	state = {
-		finishedLoading: false,
-		boardFormat: 0, /* 0: Calendar, 1: List*/
-		searchTerm: ""
+		finishedLoading: true,
+		readError: ""
 	}
 
 	componentDidMount = () => {
-		/* Get this board AND posts on mount */
+		/* 
+		On component mount, we check the store for a board with an id that matches the url
+		If it's not there, we try to get the board from the server
+		*/
 
-		setTimeout(() => {
-			this.props.updateBoardToView(this.props.boards[0])
-			this.props.updatePosts([
-				{
-					id: 0,
-					boardId: 0,
-					title: "Post title 1",
-					content: "Blah blah blah blah",
-					date: "01/02/2020",
-					time: 1000
-				},
-				{
-					id: 1,
-					boardId: 0,
-					title: "Post title 2",
-					content: "Blah blah blah blah",
-					date: "03/02/2020",
-					time: null
-				}
-			])
-
+		if (this.props.currentBoard.id != this.props.match.params.boardid) {
+			// Need to get the board from server
+			this.getBoard(() => {
+				this.setState({
+					finishedLoading: true
+				})
+			})
+		} else {
+			// We already the correct board props.currentBoard
 			this.setState({
 				finishedLoading: true
 			})
-		}, 300)
+		}
 	}
 
-	getInterface = (index) => {
-		if (index == 0) 
-			return ( <CalendarViewer/> )
-		if (index == 1)
-			return ( <ListViewer/> )
-		if (index == 2)
-			return ( <BoardEditor board={this.props.boardToView}/> )		
-		if (index == 3)
-			return ( <PostViewer/> )	
-		if (index == 4)
-			return ( <PostCreator/> )
-		if (index == 5)
-			return ( <PostEditor/> )
+	getBoard = (callback) => {
+		axios.get(`/board/${this.props.match.params.boardid}`)
+		.then((res) => {
+			callback ? callback() : null
+		})
+		.catch((err) => {
+
+		})
 	}
 
 	render() {
 
-		return (
-			<React.Fragment>
-				<BoardMenu 
-				searchTerm={this.props.searchTerm}
-				updateSearchTerm={this.props.updateSearchTerm}
-				loaded={this.state.finishedLoading} 
-				board={this.props.boardToView}/>
-				<AnimatePresence location={this.props.location} key={this.props.location.pathname}>
+		let content
+		if (this.state.readError) {
+			content = (
+				<div className="read-error"> {this.state.readError} <i class="fas fa-exclamation"></i> </div>
+			)
+		} else if (!this.state.finishedLoading) {
+			content = (
+				<div className="loading-message"> <i className="fas fa-asterisk"></i> </div>
+			)
+		} else {
+			content = (
+				<React.Fragment>
+					<BoardMenu currentBoard={this.props.currentBoard}/>
 					<Switch>	
-						<Route exact path="/board/:boardid/post/:postid/edit">	
-							<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
-								{ this.state.finishedLoading ? this.getInterface(5) : "LOADING" }
-							</motion.div>
-						</Route> 	
-						<Route exact path="/board/:boardid/post/new">	
-							<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
-							{ this.state.finishedLoading ? this.getInterface(4) : "LOADING" }			
-							</motion.div>
-						</Route> 		
-						<Route path="/board/:boardid/post/:postid">	
-							<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
-							{ this.state.finishedLoading ? this.getInterface(3) : "LOADING" }			
-							</motion.div>
-						</Route> 	
-						<Route exact path="/board/:boardid/edit">	
-							<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
-							{ this.state.finishedLoading ? this.getInterface(2) : "LOADING" }			
-							</motion.div>
-						</Route> 
-						<Route exact path="/board/:boardid/list">	
-							<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
-							{ this.state.finishedLoading ? this.getInterface(1) : "LOADING" }	
-							</motion.div>
-						</Route> 	
-						<Route exact path="/board/:boardid/calendar">	
-							<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
-							{ this.state.finishedLoading ? this.getInterface(0) : "LOADING" }	
-							</motion.div>
-						</Route> 	
-						<Route path="/board/:boardid/">
-							<Redirect to={`${this.props.location.pathname}/list`}/>
+						<Route exact path={`/board/${this.props.match.params.boardid}/list`}>
+							<BoardListViewer/>
+						</Route>
+						<Route exact path={`/board/${this.props.match.params.boardid}/calendar`}>
+							<BoardCalendarViewer/>
+						</Route>
+						<Route exact path={`/board/${this.props.match.params.boardid}/post/:postid`}>
+							<Post/>
+						</Route>
+						<Route>
+							<Redirect to={`/board/${this.props.match.params.boardid}/list`}/>
 						</Route>
 					</Switch>
-				</AnimatePresence>
-			</React.Fragment>
+				</React.Fragment>
+			)
+		}
+
+		return (
+			<div className="container-board">
+				{content}
+			</div>
 		)
 	}
 }
 
 const mapStateToProps = (state) => {
 	return {
-		pageVariants: state.pageVariants,
-		boards: state.boards,
-		boardToView: state.boardToView,
-		posts: state.posts,
-		postToView: state.postToView,
-		searchTerm: state.searchTerm
+		currentBoard: state.currentBoard
 	}
 }
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		updateSearchTerm: (searchTerm) => dispatch({ type: actionTypes.SEARCH_TERM_UPDATE, payload: { searchTerm: searchTerm }}),
-		updateBoardToView: (boardToView) => dispatch({ type: actionTypes.BOARD_TO_VIEW_UPDATE, payload: { boardToView: boardToView }}),
-		updatePosts: (posts) => dispatch({ type: actionTypes.POSTS_UPDATE, payload: { posts: posts }}),
+	
 	}
 }
 

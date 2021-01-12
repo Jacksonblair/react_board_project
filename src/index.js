@@ -4,31 +4,52 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './store/reducer.js'
 import axios from 'axios'
-
 import './index.css'
 import App from './App'
 
 axios.defaults.baseURL = 'http://localhost:4555/api';
 axios.defaults.withCredentials = true
 
+let updateUserDetailsFromCookie = () => {
+	// Update the store with whatever is stored in the cookies 'user' field
+	console.log(document.cookie)
+
+	if (document.cookie.includes("user")) {
+		try {
+			let userDetails = document.cookie.split("=")[1]
+			if (userDetails) { 
+				userDetails = JSON.parse(userDetails)
+			}
+
+			// If user is not authed, remove any locally stored boards
+			if (!userDetails.user_id) {
+				store.dispatch({ type: "BOARDS_UPDATE", payload: { boards: [] }})
+			}
+
+			store.dispatch({ type: "USER_DETAILS_UPDATE", payload: { userDetails: userDetails }})
+		} catch(err) {
+			console.log(err)
+			store.dispatch({ type: "USER_DETAILS_UPDATE", payload: { userDetails: { user: null } }})
+		}
+	}
+}
+
 axios.interceptors.request.use(request => {
-	console.log('Starting Request', JSON.stringify(request, null, 2))
 	return request
 })
 
 axios.interceptors.response.use(response => {
-	/* TODO: 
-		If response has a JWT in the cookies,
-		tell the store we're authed
-		and store the user details in the store
-	*/
+	updateUserDetailsFromCookie()
 	return response
+}, (err) => {
+	updateUserDetailsFromCookie()
+	return Promise.reject(err);
 })
 
-
-// Authorization: Bearer <JWT goes here>
-
 const store = createStore(reducer)
+
+// Update user details from cookie as soon as the app loads
+updateUserDetailsFromCookie()
 
 const rootElement = document.getElementById('root')
 ReactDOM.render(

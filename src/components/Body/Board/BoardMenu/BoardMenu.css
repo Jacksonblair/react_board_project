@@ -1,0 +1,47 @@
+.container-board-menu {
+
+}
+
+.container-board-menu button, .container-board-menu a, .container-board-menu input {
+	border-radius: 0px;
+	background: none;
+	border: 1px solid whitesmoke;
+	font-size: 1.2em;
+    min-width: 40px;
+    color: black;
+}
+
+.container-board-menu button:hover, .container-board-menu a:hover {
+	color: grey;
+}
+
+.container-board-menu .name {
+	margin: 20px 10px 0px 15px;
+	font-size: 1.8em;
+}
+
+.container-board-menu .description {
+	margin: 0px 10px 5px 15px;
+	font-size: 1.2em;
+}
+
+.container-board-menu .menu {
+	height: 40px;
+	display: flex;
+}
+
+.container-board-menu .menu .calendar {
+
+}
+
+.container-board-menu .menu .list {
+
+}
+
+.container-board-menu .menu .search {
+	padding: 5px 10px;
+}
+
+.container-board-menu .menu .edit {
+	margin-left: auto;
+}

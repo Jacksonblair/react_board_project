@@ -1,5 +1,6 @@
 import React, { Component } from 'React'
 import { connect } from 'react-redux'
+import axios from 'axios'
 import {
   Switch,
   Route,
@@ -7,65 +8,62 @@ import {
 } from "react-router-dom";
 import * as actionTypes from '../../store/actions.js'
 import './Body.css'
-
-import BodyMenu from '../../components/Body/BodyMenu/BodyMenu.js'
-import ProfileViewer from '../ProfileViewer/ProfileViewer.js'
-import HomeViewer from '../HomeViewer/HomeViewer.js'
-import Board from '../Board/Board.js'
-import BoardCreator from '../BoardCreator/BoardCreator'
-import Login from '../Login/Login.js'
-import Register from '../Register/Register.js'
-
 import CSSTransition from '../Util/CSSTransition/CSSTransition'
+
+import Board from '../Board/Board.js'
 
 class Body extends Component {
 
 	state = {
+		hasInit: false
+	}
+
+	bodyNavEnum = {
+		HOME: 0,
+		BOARD: 1,
+		POST: 2,
+		PROFILE: 3
+	}
+
+	componentDidMount = () => {
+
+	}
+
+	componentDidUpdate = (prevProps) => {
 
 	}
 
 	getInterface = (index) => {
-		/* The keys for these containers are for ReactCSSTransitionGroup */
-		if (index == 0)
-			return ( <HomeViewer/> )
-		if (index == 1)
-			return ( <BoardCreator/> )
-		if (index == 2)
-			return ( <Board/> )
-		if (index == 3)
-			return ( <ProfileViewer/> )		
-		if (index == 4)
-			return ( <Login/> )		
-		if (index == 5)
-			return ( <Register/> )
+		switch(index) {
+			case 0:
+				return 0
+				break;
+			case 1:
+				return <Board/>
+				break;
+			case 2:
+				return 2
+				break;
+		}
 	}
 
 	render() {
+
 		return (
-			<div className="_container-body">
-				<div className="_container-center-column">
+			<div className="container-body">
+				<div className="column">
 					<Switch>
-						{/* TODO: Check if authed, if not, render landing */}
-						<Route exact path="/">
+						<Route path="/home">
+							{this.getInterface(this.bodyNavEnum.HOME)}
+						</Route>
+						<Route path="/board/:boardid">
+							{this.getInterface(this.bodyNavEnum.BOARD)}
+						</Route>
+						<Route exact path="/profile/:userid">
+							{this.getInterface(this.bodyNavEnum.PROFILE)}
+						</Route>
+						<Route>
 							<Redirect to="/home"/>
-						</Route>
-						<Route exact path="/home">
-							{this.getInterface(0)}
-						</Route>
-						<Route exact path="/board/new">
-							{this.getInterface(1)}
-						</Route>
-						<Route path="/board">
-							{this.getInterface(2)}
-						</Route>
-						<Route exact path="/profile">
-							{this.getInterface(3)}
-						</Route>
-						<Route exact path="/login">
-							{this.getInterface(4)}
-						</Route>
-						<Route exact path="/register">
-							{this.getInterface(5)}
 						</Route>
 					</Switch>
 				</div>
@@ -76,20 +74,13 @@ class Body extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		dateRangeType: state.dateRangeType,
-		postToView: state.postToView,
-		boardToView: state.boardToView,
-		posts: state.posts,
-		boards: state.boards,
-		viewType: state.viewType
+
 	}
 }
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		updateRangeType: (rangeType) => dispatch({ type: actionTypes.DATE_RANGE_TYPE_UPDATE, payload: { rangeType: rangeType }  }), 
-		updateBoardToView: (boardToView) => dispatch({ type: actionTypes.BOARD_TO_VIEW_UPDATE, payload: { boardToView: boardToView }  }), 
-		updatePostToView: (postToView) => dispatch({ type: actionTypes.POST_TO_VIEW_UPDATE, payload: { postToView: postToView }  }), 
+	
 	}
 }
 
