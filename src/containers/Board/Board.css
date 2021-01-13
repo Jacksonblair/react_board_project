@@ -1,6 +1,8 @@
 .container-board {
-	flex: 1;
 	height: 100%;
+	display: flex;
+	flex-direction: column;
+	flex: 1;
 }
 
 .container-board .loading-message {
@@ -16,4 +18,56 @@
 	color: #f77878;
 	text-align: center;
 	margin: 30px;
+}
+
+.body-sub-menu {
+	background: whitesmoke;
+    border-bottom: 1px solid lightgrey;
+    height: 40px;
+    display: flex;
+}
+
+.board-sub-menu {
+	background: whitesmoke;
+    border-bottom: 1px solid lightgrey;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.board-sub-menu .group {
+	display: flex;
+}
+
+.board-sub-menu button, .board-sub-menu a {
+	border: 1px solid lightgrey;
+    background: none;
+    font-size: 1em;
+    color: black;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.board-sub-menu button:hover, .board-sub-menu a:hover {
+	color: lightgrey;
+}
+
+.board-sub-menu button:disabled, .board-sub-menu a:disabled {
+	color: lightgrey;
+}
+
+@media screen and (max-width: 450px) {
+	.board-sub-menu {
+		flex-direction: column;
+		height: auto;
+		align-items: center;
+	}
+
+	.board-sub-menu .group {
+		width: 100%;
+	}
+
+	.board-sub-menu button, .board-sub-menu a {
+		flex-grow: 1;
+	}
 }

@@ -1,0 +1,37 @@
+.container-post {
+	display: flex;
+    flex-direction: column;
+}
+
+.container-post .title {
+	margin: 20px 10px 5px 10px;
+    font-size: 1.8em;
+}
+
+.container-post .metadata {
+	display: flex;
+    justify-content: space-between;
+    margin: 0px 10px 5px 10px;
+    font-style: italic;
+}
+
+.container-post .metadata .author {
+	display: flex;
+}
+
+.container-post .metadata .author .name {
+	color: blue;
+}
+
+.container-post .metadata .created {
+	display: flex;
+}
+
+.container-post .metadata .created .date {
+
+}
+
+.container-post .content {
+	border-top: 1px solid whitesmoke;
+	padding: 20px;
+}

@@ -1,0 +1,65 @@
+.container-auth {
+	display: flex;
+	flex: 1;
+}
+
+.auth-form {
+	display: flex;
+	flex-direction: column;
+	max-width: 400px;
+    width: -webkit-fill-available;
+    background: whitesmoke;
+    border: 1px solid lightgrey;
+    border-radius: 10px;
+}
+
+.auth-form .header {
+	margin: 20px 10px 10px 10px;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.auth-form .row {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.auth-form button, .auth-form textarea, .auth-form input {
+	font-family: inherit;
+	flex: 1;
+	font-size: 1.2em;
+}
+
+.auth-form input {
+	padding: 5px 10px;
+	margin: 10px 20px;
+	border: 1px solid lightgrey;
+	border-radius: 5px;
+}
+
+.auth-form button {
+	padding: 5px 10px;
+	margin: 20px 20px;
+	border: 1px solid lightgrey;
+	border-radius: 5px;
+	width: auto;
+	flex: 0;
+	flex-basis: 150px;
+}
+
+.auth-form button:hover {
+	color: grey;
+}
+
+.auth-form .form-error {
+	font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #f18c24;
+}
+
+.auth-form .server-error {
+	font-size: 1.2em;
+    margin-top: 10px;
+    color: #d94444;
+}

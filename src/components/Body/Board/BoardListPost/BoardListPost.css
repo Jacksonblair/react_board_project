@@ -1,0 +1,75 @@
+.container-board-list-post {
+    margin: 5px 10px;
+	display: flex;
+	background: whitesmoke;
+	padding: 0px;
+    border: 1px solid lightgrey;
+}
+
+.container-board-list-post:hover, .container-board-list-post:focus {
+	background: white;
+}
+
+.container-board-list-post .content-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 5px;
+    text-align: left;
+    flex: 1;
+    min-height: 50px;
+}
+
+.container-board-list-post .content-column .title {
+	padding-bottom: 5px;
+    font-size: 1.8em;
+}
+
+.container-board-list-post .content-column .metadata {
+	display: flex;
+    font-style: italic;
+    justify-content: space-between;
+}
+
+.container-board-list-post .content-column .metadata .author .name {
+	display: inline-block;
+	color: blue;
+}
+
+.container-board-list-post .content-column .metadata .created .date {
+	display: inline-block;
+}
+
+.container-board-list-post .date-column {
+	min-height: 50px;
+    min-width: 50px;
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+}
+
+.container-board-list-post .date-column .box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: lightgrey;
+}
+
+.container-board-list-post .date-column .box .day {
+	font-size: 1.8em;
+    line-height: 1em;
+}
+
+.container-board-list-post .date-column .box .month {
+
+}
+
+@media screen and (max-width: 450px) {
+	.container-board-list-post {
+		margin: 0px;
+		border: none;
+    	border-bottom: 1px solid lightgrey;
+	}
+}

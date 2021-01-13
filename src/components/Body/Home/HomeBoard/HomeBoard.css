@@ -1,0 +1,17 @@
+.container-home-board {
+	border: 1px solid lightgrey;
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    background: none;
+    align-items: flex-start;
+}
+
+.container-home-board .name {
+	font-size: 1.5em;
+	margin: 10px 5px 0px 10px;
+}
+
+.container-home-board .description {
+	margin: 0px 10px 5px 10px;
+}

@@ -2,7 +2,11 @@ import * as actionTypes from './actions';
 
 const initialState = {
 	/* User Auth */
-	userDetails: {},
+	userDetails: {
+		id: 1,
+		email: "email@website.com",
+		profile_image_url: "www.website.com/image.jpg"
+	},
 
 	/* CSS transition object */
 	pageVariants: {
@@ -18,7 +22,19 @@ const initialState = {
 	},
 
 	/* App Content */
-	boards: [], /* Boards showns in <Home> */
+		/* Boards showns in <Home> */
+	boards: [
+		{
+			id: 1,
+			name: "Test board",
+			description: "A test board description"
+		},
+		{
+			id: 2,
+			name: "Test board 2",
+			description: "A test board description"
+		},
+	], 
 	currentBoard: {
 		id: 1,
 		name: "Test board",
@@ -44,7 +60,23 @@ const initialState = {
 			},
 		]
 	},
-	currentPost: {},
+	currentPost: {
+		id: 1,
+		title: "Post title",
+		content: "Some post content"
+	},
+
+	/* BoardCalendarViewer Functionality */
+	calendarUnit: 0, 
+	/* 
+		calendarUnit: (which units to display)
+		0: day
+		1: month
+		2: year
+	*/
+	calendarYear: 2021,
+	calendarMonth: 0,
+	calendarDay: 1
 
 }
 
@@ -63,6 +95,49 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				boards: action.payload.boards
+			}
+
+		/* Board & Post */
+		case actionTypes.CURRENT_BOARD_UPDATE:
+			return {
+				...state,
+				currentBoard: action.payload.board
+			}
+		case actionTypes.CURRENT_POST_UPDATE:
+			return {
+				...state,
+				currentPost: action.payload.post
+			}
+
+		/* BoardCalendarViewer Functionality */
+		case actionTypes.CALENDAR_UNIT_UPDATE:
+			return {
+				...state,
+				calendarUnit: action.payload.unit
+			}
+		case actionTypes.CALENDAR_MONTH_UPDATE:
+			if (action.payload.month > 11) {
+				return {
+					...state,
+					calendarMonth: 0,
+					calendarYear: state.calendarYear + 1
+				}
+			} else if (action.payload.month < 0) {
+				return {
+					...state,
+					calendarMonth: 11,
+					calendarYear: state.calendarYear - 1
+				}	
+			} else {
+				return {
+					...state,
+					calendarMonth: action.payload.month,
+				}	
+			}
+		case actionTypes.CALENDAR_YEAR_UPDATE:
+			return {
+				...state,
+				calendarYear: action.payload.year
 			}
 	}
 	return state;

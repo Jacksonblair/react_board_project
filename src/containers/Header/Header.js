@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import './Header.css'
 import {
+	Link,
 	withRouter
 } from "react-router-dom";
 
@@ -73,12 +74,12 @@ class Header extends Component {
 		return (
 			<div className="container-header">
 				<div className="menu">
-					<a className="logo" href="">
+					<Link className="logo" to="/home">
 						<div/>
-					</a>
-					<a className="home" href="">
+					</Link>
+					<Link className="home" to="/home">
 						<i className="fas fa-home"></i>
-					</a>
+					</Link>
 					<button className="navigate" onClick={this.clickedNavigationOptions} onBlur={this.blurredNavigationOptions}>
 						<div className="location"> #Navigate </div>
 						<div className={`options ${this.state.showNavigationOptions ? "show" : null}`}>

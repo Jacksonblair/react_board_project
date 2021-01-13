@@ -1,0 +1,80 @@
+.container-board-calendar-viewer {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+}
+
+.container-board-calendar-viewer .motion-div {
+	display: flex;
+	flex: 1;
+}
+
+.container-board-calendar-viewer .days {
+	flex-direction: column;
+    display: flex;
+    flex: 1;
+    padding: 10px;
+    padding-top: 20px;
+}
+
+.container-board-calendar-viewer .days .row {
+    display: flex;
+    justify-content: space-around;
+    height: 12vw;
+    max-height: 110px;
+}
+
+.container-board-calendar-viewer .days .row .day {
+	background: whitesmoke;
+	width: 12%;
+    height: 85%;
+    border: 1px solid lightgrey;
+}
+
+.container-board-calendar-viewer .months {
+	flex-direction: column;
+    display: flex;
+    flex: 1;
+    padding: 10px;
+    padding-top: 20px;
+}
+
+.container-board-calendar-viewer .months .row {
+    display: flex;
+    justify-content: space-around;
+    height: 12vw;
+    max-height: 110px;
+    min-height: 80px;
+}
+
+.container-board-calendar-viewer .months .row .month {
+	background: whitesmoke;
+	width: 20%;
+    height: 85%;
+    border: 1px solid lightgrey;
+}
+
+.container-board-calendar-viewer .years {
+	flex-direction: column;
+    display: flex;
+    flex: 1;
+    padding: 10px;
+    padding-top: 20px;
+}
+
+.container-board-calendar-viewer .years .row {
+    display: flex;
+    justify-content: space-around;
+    height: 12vw;
+    max-height: 110px;
+    min-height: 80px;
+}
+
+.container-board-calendar-viewer .years .row .year {
+	background: whitesmoke;
+	width: 20%;
+    height: 85%;
+    border: 1px solid lightgrey;
+}
+
+

@@ -1,11 +1,12 @@
 .container-body {
 	flex: 1;
 	z-index: 4;
-	display: flex;
 	justify-content: center;
+	display: flex;
 }
 
 .container-body .column {
 	border: 1px solid whitesmoke;
 	width: 1000px;
+	display: flex;
 }

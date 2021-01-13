@@ -1,11 +1,13 @@
 import React, { Component } from 'React'
 import './BoardMenu.css'
+import {
+	Link,
+	withRouter
+} from "react-router-dom";
 
 const BoardMenu = props => {
 
-	let state = {
-
-	}
+	console.log(props)
 
 	return (
 		<div className="container-board-menu"> 
@@ -16,13 +18,21 @@ const BoardMenu = props => {
 				{props.currentBoard.description}
 			</div>
 			<div className="menu">
-				<button className="calendar"> 
+				<button 
+				onClick={props.clickedCalendarViewer}
+				disabled={props.location.pathname.includes('calendar')}
+				className="calendar">
 					<i className="fas fa-calendar"></i> 
 				</button>
-				<button className="list"> 
+				<button 
+				onClick={props.clickedListViewer}
+				disabled={props.location.pathname.includes('list')}
+				className="list">  
 					<i className="fas fa-list"></i>
 				</button>
-				<input className="search"/>
+				<div className="wrapper">
+					<input className="search"/>
+				</div>
 				<button className="edit">
 					<i className="fas fa-cog"></i> 
 				</button>
@@ -32,4 +42,4 @@ const BoardMenu = props => {
 
 }
 
-export default BoardMenu
+export default withRouter(BoardMenu)
