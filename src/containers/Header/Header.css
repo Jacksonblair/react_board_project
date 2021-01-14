@@ -56,8 +56,6 @@
 	border-radius: 100%;
 }
 
-
-
 .container-header .menu .menu .bar {
 	height: 4px;
 	width: 100%;
@@ -104,7 +102,6 @@
 	color: lightgrey;
 }
 
-
 /* Styles for menu dropdown */
 
 .container-header .menu .menu .options.show {
@@ -131,6 +128,11 @@
 	color: lightgrey;
 }
 
+.container-header .menu .menu .options .option.disabled {
+	color: lightgrey;
+	cursor: none;
+	pointer-events: none;
+}
 
 
 @media screen and (max-width: 450px) {

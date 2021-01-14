@@ -22,7 +22,13 @@ class Auth extends Component {
 		registerPassword: "",
 		registerConfirmPassword: "",
 		serverError: "",
-		formError: ""
+		formError: "",
+		formSuccess: "",
+		processing: false
+	}
+
+	formErrors = {
+		invalidEmail: "Email is not valid"
 	}
 
 	componentDidMount = () => {
@@ -32,10 +38,7 @@ class Auth extends Component {
 	componentDidUpdate = (prevProps) => {
 		/* If we swap from login to register, or vice versa, clear the error variables in state */
 		if (prevProps.history.location != this.props.history.location) {
-			this.setState({
-				serverError: "",
-				formError: ""
-			})
+			this.resetErrors()
 		}
 	}
 
@@ -70,11 +73,50 @@ class Auth extends Component {
 	}
 
 	clickedSubmitLoginHandler = () => {
+		this.setState({
+			processing: true
+		})
+		this.resetErrors()
 
-	}
+		if (this.emailIsValid(this.state.loginEmail)) {
+			// TODO: Login to server
+			console.log("EMAIL VALID")
+
+			setTimeout(() => {
+				this.setState({
+					processing: false
+				})
+			}, 2000)
+		} else {
+			this.setState({
+				formError: this.formErrors.invalidEmail
+			})
+		}
+	} 
 
 	clickedSubmitRegisterHandler = () => {
+		this.setState({
+			processing: true
+		})
+		this.resetErrors()
+		setTimeout(() => {
+			this.setState({
+				processing: false,
+				formSuccess: "Registered successfully"
+			})
+		}, 1000)
+	}
 
+	emailIsValid = (email) => {
+	    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	    return re.test(String(email).toLowerCase());
+	}
+
+	resetErrors = () => {
+		this.setState({
+			formError: "",
+			serverError: ""
+		})
 	}
 
 	render() {
@@ -83,6 +125,7 @@ class Auth extends Component {
 				<Switch>
 					<Route exact path="/auth/login">
 						<Login
+						processing={this.state.processing}
 						clickedSubmit={this.clickedSubmitLoginHandler}
 						updateEmail={this.updateLoginEmailHandler}
 						updatePassword={this.updateLoginPasswordHandler}
@@ -91,11 +134,13 @@ class Auth extends Component {
 					</Route>
 					<Route path="/auth/register">
 						<Register		
+						processing={this.state.processing}
 						clickedSubmit={this.clickedSubmitRegisterHandler}
 						updateEmail={this.updateRegisterEmailHandler}
 						updatePassword={this.updateRegisterPasswordHandler}				
 						updateConfirmPassword={this.updateRegisterConfirmPasswordHandler}				
 						formError={this.state.formError}
+						formSuccess={this.state.formSuccess}
 						serverError={this.state.serverError}/>
 					</Route>
 					<Route>

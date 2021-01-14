@@ -33,9 +33,9 @@ const BoardMenu = props => {
 				<div className="wrapper">
 					<input className="search"/>
 				</div>
-				<button className="edit">
+				<Link to={`/board/${props.match.params.boardid}/edit`} className="edit">
 					<i className="fas fa-cog"></i> 
-				</button>
+				</Link>
 			</div>
 		</div>
 	)

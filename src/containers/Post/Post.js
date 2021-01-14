@@ -4,8 +4,14 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import './Post.css'
 import {
-	withRouter
+	Link,
+	withRouter,
+	Switch,
+	Route,
+	Redirect
 } from "react-router-dom";
+
+import PostEditor from '../../components/Body/Post/PostEditor/PostEditor.js'
 
 class Post extends Component {
 
@@ -15,7 +21,14 @@ class Post extends Component {
 
 	state = {
 		finishedLoading: true,
-		readError: ""
+		readError: "",
+
+		/* Variables for <PostEditor> */
+		serverError: "",
+		formError: "",
+		processing: false,
+		editedPostTitle: "",
+		editedPostContent: ""
 	}
 
 	componentDidMount = () => {
@@ -71,6 +84,39 @@ class Post extends Component {
 		})
 	}
 
+	updateEditedPostTitleHandler = (title) => {
+		this.setState({
+			editedPostTitle: title
+		})
+	}
+
+	updateEditedPostContentHandler = (content) => {
+		this.setState({
+			editedPostContent: content
+		})
+	}
+
+	clickedSubmitEditedPostHandler = () => {
+		// SUBMIT ZE POST
+		this.setState({
+			processing: true
+		})
+
+		setTimeout(() => {
+			this.setState({
+				processing: false
+			})
+		}, 1000)
+	}
+
+	clearEditorErrors = () => {
+		console.log("Clearing editor errors")
+		this.setState({
+			formError: "",
+			serverError: ""
+		})
+	}
+
 	render() {
 		let content
 		if (this.state.readError) {
@@ -83,7 +129,20 @@ class Post extends Component {
 			)
 		} else {
 			content = (
-				<React.Fragment>
+			<Switch>
+				<Route exact path="/board/:boardid/post/:postid/edit">
+					<PostEditor
+					editedPostTitle={this.updateEditedPostTitleHandler}
+					editedPostContent={this.updateEditedPostContentHandler}
+					clickedSubmit={this.clickedSubmitEditedPostHandler}
+					clearErrors={this.clearEditorErrors}
+					userDetails={this.props.userDetails}
+					currentPost={this.props.currentPost}
+					serverError={this.state.serverError}
+					formError={this.state.formError}
+					processing={this.state.processing}/>
+				</Route>
+				<Route exact path="/board/:boardid/post/:postid/">
 					<div className="title"> {this.props.currentPost.title} </div>
 					<div className="metadata"> 
 						<div className="author">
@@ -93,8 +152,17 @@ class Post extends Component {
 							Created:&nbsp;<div className="date"> 00/00/0000 </div>
 						</div>
 					</div>
+					<div className="board-sub-menu">
+						<Link to={`/board/${this.props.match.params.boardid}/post/${this.props.match.params.postid}/edit`}> Edit Post </Link>
+						<button> Delete Post </button>
+					</div>
 					<div className="content"> {this.props.currentPost.content} </div>
-				</React.Fragment>
+				</Route>
+				<Route> 
+					<Redirect to={`/board/${this.props.match.params.boardid}/post/${this.props.match.params.postid}`}/>
+				</Route>
+			</Switch>
+
 			)
 		}
 
@@ -108,7 +176,8 @@ class Post extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		currentPost: state.currentPost
+		currentPost: state.currentPost,
+		userDetails: state.userDetails
 	}
 }
 

@@ -57,6 +57,7 @@ class Home extends Component {
 	getHome = (callback) => {
 		axios.get("/home")
 		.then((res) => {
+			// TODO: Put home data in store
 			callback ? callback() : null
 		})
 		.catch((err) => {

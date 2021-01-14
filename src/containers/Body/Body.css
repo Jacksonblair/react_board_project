@@ -10,3 +10,18 @@
 	width: 1000px;
 	display: flex;
 }
+
+.container-body .loading-message {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-size: 1.5em;
+}
+
+.container-body .read-error {
+	font-size: 1.5em;
+	color: #f77878;
+	text-align: center;
+	margin: 30px;
+}

@@ -8,11 +8,11 @@ import {
 } from "react-router-dom";
 import * as actionTypes from '../../store/actions.js'
 import './Body.css'
-import CSSTransition from '../Util/CSSTransition/CSSTransition'
 
 import Board from '../Board/Board.js'
 import Home from '../Home/Home.js'
 import Auth from '../Auth/Auth.js'
+import Profile from '../Profile/Profile.js'
 
 class Body extends Component {
 
@@ -43,8 +43,8 @@ class Body extends Component {
 						<Route path="/board/:boardid">
 							<Board/>
 						</Route>
-						<Route exact path="/profile/:userid">
-							profile
+						<Route path="/profile/:userid">
+							<Profile/>
 						</Route>
 						<Route>
 							<Redirect to="/home"/>

@@ -6,8 +6,6 @@ import {
 
 const HomeBoard = props => {
 
-	console.log(props)
-
 	return (
 		<Link to={`/board/${props.board.id}`} className="container-home-board"> 
 			<div className="name">

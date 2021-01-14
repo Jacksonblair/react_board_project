@@ -5,21 +5,6 @@
 	flex: 1;
 }
 
-.container-board .loading-message {
-	display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    font-size: 1.5em;
-}
-
-.container-board .read-error {
-	font-size: 1.5em;
-	color: #f77878;
-	text-align: center;
-	margin: 30px;
-}
-
 .body-sub-menu {
 	background: whitesmoke;
     border-bottom: 1px solid lightgrey;
@@ -41,7 +26,6 @@
 
 .board-sub-menu button, .board-sub-menu a {
 	border: 1px solid lightgrey;
-    background: none;
     font-size: 1em;
     color: black;
     padding: 5px 10px;
@@ -55,6 +39,85 @@
 .board-sub-menu button:disabled, .board-sub-menu a:disabled {
 	color: lightgrey;
 }
+
+
+
+.board-form {
+	display: flex;
+    flex-direction: column;
+    min-height: 100px;
+    justify-content: center;
+    flex: 1;
+}
+
+.board-form .header {
+	margin: 20px 10px 10px 10px;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.board-form .row {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.board-form button, .board-form textarea, .board-form input {
+	font-family: inherit;
+	flex: 1;
+	font-size: 1.2em;
+}
+
+.board-form input, .board-form textarea {
+	padding: 5px 10px;
+	margin: 10px 50px;
+	border: 1px solid lightgrey;
+	border-radius: 5px;
+	color: grey;
+}
+
+.board-form textarea {
+	min-height: 200px;
+	resize: vertical;
+}
+
+.board-form button {
+	padding: 5px 10px;
+	margin: 20px 20px;
+	border: 1px solid lightgrey;
+	border-radius: 5px;
+	width: auto;
+	flex: 0;
+	flex-basis: 150px;
+}
+
+.board-form button:hover {
+	color: grey;
+}
+
+.board-form .form-error {
+	font-size: 1.2em;
+    margin-bottom: 20px;
+    color: #f18c24;
+}
+
+.board-form .form-success {
+	font-size: 1.2em;
+    color: green;
+}
+
+.board-form .server-error {
+	font-size: 1.2em;
+    margin-top: 20px;
+    color: #d94444;
+}
+
+.board-form .loading-message {
+	text-align: center;
+}
+
+
+
 
 @media screen and (max-width: 450px) {
 	.board-sub-menu {

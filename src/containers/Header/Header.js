@@ -71,6 +71,15 @@ class Header extends Component {
 	}
 
 	render() {
+
+		let options = this.props.boards.map((board, i) => {
+			return (
+				<Link className="option" to={`/board/${board.id}`} key={`BoardLink${i}`}>
+					{board.name}
+				</Link>
+			)
+		})
+
 		return (
 			<div className="container-header">
 				<div className="menu">
@@ -83,24 +92,19 @@ class Header extends Component {
 					<button className="navigate" onClick={this.clickedNavigationOptions} onBlur={this.blurredNavigationOptions}>
 						<div className="location"> #Navigate </div>
 						<div className={`options ${this.state.showNavigationOptions ? "show" : null}`}>
-							<a className="option" onClick={this.clickedOption} tabIndex={0}>
-								Option 1
-							</a>
-							<a className="option" onClick={this.clickedOption} tabIndex={0}>
-								Option 2
-							</a>
+							{options}
 						</div>
 					</button>
-					<a className="profile" href="">
+					<Link to={`/profile/${this.props.userDetails.id}`} className="profile">
 						<i className="fas fa-user"></i>
-					</a>
+					</Link>
 					<button className="menu" onClick={this.clickedMenuOptions} onBlur={this.blurredMenuOptions}>
 						<div className="bar"/>
 						<div className="bar"/>
 						<div className="bar"/>
 						<div className={`options ${this.state.showMenuOptions ? "show" : null}`}>
-							<a className="option" tabIndex={0}> Option 1</a>
-							<a className="option" tabIndex={0}> Option 2 </a>
+							<Link to="/auth/login" className={`option ${this.props.location.pathname.includes('/login') ? "disabled" : null}`}> Log in</Link>
+							<Link to="/auth/register" className={`option ${this.props.location.pathname.includes('/register') ? "disabled" : null}`}> Register </Link>
 						</div>
 					</button>
 				</div>
@@ -112,7 +116,8 @@ class Header extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-
+		userDetails: state.userDetails,
+		boards: state.boards
 	}
 }
 

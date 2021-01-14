@@ -1,0 +1,109 @@
+.container-profile {
+	height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+}
+
+.container-profile .profile-image {
+	height: 200px;
+    width: 200px;
+    background: whitesmoke;
+    border: 1px solid lightgrey;
+    margin: 20px;
+}
+
+.container-profile .details {
+	margin: 20px 20px 20px 0px;
+    flex: 1;
+	height: 200px;
+	display: flex;
+    flex-direction: column;
+}
+
+.container-profile .details .email {
+	font-size: 1.2em;
+    padding-top: 10px;
+}
+
+.container-profile .details .menu {
+	margin-top: auto;
+}
+
+.container-profile button {
+	font-size: 1em;
+	padding: 5px 10px;
+	flex-grow: 0;
+    width: fit-content;
+    margin: 0px 5px;
+}
+
+
+
+.profile-form {
+	display: flex;
+    flex-direction: column;
+    min-height: 100px;
+    justify-content: center;
+    flex: 1;
+}
+
+.profile-form .row {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.profile-form button, .profile-form textarea, .profile-form input {
+	font-family: inherit;
+	flex: 1;
+	font-size: 1.2em;
+}
+
+.profile-form input, .profile-form textarea {
+	padding: 5px 10px;
+	margin: 10px 50px;
+	border: 1px solid lightgrey;
+	border-radius: 5px;
+	color: grey;
+}
+
+.profile-form textarea {
+	min-height: 200px;
+	resize: vertical;
+}
+
+.profile-form button {
+	padding: 5px 10px;
+	margin: 20px 20px;
+	border: 1px solid lightgrey;
+	border-radius: 5px;
+	width: auto;
+	flex: 0;
+	flex-basis: 150px;
+}
+
+.profile-form button:hover {
+	color: grey;
+}
+
+.profile-form .form-error {
+	font-size: 1.2em;
+    margin-bottom: 20px;
+    color: #f18c24;
+}
+
+.profile-form .form-success {
+	font-size: 1.2em;
+    color: green;
+}
+
+.profile-form .server-error {
+	font-size: 1.2em;
+    margin-top: 20px;
+    color: #d94444;
+}
+
+.profile-form .loading-message {
+	text-align: center;
+}

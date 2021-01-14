@@ -27,12 +27,14 @@ const initialState = {
 		{
 			id: 1,
 			name: "Test board",
-			description: "A test board description"
+			description: "A test board description",
+			created_by_user_id: 1
 		},
 		{
 			id: 2,
 			name: "Test board 2",
-			description: "A test board description"
+			description: "A test board description",
+			created_by_user_id: 1
 		},
 	], 
 	currentBoard: {
