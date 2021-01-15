@@ -1,5 +1,9 @@
 import React, { Component } from 'React'
 import './BoardListViewer.css'
+import {
+	Link,
+	withRouter
+} from 'react-router-dom'
 
 import BoardListPost from '../BoardListPost/BoardListPost.js'
 
@@ -22,10 +26,13 @@ const BoardListViewer = props => {
 
 	return (
 		<div className="container-board-list-viewer"> 
+			<Link to={`/board/${props.match.params.boardid}/post/new`} className="new">
+				Add new Post
+			</Link>
 			{content}
 		</div>
 	)
 
 }
 
-export default BoardListViewer
+export default withRouter(BoardListViewer)

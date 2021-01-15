@@ -4,21 +4,29 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import './Home.css'
 import {
-	withRouter
+	withRouter,
+	Link,
+	Switch,
+	Route,
+	Redirect
 } from "react-router-dom";
+
+import ResourceWrapper from '../../components/Body/Util/ResourceWrapper/ResourceWrapper.js'
 
 import HomeBoard from '../../components/Body/Home/HomeBoard/HomeBoard.js'
 import HomeActivity from '../../components/Body/Home/HomeActivity/HomeActivity.js'
+import BoardCreator from '../../components/Body/Home/BoardCreator/BoardCreator.js'
 
 class Home extends Component {
 
 	state = {
-
-	}
-
-	state = {
 		finishedLoading: false,
-		readError: ""
+		readError: "",
+
+		/* Variables for <BoardCreator> */
+		serverError: "",
+		formError: "",
+		processing: false,
 	}
 
 	componentDidMount = () => {
@@ -68,39 +76,59 @@ class Home extends Component {
 		})
 	}
 
+	clearCreatorErrors = () => {
+		console.log("Clearing creator errors")
+		this.setState({
+			formError: "",
+			serverError: ""
+		})
+	}
+
+	clickedSubmitNewBoard = (name, description) => {
+		console.log(name, description)
+	}
+
+
 	render() {
-		let content
-		if (this.state.readError) {
-			content = (
-				<div className="read-error"> {this.state.readError} <i className="fas fa-exclamation"></i> </div>
-			)
-		} else if (!this.state.finishedLoading) {
-			content = (
-				<div className="loading-message"> <i className="fas fa-asterisk"></i> </div>
-			)
-		} else {
 
-			let boards = this.props.boards.map((board, i) => {
-				return (
-					<HomeBoard board={board} key={`HomeBoard${i}`}/>
-				)
-			})
-
-			content = (
-				<React.Fragment>
-					<div className="boards">
-						{boards}
-					</div>
-					<div className="activity">
-						<HomeActivity/>
-					</div>
-				</React.Fragment>
+		let boards = this.props.boards.map((board, i) => {
+			return (
+				<HomeBoard board={board} key={`HomeBoard${i}`}/>
 			)
-		}
+		})
 
 		return (
 			<div className="container-home">
-				{content}
+				<ResourceWrapper
+				readError={this.state.readError}
+				finishedLoading={this.state.finishedLoading}>
+
+					<Switch>
+						<Route exact path="/home/new">
+							<BoardCreator
+							clearErrors={this.clearCreatorErrors}
+							clickedSubmit={this.clickedSubmitNewBoard}
+							formError={this.state.formError}
+							serverError={this.state.serverError}
+							processing={this.state.processing}/>
+						</Route>
+						<Route exact path="/home">
+							<div className="boards">
+								<Link to="/home/new" className="new">
+									Add new Board
+								</Link>
+								{boards}
+							</div>
+							<div className="activity">
+								<HomeActivity/>
+							</div>	
+						</Route>
+						<Route>
+							<Redirect to="/home"/>
+						</Route>
+					</Switch>
+
+				</ResourceWrapper>
 			</div>
 		)
 	}

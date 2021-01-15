@@ -1,5 +1,6 @@
 .container-home {
 	display: flex;
+	justify-content: center;
 	flex: 1;
 }
 
@@ -11,4 +12,18 @@
 
 .container-home .activity {
 	flex: 1;
+}
+
+.container-home .boards a.new {
+    border: 1px solid lightgrey;
+    font-size: 1em;
+    color: black;
+    padding: 5px 10px;
+    margin: 10px 10px 5px 10px;
+    border-radius: 5px;
+    background: whitesmoke;
+}
+
+.container-home .boards a.new:hover {
+	color: grey;
 }

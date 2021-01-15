@@ -11,6 +11,7 @@ import {
 	Redirect
 } from "react-router-dom";
 
+import ResourceWrapper from '../../components/Body/Util/ResourceWrapper/ResourceWrapper.js'
 import PostEditor from '../../components/Body/Post/PostEditor/PostEditor.js'
 
 class Post extends Component {
@@ -27,8 +28,6 @@ class Post extends Component {
 		serverError: "",
 		formError: "",
 		processing: false,
-		editedPostTitle: "",
-		editedPostContent: ""
 	}
 
 	componentDidMount = () => {
@@ -84,19 +83,11 @@ class Post extends Component {
 		})
 	}
 
-	updateEditedPostTitleHandler = (title) => {
-		this.setState({
-			editedPostTitle: title
-		})
-	}
 
-	updateEditedPostContentHandler = (content) => {
-		this.setState({
-			editedPostContent: content
-		})
-	}
+	clickedSubmitEditedPostHandler = (title, content) => {
 
-	clickedSubmitEditedPostHandler = () => {
+		console.log(title, content)
+
 		// SUBMIT ZE POST
 		this.setState({
 			processing: true
@@ -109,8 +100,8 @@ class Post extends Component {
 		}, 1000)
 	}
 
-	clearEditorErrors = () => {
-		console.log("Clearing editor errors")
+	clearErrors = () => {
+		console.log("Clearing form errors")
 		this.setState({
 			formError: "",
 			serverError: ""
@@ -118,57 +109,45 @@ class Post extends Component {
 	}
 
 	render() {
-		let content
-		if (this.state.readError) {
-			content = (
-				<div className="read-error"> {this.state.readError} <i className="fas fa-exclamation"></i> </div>
-			)
-		} else if (!this.state.finishedLoading) {
-			content = (
-				<div className="loading-message"> <i className="fas fa-asterisk"></i> </div>
-			)
-		} else {
-			content = (
-			<Switch>
-				<Route exact path="/board/:boardid/post/:postid/edit">
-					<PostEditor
-					editedPostTitle={this.updateEditedPostTitleHandler}
-					editedPostContent={this.updateEditedPostContentHandler}
-					clickedSubmit={this.clickedSubmitEditedPostHandler}
-					clearErrors={this.clearEditorErrors}
-					userDetails={this.props.userDetails}
-					currentPost={this.props.currentPost}
-					serverError={this.state.serverError}
-					formError={this.state.formError}
-					processing={this.state.processing}/>
-				</Route>
-				<Route exact path="/board/:boardid/post/:postid/">
-					<div className="title"> {this.props.currentPost.title} </div>
-					<div className="metadata"> 
-						<div className="author">
-							Author:&nbsp;<div className="name">Jimmy Neutron</div>
-						</div>
-						<div className="created">
-							Created:&nbsp;<div className="date"> 00/00/0000 </div>
-						</div>
-					</div>
-					<div className="board-sub-menu">
-						<Link to={`/board/${this.props.match.params.boardid}/post/${this.props.match.params.postid}/edit`}> Edit Post </Link>
-						<button> Delete Post </button>
-					</div>
-					<div className="content"> {this.props.currentPost.content} </div>
-				</Route>
-				<Route> 
-					<Redirect to={`/board/${this.props.match.params.boardid}/post/${this.props.match.params.postid}`}/>
-				</Route>
-			</Switch>
-
-			)
-		}
-
 		return (
 			<div className="container-post">
-				{content}
+				<ResourceWrapper
+				readError={this.state.readError}
+				finishedLoading={this.state.finishedLoading}>
+			
+					<Switch>
+						<Route exact path="/board/:boardid/post/:postid/edit">
+							<PostEditor
+							clickedSubmit={this.clickedSubmitEditedPostHandler}
+							clearErrors={this.clearErrors}
+							userDetails={this.props.userDetails}
+							currentPost={this.props.currentPost}
+							serverError={this.state.serverError}
+							formError={this.state.formError}
+							processing={this.state.processing}/>
+						</Route>
+						<Route exact path="/board/:boardid/post/:postid/">
+							<div className="title"> {this.props.currentPost.title} </div>
+							<div className="metadata"> 
+								<div className="author">
+									Author:&nbsp;<div className="name">Jimmy Neutron</div>
+								</div>
+								<div className="created">
+									Created:&nbsp;<div className="date"> 00/00/0000 </div>
+								</div>
+							</div>
+							<div className="board-sub-menu">
+								<Link to={`/board/${this.props.match.params.boardid}/post/${this.props.match.params.postid}/edit`}> Edit Post </Link>
+								<button> Delete Post </button>
+							</div>
+							<div className="content"> {this.props.currentPost.content} </div>
+						</Route>
+						<Route> 
+							<Redirect to={`/board/${this.props.match.params.boardid}/post/${this.props.match.params.postid}`}/>
+						</Route>
+					</Switch>
+
+				</ResourceWrapper>
 			</div>
 		)
 	}

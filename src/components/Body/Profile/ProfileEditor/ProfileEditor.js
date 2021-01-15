@@ -1,14 +1,11 @@
 import React, { Component, useEffect } from 'react'
 import './ProfileEditor.css'
 
+import FormWrapper from '../../Util/FormWrapper/FormWrapper.js'
+
 const ProfileEditor = props => {
 
 	console.log(props)
-
-	/* On dismount clear errors relative to the <ProfileEditor> from <Profile> */
-	useEffect(() => {
-		return () => props.clearErrors()
-	}, [])
 
 	/*
 		When this component loads, we need do a check if the id of profile we're viewing
@@ -16,33 +13,30 @@ const ProfileEditor = props => {
 		Otherwise display an error message
 	*/
 
-	let content = props.processing ? <div className="loading-message"> <i className="fas fa-asterisk"/> </div> 
-	: props.userid == props.profile.id ? 
-		<React.Fragment>
-			{ props.serverError ? 
-			<div className="row">	
-				<div className="server-error"> {props.serverError} <i className="fas fa-exclamation"></i> </div>
-			</div>
-			: null }
-
-			<div className="row">
-				<button> Submit </button>
-			</div>
-
-			{ props.formError ? 
-			<div className="row">
-				<div className="form-error"> {props.formError} <i className="fas fa-exclamation"></i> </div>
-			</div>
-			: null }
-		</React.Fragment>
-	: <div className="row">
-		<div className="server-error"> You cannot edit this profile <i className="fas fa-exclamation"/> </div>
-	</div>
-
 	return (
 		<div className="container-profile-editor">
 			<div className="profile-form">
-				{content}
+			<FormWrapper
+				clearErrors={props.clearErrors}
+				serverError={props.serverError}
+				formError={props.formError}
+				processing={props.processing}
+				canView={props.userid == props.profile.id}
+				resourceName="profile">
+				
+				<div className="header">
+					Edit profile
+				</div>
+
+				<div className="row">
+					<input defaultValue="Some field..."/>
+				</div>
+
+				<div className="row">
+					<button> Submit </button>
+				</div>
+
+			</FormWrapper>
 			</div>
 		</div>
 	)

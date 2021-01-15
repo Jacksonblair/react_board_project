@@ -7,10 +7,13 @@ import {
 	withRouter,
 	Switch,
 	Route,
-	Redirect
+	Redirect,
+	Link
 } from "react-router-dom";
 
+import ResourceWrapper from '../../components/Body/Util/ResourceWrapper/ResourceWrapper.js'
 import ProfileEditor from '../../components/Body/Profile/ProfileEditor/ProfileEditor.js'
+import EmailEditor from '../../components/Body/Profile/EmailEditor/EmailEditor.js'
 
 class Profile extends Component {
 
@@ -23,7 +26,7 @@ class Profile extends Component {
 		finishedLoading: true,
 		readError: "",
 
-		/* Variables for <ProfileEditor> */
+		/* Variables for <ProfileEditor>/<EmailEditor>/<PasswordEditor> */
 		serverError: "",
 		formError: "",
 		processing: false
@@ -56,55 +59,76 @@ class Profile extends Component {
 		})*/
 	}
 
-	render() {
-		let content
-		if (this.state.readError) {
-			content = (
-				<div className="read-error"> {this.state.readError} <i className="fas fa-exclamation"></i> </div>
-			)
-		} else if (!this.state.finishedLoading) {
-			content = (
-				<div className="loading-message"> <i className="fas fa-asterisk"></i> </div>
-			)
-		} else {
-			content = (
-				<Switch>
-					<Route exact path={`/profile/:userid/edit`}>
-						<ProfileEditor
-						serverError={this.state.serverError}
-						formError={this.state.formError}
-						processing={this.state.processing}
-						userid={this.props.match.params.userid}
-						profile={this.state.profile}/>
-					</Route>
-					<Route path={`/profile/:userid/`}>
-						<div className="profile-image">
-							<img href=""/>
-						</div>
-						<div className="details">
-							<div className="email">
-								Email: {this.state.profile.email}
-							</div>
-							<div className="menu">
-								<button className="edit">
-									Edit Profile
-								</button>
-								<button className="edit">
-									Change Password
-								</button>
-							</div>
-						</div>
-					</Route>
-					<Route>
-						<Redirect to={`profile/${this.props.match.params.userid}`}/>
-					</Route>
-				</Switch>
-			)
-		}
+	clearEditorErrors = () => {
+		console.log("Clearing errors")
+		this.setState({
+			formError: "",
+			serverError: ""
+		})
+	}
 
+	clickedSubmitEditedEmailHandler = (email, confirmEmail) => {
+		console.log(email, confirmEmail)
+	}
+
+	clickedSubmitEditedPasswordHandler = (password, confirmPassword) => {
+
+	}
+
+	render() {
 		return (
 			<div className="container-profile">
-				{content}
+				<ResourceWrapper
+				readError={this.state.readError}
+				finishedLoading={this.state.finishedLoading}>
+
+					<Switch>
+						<Route exact path={`/profile/:userid/edit/profile`}>
+							<ProfileEditor
+							clearErrors={this.clearEditorErrors}
+							serverError={this.state.serverError}
+							formError={this.state.formError}
+							processing={this.state.processing}
+							userid={this.props.match.params.userid}
+							profile={this.state.profile}/>
+						</Route>
+						<Route exact path={`/profile/:userid/edit/email`}>
+							<EmailEditor
+							clickedSubmit={this.clickedSubmitEditedEmailHandler}
+							clearErrors={this.clearEditorErrors}
+							serverError={this.state.serverError}
+							formError={this.state.formError}
+							processing={this.state.processing}
+							userid={this.props.match.params.userid}
+							profile={this.state.profile}/>
+						</Route>
+						<Route path={`/profile/:userid/`}>
+							<div className="profile-image">
+								<img href=""/>
+							</div>
+							<div className="details">
+								<div className="email">
+									Email: {this.state.profile.email}
+								</div>
+								<div className="menu">
+									<Link to={`/profile/${this.props.match.params.userid}/edit/profile`} className="edit">
+										Edit Profile
+									</Link>
+									<Link to={`/profile/${this.props.match.params.userid}/edit/email`} className="edit">
+										Edit Email
+									</Link>
+									<Link className="edit">
+										Change Password
+									</Link>
+								</div>
+							</div>
+						</Route>
+						<Route>
+							<Redirect to={`profile/${this.props.match.params.userid}`}/>
+						</Route>
+					</Switch>
+
+				</ResourceWrapper>
 			</div>
 		)
 	}

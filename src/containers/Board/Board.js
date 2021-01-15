@@ -11,11 +11,13 @@ import {
 import * as actionTypes from '../../store/actions.js'
 import { AnimatePresence, motion } from "framer-motion"
 
+import ResourceWrapper from '../../components/Body/Util/ResourceWrapper/ResourceWrapper.js'
 import BoardMenu from '../../components/Body/Board/BoardMenu/BoardMenu.js'
 import BoardEditor from '../../components/Body/Board/BoardEditor/BoardEditor.js'
 import BoardListViewer from '../../components/Body/Board/BoardListViewer/BoardListViewer.js'
 import BoardCalendarViewer from '../../components/Body/Board/BoardCalendarViewer/BoardCalendarViewer.js'
 import Post from '../Post/Post.js'
+import PostCreator from '../../components/Body/Board/PostCreator/PostCreator'
 
 class Board extends Component {
 
@@ -27,8 +29,6 @@ class Board extends Component {
 		serverError: "",
 		formError: "",
 		processing: false,
-		editedBoardName: "",
-		editedBoardDescription: ""
 	}
 
 	componentDidMount = () => {
@@ -110,20 +110,9 @@ class Board extends Component {
 
 
 
-	updateEditedBoardNameHandler = (name) => {
-		this.setState({
-			editedBoardName: name
-		})
-	}
-
-	updateEditedBoardDescriptionHandler = (description) => {
-		this.setState({
-			editedBoardDescription: description
-		})
-	}
-
-	clickedSubmitEditedBoardHandler = () => {
+	clickedSubmitEditedBoardHandler = (name, description) => {
 		// TODO: Send to server
+		console.log(name, description)
 		this.setState({
 			processing: true
 		})
@@ -138,89 +127,95 @@ class Board extends Component {
 		}, 1000)
 	}
 
-	clearEditorErrors = () => {
-		console.log("Clearing editor errors")
+	clearErrors = () => {
+		console.log("Clearing form errors")
 		this.setState({
 			formError: "",
 			serverError: ""
 		})
 	}
 
+	clickedSubmitNewPostHandler = (title, content) => {
+		console.log(title, content)
+	}
+
+
+
 	render() {
-
-		let content
-		if (this.state.readError) {
-			content = (
-				<div className="read-error"> {this.state.readError} <i className="fas fa-exclamation"></i> </div>
-			)
-		} else if (!this.state.finishedLoading) {
-			content = (
-				<div className="loading-message"> <i className="fas fa-asterisk"></i> </div>
-			)
-		} else {
-			content = (
-				<React.Fragment>
-					<AnimatePresence location={this.props.location} key={this.props.location.pathname}>
-						<Switch>	
-							<Route exact path="/board/:boardid/edit">
-								<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
-									<BoardEditor
-									clearErrors={this.clearEditorErrors}
-									clickedSubmit={this.clickedSubmitEditedBoardHandler}
-									editedBoardName={this.updateEditedBoardNameHandler}
-									editedBoardDescription={this.updateEditedBoardDescriptionHandler}
-									serverError={this.state.serverError}
-									formError={this.state.formError}
-									processing={this.state.processing}
-									userDetails={this.props.userDetails}
-									currentBoard={this.props.currentBoard}/>
-								</motion.div>
-							</Route>
-							<Route exact path="/board/:boardid/list">
-								<React.Fragment>
-									<BoardMenu 
-									clickedCalendarViewer={this.clickedCalendarViewerHandler}
-									clickedListViewer={this.clickedListViewerHandler}
-									currentBoard={this.props.currentBoard}/>
-									<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
-										<BoardListViewer currentBoard={this.props.currentBoard}/>
-									</motion.div>
-								</React.Fragment>
-							</Route>
-							<Route exact path="/board/:boardid/calendar">
-								<React.Fragment>
-									<BoardMenu 
-									clickedCalendarViewer={this.clickedCalendarViewerHandler}
-									clickedListViewer={this.clickedListViewerHandler}
-									currentBoard={this.props.currentBoard}/>
-									<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
-										<BoardCalendarViewer 
-											updateCalendarMonth={this.updateCalendarMonthHandler}
-											updateCalendarYear={this.updateCalendarYearHandler}
-											updateCalendarUnit={this.updateCalendarUnitHandler}
-											pageVariants={this.props.pageVariants}
-											calendar={this.props.calendar}
-											currentBoard={this.props.currentBoard}/>
-									</motion.div>
-								</React.Fragment>
-							</Route>
-							<Route path="/board/:boardid/post/:postid">
-								<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
-									<Post/>
-								</motion.div>
-							</Route>
-							<Route>
-								<Redirect to={`/board/${this.props.match.params.boardid}/list`}/>
-							</Route>
-						</Switch>
-					</AnimatePresence>
-				</React.Fragment>
-			)
-		}
-
 		return (
 			<div className="container-board">
-				{content}
+
+				<ResourceWrapper
+				readError={this.state.readError}
+				finishedLoading={this.state.finishedLoading}>
+				
+						<React.Fragment>
+							<AnimatePresence location={this.props.location} key={this.props.location.pathname}>
+								<Switch>	
+									<Route exact path="/board/:boardid/edit">
+										<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
+											<BoardEditor
+											clearErrors={this.clearErrors}
+											clickedSubmit={this.clickedSubmitEditedBoardHandler}
+											serverError={this.state.serverError}
+											formError={this.state.formError}
+											processing={this.state.processing}
+											userDetails={this.props.userDetails}
+											currentBoard={this.props.currentBoard}/>
+										</motion.div>
+									</Route>
+									<Route exact path="/board/:boardid/list">
+										<React.Fragment>
+											<BoardMenu 
+											clickedCalendarViewer={this.clickedCalendarViewerHandler}
+											clickedListViewer={this.clickedListViewerHandler}
+											currentBoard={this.props.currentBoard}/>
+											<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
+												<BoardListViewer currentBoard={this.props.currentBoard}/>
+											</motion.div>
+										</React.Fragment>
+									</Route>
+									<Route exact path="/board/:boardid/calendar">
+										<React.Fragment>
+											<BoardMenu 
+											clickedCalendarViewer={this.clickedCalendarViewerHandler}
+											clickedListViewer={this.clickedListViewerHandler}
+											currentBoard={this.props.currentBoard}/>
+											<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
+												<BoardCalendarViewer 
+													updateCalendarMonth={this.updateCalendarMonthHandler}
+													updateCalendarYear={this.updateCalendarYearHandler}
+													updateCalendarUnit={this.updateCalendarUnitHandler}
+													pageVariants={this.props.pageVariants}
+													calendar={this.props.calendar}
+													currentBoard={this.props.currentBoard}/>
+											</motion.div>
+										</React.Fragment>
+									</Route>
+									<Route exact path="/board/:boardid/post/new">
+										<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
+											<PostCreator
+											clearErrors={this.clearErrors}
+											clickedSubmit={this.clickedSubmitNewPostHandler}
+											serverError={this.state.serverError}
+											formError={this.state.formError}
+											processing={this.state.processing}/>
+										</motion.div>
+									</Route>
+									<Route path="/board/:boardid/post/:postid">
+										<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
+											<Post/>
+										</motion.div>
+									</Route>
+									<Route>
+										<Redirect to={`/board/${this.props.match.params.boardid}/list`}/>
+									</Route>
+								</Switch>
+							</AnimatePresence>
+						</React.Fragment>
+
+				</ResourceWrapper>
+
 			</div>
 		)
 	}

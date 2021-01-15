@@ -28,6 +28,7 @@
 
 .container-profile .details .menu {
 	margin-top: auto;
+	text-align: left;
 }
 
 .container-profile button {
@@ -38,6 +39,10 @@
     margin: 0px 5px;
 }
 
+.container-profile a {
+    justify-content: flex-start;
+}
+
 
 
 .profile-form {
@@ -46,6 +51,12 @@
     min-height: 100px;
     justify-content: center;
     flex: 1;
+}
+
+.profile-form .header {
+	margin: 20px 10px 10px 10px;
+    font-size: 1.5em;
+    text-align: center;
 }
 
 .profile-form .row {
@@ -85,6 +96,16 @@
 
 .profile-form button:hover {
 	color: grey;
+}
+
+.profile-form .email-new {
+    min-width: 300px;
+    flex: 0;
+}
+
+.profile-form .field-header {
+    display: flex;
+    justify-content: center;
 }
 
 .profile-form .form-error {
