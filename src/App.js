@@ -18,9 +18,6 @@ class App extends Component {
 			<Router>
 				<div className="app">
 					<Switch>
-						<Route exact path="/landing">
-							<div> LANDING </div>
-						</Route>
 						<Route path="/">
 							<Header/>
 							<Body/>

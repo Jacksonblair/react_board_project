@@ -5,19 +5,11 @@
 	flex: 1;
 }
 
-.body-sub-menu {
-	background: whitesmoke;
-    border-bottom: 1px solid lightgrey;
-    height: 40px;
-    display: flex;
-}
-
 .board-sub-menu {
-	background: whitesmoke;
-    border-bottom: 1px solid lightgrey;
     height: 40px;
     display: flex;
     justify-content: space-between;
+    padding: 5px 10px;
 }
 
 .board-sub-menu .group {
@@ -26,10 +18,12 @@
 
 .board-sub-menu button, .board-sub-menu a {
 	border: 1px solid lightgrey;
-    font-size: 1em;
-    color: black;
-    padding: 5px 10px;
+    border-radius: 5px;
+    margin: 5px;
+    color: grey;
     cursor: pointer;
+    background: none;
+    font-size: 1em;
 }
 
 .board-sub-menu button:hover, .board-sub-menu a:hover {
@@ -38,6 +32,10 @@
 
 .board-sub-menu button:disabled, .board-sub-menu a:disabled {
 	color: lightgrey;
+}
+
+.board-sub-menu .edit {
+	margin-left: auto;
 }
 
 

@@ -1,12 +1,15 @@
 .container-board-menu {
 	display: flex;
     flex-direction: column;
+    /* margin-bottom: 20px; */
+    /* padding-bottom: 40px; */
+    border-bottom: 1px solid whitesmoke;
 }
 
 .container-board-menu .menu button, .container-board-menu .menu a, .container-board-menu .menu input {
 	border-radius: 0px;
 	background: none;
-	border: 1px solid whitesmoke;
+	border: none;
 	font-size: 1.2em;
     min-width: 40px;
     color: black;
@@ -20,14 +23,29 @@
 	color: grey;
 }
 
+.container-board-menu .menu button.date {
+	border: 1px solid lightgrey;
+    border-radius: 5px;
+    margin: 5px;
+    color: grey;
+}
+
+.container-board-menu .menu button.date:hover {
+	color: black;
+}
+
+
 .container-board-menu .name {
-	margin: 20px 10px 0px 15px;
-	font-size: 1.8em;
+	margin: 20px 10px 0px 10px;
+    font-size: 1.8em;
+    text-align: center;
 }
 
 .container-board-menu .description {
-	margin: 0px 10px 5px 15px;
+    margin: 0px 10px 5px 10px;
 	font-size: 1.2em;
+	font-style: italic;
+    text-align: center;
 }
 
 .container-board-menu .menu {

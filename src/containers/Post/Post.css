@@ -4,33 +4,78 @@
     height: 100%;
 }
 
-.container-post .title {
-	margin: 20px 10px 5px 10px;
-    font-size: 1.8em;
+.container-post > .header {
+    display: flex;
 }
 
-.container-post .metadata {
+.container-post .header .date-column {
+	width: 75px;
+	height: 75px;
+	padding: 10px;
 	display: flex;
-    justify-content: space-between;
-    margin: 0px 10px 5px 10px;
+}
+
+.container-post .header .date-column .box {
+	flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: whitesmoke;
+    border-radius: 5px;
+}
+
+.container-post .header .date-column .box .day {
+	font-size: 1.8em;
+    line-height: 1em;
+}
+
+.container-post .header .date-column .box .month {
+
+}
+
+.container-post .header .date-column .box .year {
+	font-style: italic;
+}
+
+.container-post .header .title-column {
+	flex: 1;
+    padding: 10px 10px 10px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.container-post .header .title-column .title {
+	font-size: 1.8em;
+}
+
+
+
+.container-post .header .title-column .metadata {
+	display: flex;
+    flex-direction: column;
     font-style: italic;
+    color: grey;
 }
 
-.container-post .metadata .author {
+.container-post .header .title-column .metadata .author {
 	display: flex;
 }
 
-.container-post .metadata .author .name {
+.container-post .header .title-column .metadata .author .name {
 	color: blue;
 }
 
-.container-post .metadata .created {
+.container-post .header .title-column .metadata .created {
 	display: flex;
 }
 
-.container-post .metadata .created .date {
+.container-post .header .title-column .metadata .created .date {
 
 }
+
+
 
 .container-post .content {
 	border-top: 1px solid whitesmoke;

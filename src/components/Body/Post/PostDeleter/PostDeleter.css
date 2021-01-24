@@ -1,0 +1,11 @@
+.container-post-deleter {
+	flex: 1;
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.post-to-delete { 
+	display: inline-block;
+}

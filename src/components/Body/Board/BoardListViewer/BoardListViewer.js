@@ -11,8 +11,9 @@ const BoardListViewer = props => {
 
 	let months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
 
-	let content = props.currentBoard.posts.map((post, i) => {
-		let [ dd, mm, yyyy ] = post.target_date.toLocaleDateString("EN-au").split('/')
+	let content = props.posts ? 
+	props.posts.map((post, i) => {
+		let [ dd, mm, yyyy ] = post.target_date.split('/')
 		return (
 			<BoardListPost 
 			key={`BoardListPost${i}`} 
@@ -23,13 +24,21 @@ const BoardListViewer = props => {
 			yyyy={yyyy}/>
 		)
 	})
+	: null
 
 	return (
 		<div className="container-board-list-viewer"> 
-			<Link to={`/board/${props.match.params.boardid}/post/new`} className="new">
-				Add new Post
-			</Link>
 			{content}
+			<Link to={`/board/${props.match.params.boardid}/post/new`} className="new">
+				{ props.posts.length ? 
+					<React.Fragment>
+					Add new post&nbsp;<i className="fas fa-plus-circle"></i>
+					</React.Fragment>
+				:  <React.Fragment>
+					Add a first post!&nbsp;<i className="fas fa-plus-circle"></i>
+					</React.Fragment> 
+				}
+			</Link>
 		</div>
 	)
 

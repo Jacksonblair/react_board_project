@@ -14,21 +14,24 @@ import {
 import ResourceWrapper from '../../components/Body/Util/ResourceWrapper/ResourceWrapper.js'
 import ProfileEditor from '../../components/Body/Profile/ProfileEditor/ProfileEditor.js'
 import EmailEditor from '../../components/Body/Profile/EmailEditor/EmailEditor.js'
+import PasswordEditor from '../../components/Body/Profile/PasswordEditor/PasswordEditor.js'
 
 class Profile extends Component {
 
 	state = {
 		profile: {
-			id: 1,
-			email: "email@website.com",
-			profile_image_url: "",			
+			id: null,
+			email: null,
+			profile_image_url: null,			
 		},
-		finishedLoading: true,
+		finishedLoading: false,
 		readError: "",
 
 		/* Variables for <ProfileEditor>/<EmailEditor>/<PasswordEditor> */
 		serverError: "",
 		formError: "",
+		updateEmailSuccess: "",
+		updatePasswordSuccess: "",
 		processing: false
 	}
 
@@ -37,29 +40,34 @@ class Profile extends Component {
 		When the component mounts, we try to get the contents of the profile
 		for the user with the :userid in the url
 		*/
-		// this.getProfile()
+		this.getProfile()
 	}
 
 	componentDidUpdate = (prevProps) => {
-		// If the userid in the url changes, we need to get a new profile
-/*		if (prevProps.match.params.userid != this.props.match.params.userid) {
-			this.getProfile()
-		}*/
+
 	}
 
 	getProfile = (callback) => {
-/*		axios.get(`/profile/${this.props.match.params.userid}`)
+		axios.get(`/profile/${this.props.match.params.userid}`)
 		.then((res) => {
-			callback ? callback() : null
+			this.setState({
+				profile: {
+					id: res.data.id,
+					email: res.data.email,
+					profile_image_url: res.data.profile_image_url				
+				},
+				finishedLoading: true
+			})
 		})
 		.catch((err) => {
 			this.setState({
-				readError: err.response ? err.response.data : "Error"
+				readError: err.response ? err.response.data : "Error",
+				finishedLoading: true
 			})
-		})*/
+		})
 	}
 
-	clearEditorErrors = () => {
+	clearErrors = () => {
 		console.log("Clearing errors")
 		this.setState({
 			formError: "",
@@ -67,35 +75,116 @@ class Profile extends Component {
 		})
 	}
 
-	clickedSubmitEditedEmailHandler = (email, confirmEmail) => {
-		console.log(email, confirmEmail)
+	clickedSubmitEditedProfileHandler = (name) => {
+
 	}
 
-	clickedSubmitEditedPasswordHandler = (password, confirmPassword) => {
+	clickedSubmitEditedEmailHandler = (email, confirmEmail) => {
+		this.setState({
+			processing: true
+		})
+		this.clearErrors()
 
+		// TODO: Validate email
+		if (email != confirmEmail) {
+			this.setState({
+				formError: "E-mails do not match"
+			})
+		} else {
+			axios.put('/auth/email', {
+				email
+			})	
+			.then((res) => {
+				// Put the new email in the local state
+				this.setState({
+					profile: {
+						id: this.state.profile.id,
+						email: res.data.email,
+						profile_image_url: this.state.profile.profile_image_url
+					},
+					processing: false,
+					updateEmailSuccess: "Successfully updated email"
+				})
+			})
+			.catch((err) => {
+				this.setState({
+					serverError: err.response ? err.response.data : "Error",
+					processing: false
+				})
+			})
+		}
+
+	}	
+
+	clickedSubmitEditedPasswordHandler = (oldPassword, newPassword, confirmNewPassword) => {
+		this.setState({
+			processing: true
+		})
+		this.clearErrors()
+
+		if (newPassword != confirmNewPassword) {
+			this.setState({
+				formError: "New passwords do not match",
+				processing: false
+			})
+		} else {
+			axios.put('/auth/password', {
+				oldPassword, newPassword
+			})	
+			.then((res) => {
+				this.setState({
+					processing: false,
+					updatePasswordSuccess: "Successfully updated password"
+				})
+			})
+			.catch((err) => {
+				this.setState({
+					serverError: err.response ? err.response.data : "Error",
+					processing: false
+				})
+			})
+		}
 	}
 
 	render() {
 		return (
 			<div className="container-profile">
+
 				<ResourceWrapper
 				readError={this.state.readError}
 				finishedLoading={this.state.finishedLoading}>
-
+					<div className="body-sub-menu">
+						<button onClick={this.props.history.goBack}> Back </button>
+					</div>
 					<Switch>
-						<Route exact path={`/profile/:userid/edit/profile`}>
-							<ProfileEditor
-							clearErrors={this.clearEditorErrors}
+						{/*
+							<Route exact path={`/profile/:userid/edit/profile`}>
+								<ProfileEditor
+								clickedSubmit={this.clickedSubmitEditedProfileHandler}
+								clearErrors={this.clearErrors}
+								serverError={this.state.serverError}
+								formError={this.state.formError}
+								processing={this.state.processing}
+								userid={this.props.match.params.userid}
+								profile={this.state.profile}/>
+							</Route>
+						*/}
+						<Route exact path={`/profile/:userid/edit/email`}>
+							<EmailEditor
+							formSuccess={this.state.updateEmailSuccess}
+							clickedSubmit={this.clickedSubmitEditedEmailHandler}
+							clearErrors={this.clearErrors}
 							serverError={this.state.serverError}
 							formError={this.state.formError}
 							processing={this.state.processing}
 							userid={this.props.match.params.userid}
 							profile={this.state.profile}/>
 						</Route>
-						<Route exact path={`/profile/:userid/edit/email`}>
-							<EmailEditor
-							clickedSubmit={this.clickedSubmitEditedEmailHandler}
-							clearErrors={this.clearEditorErrors}
+						<Route exact path={`/profile/:userid/edit/password`}>
+							<PasswordEditor
+							formSuccess={this.state.updatePasswordSuccess}
+							clickedSubmit={this.clickedSubmitEditedPasswordHandler}
+							clearErrors={this.clearErrors}
 							serverError={this.state.serverError}
 							formError={this.state.formError}
 							processing={this.state.processing}
@@ -103,23 +192,25 @@ class Profile extends Component {
 							profile={this.state.profile}/>
 						</Route>
 						<Route path={`/profile/:userid/`}>
-							<div className="profile-image">
-								<img href=""/>
-							</div>
-							<div className="details">
-								<div className="email">
-									Email: {this.state.profile.email}
+							<div className="profile">
+								<div className="profile-image">
+									<img href=""/>
 								</div>
-								<div className="menu">
-									<Link to={`/profile/${this.props.match.params.userid}/edit/profile`} className="edit">
-										Edit Profile
-									</Link>
-									<Link to={`/profile/${this.props.match.params.userid}/edit/email`} className="edit">
-										Edit Email
-									</Link>
-									<Link className="edit">
-										Change Password
-									</Link>
+								<div className="details">
+									<div className="email">
+										Email: {this.state.profile.email}
+									</div>
+									<div className="menu">
+{/*										<Link to={`/profile/${this.props.match.params.userid}/edit/profile`} className="edit">
+											Edit Profile
+										</Link>*/}
+										<Link to={`/profile/${this.props.match.params.userid}/edit/email`} className="edit">
+											Change Email
+										</Link>
+										<Link to={`/profile/${this.props.match.params.userid}/edit/password`} className="edit">
+											Change Password
+										</Link>
+									</div>
 								</div>
 							</div>
 						</Route>

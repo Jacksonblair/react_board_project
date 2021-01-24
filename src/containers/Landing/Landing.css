@@ -1,0 +1,47 @@
+.container-landing {
+	display: flex;
+	justify-content: center;
+	flex: 1;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container-landing .title {
+	font-size: 3em;
+	font-weight: bold;
+}
+
+.container-landing .blurb {
+	font-size: 1.5em;
+    font-style: italic;
+    color: #8282dc;
+    width: 490px;
+    padding: 5px;
+    text-align: center;
+    margin-bottom: 100px;
+}
+
+.container-landing .buttons .register {
+	padding: 5px 10px;
+    margin: 10px;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: black;
+}
+
+.container-landing .buttons .register:hover {
+	color: grey;
+}
+
+.container-landing .buttons {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.container-landing .buttons div a {
+	display: inline-block;
+}

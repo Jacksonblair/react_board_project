@@ -1,5 +1,9 @@
 import React, { Component, useState } from 'react'
 import './BoardEditor.css'
+import {
+	Link, 
+	withRouter
+} from 'react-router-dom'
 
 import FormWrapper from '../../Util/FormWrapper/FormWrapper.js'
 
@@ -7,6 +11,7 @@ const BoardEditor = props => {
 
 	let [ boardName, setBoardName ] = useState(props.currentBoard.name)
 	let [ boardDescription, setBoardDescription ] = useState(props.currentBoard.description)
+	let [ boardPublic, setBoardPublic ] = useState(props.currentBoard.public)
 
 	return (
 		<div className="container-board-editor">
@@ -23,6 +28,12 @@ const BoardEditor = props => {
 						Editing Board
 					</div>
 					<div className="row">
+						<div className="toggle">
+							<button onClick={() => setBoardPublic(true)} className={`${boardPublic ? "on" : null}`}> Public <i className="fas fa-eye"></i> </button> 
+							<button onClick={() => setBoardPublic(false)} className={`private ${boardPublic ? null : "on"}`}> Private <i className="fas fa-eye-slash"></i></button>
+						</div>
+					</div>
+					<div className="row">
 						<input 
 						placeholder="A board name..."
 						defaultValue={props.currentBoard.name}
@@ -35,9 +46,12 @@ const BoardEditor = props => {
 						onChange={() => setBoardDescription(event.target.value)}/>
 					</div>
 					<div className="row">
-						<button onClick={() => props.clickedSubmit(boardName, boardDescription)}> Submit </button>
-					</div>
-
+						<button onClick={() => props.clickedSubmit(event, boardName, boardDescription, boardPublic)}> Submit </button>
+						<Link to={`/board/${props.match.params.boardid}/`}> Cancel </Link>
+					</div>			
+					<div className="row">
+						<Link to={`/board/${props.match.params.boardid}/delete`} className="delete"> Delete Board&nbsp;<i className="fas fa-trash"></i></Link>
+					</div>			
 				</FormWrapper>
 			</div>
 		</div>
@@ -45,4 +59,4 @@ const BoardEditor = props => {
 
 }
 
-export default BoardEditor
+export default withRouter(BoardEditor)

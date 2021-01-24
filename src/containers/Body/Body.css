@@ -25,3 +25,26 @@
 	text-align: center;
 	margin: 30px;
 }
+
+.body-sub-menu {
+	display: flex;
+    padding: 10px;
+    border-bottom: 1px solid whitesmoke;
+}
+
+.body-sub-menu button, .body-sub-menu a {
+	border: 1px solid lightgrey;
+    font-size: 1em;
+    color: black;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.body-sub-menu button:hover, .body-sub-menu a:hover {
+	color: lightgrey;
+}
+
+.body-sub-menu button:disabled, .body-sub-menu a:disabled {
+	color: lightgrey;
+}

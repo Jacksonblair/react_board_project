@@ -33,16 +33,28 @@
 
 .container-header .menu .navigate {
 	position: relative;	
+	display: none;
+}
+
+.container-header .menu .navigate.show {
+	display: block;
 }
 
 .container-header .menu .profile {
+
+}
+
+.container-header .menu .login {
+}
+
+.container-header .menu .register, .container-header .menu .logout {
 	margin-left: auto;
 }
 
 .container-header .menu .menu {
 	position: relative;
 	padding: 10px;
-	display: flex;
+	display: none;
 	justify-content: space-around;
 	align-items: center;
     flex-direction: column;
@@ -149,10 +161,24 @@
 	.container-header .menu .menu {
 		min-width: 40px;
 		padding: 5px;
+		display: flex;
+		margin-left: auto;
+	}
+
+	.container-header .menu .menu.has-user {
+		margin-left: 0;
 	}
 
 	.container-header .menu .menu .bar {
 		height: 4px;
+	}
+
+	.container-header .menu .login, .container-header .menu .register, .container-header .menu .logout {
+		display: none;
+	}
+
+	.container-header .menu .profile {
+		margin-left: auto;
 	}
 
 }

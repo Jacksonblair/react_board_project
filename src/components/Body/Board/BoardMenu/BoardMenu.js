@@ -6,17 +6,8 @@ import {
 } from "react-router-dom";
 
 const BoardMenu = props => {
-
-	console.log(props)
-
 	return (
-		<div className="container-board-menu"> 
-			<div className="name">
-				{props.currentBoard.name}
-			</div>
-			<div className="description">
-				{props.currentBoard.description}
-			</div>
+		<div className="container-board-menu">
 			<div className="menu">
 				<button 
 				onClick={props.clickedCalendarViewer}
@@ -31,11 +22,30 @@ const BoardMenu = props => {
 					<i className="fas fa-list"></i>
 				</button>
 				<div className="wrapper">
-					<input className="search"/>
+					<input className="search" placeholder="Search..." onChange={() => props.updateSearchTerm(event.target.value)}/>
 				</div>
-				<Link to={`/board/${props.match.params.boardid}/edit`} className="edit">
-					<i className="fas fa-cog"></i> 
+				{ props.clickedUpdateDateRangeType ? 
+					<React.Fragment>
+					<button className="date" onClick={() => props.clickedUpdateDateRangeType(1)}>
+						After: { props.dateRangeStart ? props.dateRangeStart.toLocaleDateString("EN-au") : '~' }
+					</button>
+					<button className="date" onClick={() => props.clickedUpdateDateRangeType(2)}>
+						Before: { props.dateRangeEnd ? props.dateRangeEnd.toLocaleDateString("EN-au") : '~' }
+					</button>
+					<button className="date" onClick={props.clickedClearDateRange}>
+						Clear
+					</button>
+					</React.Fragment>
+				: null }
+				<Link to={`/board/${props.match.params.boardid}/edit`} replace className="edit">
+					<i className="fas fa-edit"></i>
 				</Link>
+			</div>
+			<div className="name">
+				{props.currentBoard.name}
+			</div>
+			<div className="description">
+				{props.currentBoard.description}
 			</div>
 		</div>
 	)

@@ -99,26 +99,23 @@ const BoardCalendarViewer = props => {
 				/* If not in possible days for this month */
 				if (i == 0 && j < firstDay) {
 					dayElements.push( 
-						<div className="day" key={`day${i}${j}`}>
-							{-1}	
-						</div>
+						<div className="no-day" key={`_day${i}${j}`}/>
 					)			
 				/* If not in possible days for this month */
 				} else if (day > daysInMonth(props.calendar.month, props.calendar.year)) {
 					if (j < 7) {
 						dayElements.push( 
-							<div className="day" key={`day${i}${j}`}>
-								{-1}	
-							</div>
+							<div className="no-day" key={`day__${i}${j}`}/>
 						)
 					} else {
 						break
 					}
 				} else {
+					let whyCantIPassThisByValue = day
 					dayElements.push( 
-						<div className="day" key={`day${i}${j}`}>
+						<button onClick={() => props.clickedDay(whyCantIPassThisByValue)} className="day" key={`day${i}${j}`}>
 							{day}
-						</div>
+						</button>
 					)
 					day++
 				}
@@ -235,7 +232,7 @@ const BoardCalendarViewer = props => {
 			updateCalendarUnit={props.updateCalendarUnit}
 			calendarUnitEnum={calendarUnitEnum}
 			calendar={props.calendar}/>
-			<div> {props.calendar.year} {props.calendar.month} {props.calendar.day} </div>
+			<div className="header">  {_months[props.calendar.month].toUpperCase()} {props.calendar.year} </div>
 			<AnimatePresence exitBeforeEnter>
 				{content}
 			</AnimatePresence>

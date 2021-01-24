@@ -12,24 +12,21 @@ axios.defaults.withCredentials = true
 
 let updateUserDetailsFromCookie = () => {
 	// Update the store with whatever is stored in the cookies 'user' field
-	console.log(document.cookie)
+	// console.log(document.cookie)
 
 	if (document.cookie.includes("user")) {
 		try {
 			let userDetails = document.cookie.split("=")[1]
 			if (userDetails) { 
 				userDetails = JSON.parse(userDetails)
-			}
-
-			// If user is not authed, remove any locally stored boards
-			if (!userDetails.user_id) {
+				store.dispatch({ type: "USER_DETAILS_UPDATE", payload: { userDetails: userDetails }})
+			} else {
+				store.dispatch({ type: "USER_DETAILS_UPDATE", payload: { userDetails: {} }})
 				store.dispatch({ type: "BOARDS_UPDATE", payload: { boards: [] }})
 			}
-
-			store.dispatch({ type: "USER_DETAILS_UPDATE", payload: { userDetails: userDetails }})
 		} catch(err) {
 			console.log(err)
-			store.dispatch({ type: "USER_DETAILS_UPDATE", payload: { userDetails: { user: null } }})
+			store.dispatch({ type: "USER_DETAILS_UPDATE", payload: { userDetails: {} }})
 		}
 	}
 }

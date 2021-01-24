@@ -21,6 +21,10 @@ a {
 	font-family: inherit;
 }
 
+a i {
+	line-height: inherit !important;
+}
+
 a:hover {
 
 }
@@ -91,6 +95,7 @@ button:focus {
 	font-family: inherit;
 	flex: 1;
 	font-size: 1.2em;
+	white-space: nowrap;
 }
 
 .board-form input, .board-form textarea {
@@ -98,7 +103,7 @@ button:focus {
 	margin: 10px 50px;
 	border: 1px solid lightgrey;
 	border-radius: 5px;
-	color: grey;
+	color: black;
 }
 
 .board-form textarea {
@@ -106,19 +111,54 @@ button:focus {
 	resize: vertical;
 }
 
-.board-form button {
+.board-form button, .board-form a {
 	padding: 5px 10px;
-	margin: 20px 20px;
+	margin: 10px;
 	border: 1px solid lightgrey;
 	border-radius: 5px;
 	width: auto;
 	flex: 0;
 	flex-basis: 150px;
+	background: whitesmoke;
+	font-size: 1.2em;
+	color: black;
+	flex-basis: auto;
 }
 
-.board-form button:hover {
+.board-form button:hover, .board-form a:hover {
 	color: grey;
 }
+
+.board-form .toggle {
+
+}
+
+.board-form .toggle button {
+    font-size: 1.2em;
+    padding: 5px 10px;
+    margin: 10px;
+    color: grey;
+    font-weight: bold;
+    opacity: 0.8;
+}
+
+.board-form .toggle button.on {
+	color: black;
+	border: 1px solid black;
+	font-weight: bold;
+}
+
+.board-form .toggle button.private{
+	color: #f33030;
+}
+
+.board-form a.delete {
+	color: #f33030;
+    border: 1px solid #f33030;
+    background: #ffeef1;
+    margin-top: 100px;
+}
+
 
 .board-form .form-error {
 	font-size: 1.2em;
@@ -201,5 +241,5 @@ button:focus {
 /* Style for framer motion wrappers */
 .motion-div {
 	flex: 1;
-	height: 100%;
+	display: flex;
 }

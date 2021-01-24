@@ -1,17 +1,32 @@
 .container-home-board {
 	border: 1px solid lightgrey;
-    margin: 5px;
+    margin: 10px;
     display: flex;
     flex-direction: column;
     background: none;
-    align-items: flex-start;
+    border-radius: 5px;
+    color: black;
 }
 
 .container-home-board .name {
 	font-size: 1.5em;
-	margin: 10px 5px 0px 10px;
+    margin: 0px 10px;
 }
 
 .container-home-board .description {
 	margin: 0px 10px 5px 10px;
+    text-align: center;
 }
+
+.container-home-board .visibility {
+    text-align: right;
+    font-weight: bold;
+    margin: 5px 10px 0px 10px;
+    font-size: 0.9em;
+    color: #e96565;
+}
+
+.container-home-board .visibility.public {
+    color: #5b87e9;
+}
+

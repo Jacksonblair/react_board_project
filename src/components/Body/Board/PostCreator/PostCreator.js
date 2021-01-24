@@ -10,7 +10,7 @@ const PostCreator = props => {
 
 	return (
 		<div className="container-board-creator"> 
-			<div className="board-form">
+			<form className="board-form">
 				<FormWrapper
 				clearErrors={props.clearErrors}
 				serverError={props.serverError}
@@ -23,6 +23,9 @@ const PostCreator = props => {
 						Creating New Post
 					</div>
 					<div className="row">
+						<button onClick={props.clickedUpdateDateRangeType}> Date: {props.postTargetDate.toLocaleDateString("EN-au")} </button>
+					</div>					
+					<div className="row">
 						<input 
 						placeholder="A post title..."
 						onChange={() => setPostTitle(event.target.value)}/>
@@ -33,11 +36,10 @@ const PostCreator = props => {
 						onChange={() => setPostContent(event.target.value)}/>
 					</div>
 					<div className="row">
-						<button onClick={() => props.clickedSubmit(postTitle, postContent)}> Submit </button>
+						<button type="submit" onClick={() => props.clickedSubmit(event, postTitle, postContent)}> Submit </button>
 					</div>
-
 				</FormWrapper>
-			</div>
+			</form>
 		</div>
 	)
 

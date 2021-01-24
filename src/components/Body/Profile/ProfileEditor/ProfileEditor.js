@@ -5,14 +5,6 @@ import FormWrapper from '../../Util/FormWrapper/FormWrapper.js'
 
 const ProfileEditor = props => {
 
-	console.log(props)
-
-	/*
-		When this component loads, we need do a check if the id of profile we're viewing
-		.. is the same as the id of the user
-		Otherwise display an error message
-	*/
-
 	return (
 		<div className="container-profile-editor">
 			<div className="profile-form">

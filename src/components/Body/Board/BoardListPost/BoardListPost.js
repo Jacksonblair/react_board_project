@@ -32,7 +32,7 @@ const BoardListPost = props => {
 						Author:&nbsp;<div className="name">Jimmy Neutron</div>
 					</div>
 					<div className="created">
-						Created:&nbsp;<div className="date"> 00/00/0000 </div>
+						Created:&nbsp;<div className="date"> {props.post.created_date} </div>
 					</div>
 				</div>
 			</div>

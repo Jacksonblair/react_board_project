@@ -10,7 +10,6 @@ import {
 	Route,
 	Redirect
 } from "react-router-dom";
-
 import ResourceWrapper from '../../components/Body/Util/ResourceWrapper/ResourceWrapper.js'
 
 import HomeBoard from '../../components/Body/Home/HomeBoard/HomeBoard.js'
@@ -41,37 +40,29 @@ class Home extends Component {
 			.. from the server, and show it here.
 		*/
 
-		// TODO: Enable this later
-/*		if (this.props.userDetails.id) {
-			this.getHome(() => {
-				this.setState({
-					finishedLoading: true
-				})
-			})
-		} else {
-			this.props.history.push('/landing')
-		}*/
-
-		this.setState({
-			finishedLoading: true
-		})
-
+		this.getHome()
 	}
 
 	componentDidUpdate = (prevProps) => {
 
 	}
 
-	getHome = (callback) => {
+	getHome = () => {
 		axios.get("/home")
 		.then((res) => {
-			// TODO: Put home data in store
-			callback ? callback() : null
+
+			console.log(res.data)
+
+			/* Add boards received from server to store */
+			// TODO: Get activity from server and push to store
+			this.props.updateBoards(res.data)
+			this.setState({
+				finishedLoading: true
+			})
 		})
 		.catch((err) => {
-			// TODO: fix later
 			this.setState({
-				readError: "Cannot view this post"
+				readError: "Something has gone wrong! :( Try again later."
 			})
 		})
 	}
@@ -84,27 +75,55 @@ class Home extends Component {
 		})
 	}
 
-	clickedSubmitNewBoard = (name, description) => {
-		console.log(name, description)
-	}
+	clickedSubmitNewBoard = (name, description, isPublic) => {
+		this.setState({
+			processing: true
+		})
+		axios.post('/board/new', {
+			name, description, public: isPublic
+		})
+		.then((res) => {
+			this.setState({
+				processing: false,
+				finishedLoading: false
+			})
+			this.props.history.push('/')
+		})
+		.catch((err) => {	
+			console.log(err)
+		})
 
+	}
 
 	render() {
 
-		let boards = this.props.boards.map((board, i) => {
+ 		let boards = this.props.boards.map((board, i) => {
 			return (
 				<HomeBoard board={board} key={`HomeBoard${i}`}/>
 			)
 		})
+
+		let boardButton = boards.length ? 
+		(
+			<Link to="/home/new" className='new'>
+				Add New Board&nbsp;<i className="fas fa-plus-circle"></i>
+			</Link>
+		) : (
+			<Link to="/home/new" className='new first'>
+				Create your first board!&nbsp;<i className="fas fa-plus-circle"></i>
+			</Link>
+		)
 
 		return (
 			<div className="container-home">
 				<ResourceWrapper
 				readError={this.state.readError}
 				finishedLoading={this.state.finishedLoading}>
-
 					<Switch>
 						<Route exact path="/home/new">
+							<div className="body-sub-menu">
+								<button onClick={this.props.history.goBack}> Back </button>
+							</div>
 							<BoardCreator
 							clearErrors={this.clearCreatorErrors}
 							clickedSubmit={this.clickedSubmitNewBoard}
@@ -113,21 +132,21 @@ class Home extends Component {
 							processing={this.state.processing}/>
 						</Route>
 						<Route exact path="/home">
-							<div className="boards">
-								<Link to="/home/new" className="new">
-									Add new Board
-								</Link>
-								{boards}
+							<div className="home">
+								<div className="boards">
+									<div className="header"> Your Boards </div>
+									{boards}
+									{boardButton}
+								</div>
+								<div className="activity">
+									<HomeActivity/>
+								</div>	
 							</div>
-							<div className="activity">
-								<HomeActivity/>
-							</div>	
 						</Route>
 						<Route>
 							<Redirect to="/home"/>
 						</Route>
 					</Switch>
-
 				</ResourceWrapper>
 			</div>
 		)
@@ -136,6 +155,7 @@ class Home extends Component {
 
 const mapStateToProps = (state) => {
 	return {
+		pageVariants: state.pageVariants,
 		userDetails: state.userDetails,
 		boards: state.boards
 	}
@@ -143,7 +163,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-
+		updateBoards: (boards) => {
+			dispatch({ type: actionTypes.BOARDS_UPDATE, payload: { boards: boards } })
+		}, 
 	}
 }
 

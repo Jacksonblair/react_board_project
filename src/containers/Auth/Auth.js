@@ -27,8 +27,9 @@ class Auth extends Component {
 		processing: false
 	}
 
-	formErrors = {
-		invalidEmail: "Email is not valid"
+	authErrors = {
+		invalidEmail: "Email is not valid",
+		passwordMatch: "Passwords do not match"
 	}
 
 	componentDidMount = () => {
@@ -76,20 +77,29 @@ class Auth extends Component {
 		this.setState({
 			processing: true
 		})
-		this.resetErrors()
+		this.clearErrors()
 
 		if (this.emailIsValid(this.state.loginEmail)) {
-			// TODO: Login to server
-			console.log("EMAIL VALID")
-
-			setTimeout(() => {
+			axios.post("/login", {
+				email: this.state.loginEmail,
+				password: this.state.loginPassword
+			})
+			.then((res) => {
 				this.setState({
 					processing: false
 				})
-			}, 2000)
+				this.props.history.push("/home")
+			})
+			.catch((err) => {
+				this.setState({
+					processing: false,
+					formError: err.response ? err.response.data : "Error"
+				})
+			})
 		} else {
 			this.setState({
-				formError: this.formErrors.invalidEmail
+				processing: false,
+				formError: "Email is not valid"
 			})
 		}
 	} 
@@ -98,13 +108,39 @@ class Auth extends Component {
 		this.setState({
 			processing: true
 		})
-		this.resetErrors()
-		setTimeout(() => {
+		this.clearErrors()
+
+
+		if (this.emailIsValid(this.state.registerEmail)) {
+			if (this.state.registerPassword == this.state.registerConfirmPassword) {
+				axios.post("/register", {
+					email: this.state.registerEmail,
+					password: this.state.registerPassword
+				})
+				.then((res) => {
+					this.setState({
+						processing: false,
+						formSuccess: true
+					})
+				})
+				.catch((err) => {
+					this.setState({
+						processing: false,
+						formError: err.response ? err.response.data : "Error"
+					})
+				})
+			} else {
+				this.setState({
+					processing: false,
+					formError: "Passwords do not match"
+				})
+			}
+		} else {
 			this.setState({
 				processing: false,
-				formSuccess: "Registered successfully"
+				formError: "Email is not valid"
 			})
-		}, 1000)
+		}
 	}
 
 	emailIsValid = (email) => {
@@ -112,7 +148,7 @@ class Auth extends Component {
 	    return re.test(String(email).toLowerCase());
 	}
 
-	resetErrors = () => {
+	clearErrors = () => {
 		this.setState({
 			formError: "",
 			serverError: ""
@@ -122,9 +158,13 @@ class Auth extends Component {
 	render() {
 		return (
 			<div className="container-auth">
+				<div className="body-sub-menu">
+					<button onClick={this.props.history.goBack}> Back </button>
+				</div>
 				<Switch>
 					<Route exact path="/auth/login">
 						<Login
+						clearErrors={this.clearErrors}
 						processing={this.state.processing}
 						clickedSubmit={this.clickedSubmitLoginHandler}
 						updateEmail={this.updateLoginEmailHandler}
@@ -134,6 +174,7 @@ class Auth extends Component {
 					</Route>
 					<Route path="/auth/register">
 						<Register		
+						clearErrors={this.clearErrors}
 						processing={this.state.processing}
 						clickedSubmit={this.clickedSubmitRegisterHandler}
 						updateEmail={this.updateRegisterEmailHandler}

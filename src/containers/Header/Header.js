@@ -70,6 +70,18 @@ class Header extends Component {
 		console.log("Clicked option")
 	}
 
+	clickedLogout = (e) => {
+		console.log("CLICKED LOGOUT")
+
+		axios.post('/logout')
+		.then((res) => {
+			this.props.history.push('/xxxx')
+		})
+		.catch((err) => {
+			this.props.history.push('/xxxx')
+		})
+	}
+
 	render() {
 
 		let options = this.props.boards.map((board, i) => {
@@ -78,7 +90,7 @@ class Header extends Component {
 					{board.name}
 				</Link>
 			)
-		})
+		}) 
 
 		return (
 			<div className="container-header">
@@ -89,22 +101,42 @@ class Header extends Component {
 					<Link className="home" to="/home">
 						<i className="fas fa-home"></i>
 					</Link>
-					<button className="navigate" onClick={this.clickedNavigationOptions} onBlur={this.blurredNavigationOptions}>
-						<div className="location"> #Navigate </div>
-						<div className={`options ${this.state.showNavigationOptions ? "show" : null}`}>
-							{options}
-						</div>
-					</button>
-					<Link to={`/profile/${this.props.userDetails.id}`} className="profile">
-						<i className="fas fa-user"></i>
-					</Link>
-					<button className="menu" onClick={this.clickedMenuOptions} onBlur={this.blurredMenuOptions}>
+					{ this.props.userDetails.user_id ? 
+						<React.Fragment>
+						<button className={`navigate ${this.props.boards.length ? "show" : null }`} onClick={this.clickedNavigationOptions} onBlur={this.blurredNavigationOptions}>
+							<div className="location"> Go to... </div>
+							<div className={`options ${this.state.showNavigationOptions ? "show" : null}`}>
+								{options}
+							</div>
+						</button>
+
+						<button onClick={this.clickedLogout} className="logout"> Log Out </button>
+						<Link to={`/profile/${this.props.userDetails.user_id}`} className="profile">
+							<i className="fas fa-user"></i>
+						</Link>
+						</React.Fragment>
+						: <React.Fragment>
+						<Link to='/auth/register' className="register">
+							Register
+						</Link>
+						<Link to='/auth/login' className="login">
+							Log In
+						</Link>
+						</React.Fragment>
+
+					}
+					<button className={`menu ${this.props.userDetails.user_id ? "has-user" : null}`} onClick={this.clickedMenuOptions} onBlur={this.blurredMenuOptions}>
 						<div className="bar"/>
 						<div className="bar"/>
 						<div className="bar"/>
 						<div className={`options ${this.state.showMenuOptions ? "show" : null}`}>
-							<Link to="/auth/login" className={`option ${this.props.location.pathname.includes('/login') ? "disabled" : null}`}> Log in</Link>
-							<Link to="/auth/register" className={`option ${this.props.location.pathname.includes('/register') ? "disabled" : null}`}> Register </Link>
+							{ this.props.userDetails.user_id ? 
+								<div onClick={this.clickedLogout} className="option"> Log Out </div>
+								: <React.Fragment>
+									<Link to="/auth/login" className={`option ${this.props.location.pathname.includes('/login') ? "disabled" : null}`}> Log in</Link>
+									<Link to="/auth/register" className={`option ${this.props.location.pathname.includes('/register') ? "disabled" : null}`}> Register </Link>
+								</React.Fragment>
+							}
 						</div>
 					</button>
 				</div>

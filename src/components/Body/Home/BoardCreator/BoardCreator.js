@@ -7,10 +7,11 @@ const BoardCreator = props => {
 
 	let [ boardName, setBoardName ] = useState("")
 	let [ boardDescription, setBoardDescription ] = useState("")
+	let [ boardPublic, setBoardPublic ] = useState(true)
 
 	return (
 		<div className="container-board-creator"> 
-			<div className="board-form">
+			<form className="board-form">
 				<FormWrapper
 				clearErrors={props.clearErrors}
 				serverError={props.serverError}
@@ -23,6 +24,12 @@ const BoardCreator = props => {
 						Creating New Board
 					</div>
 					<div className="row">
+						<div className="toggle">
+							<button onClick={() => setBoardPublic(true)} className={`${boardPublic ? "on" : null}`}> Public <i className="fas fa-eye"></i> </button> 
+							<button onClick={() => setBoardPublic(false)} className={`private ${boardPublic ? null : "on"}`}> Private <i className="fas fa-eye-slash"></i></button>
+						</div>
+					</div>
+					<div className="row">
 						<input 
 						placeholder="A board name..."
 						onChange={() => setBoardName(event.target.value)}/>
@@ -33,11 +40,11 @@ const BoardCreator = props => {
 						onChange={() => setBoardDescription(event.target.value)}/>
 					</div>
 					<div className="row">
-						<button onClick={() => props.clickedSubmit(boardName, boardDescription)}> Submit </button>
+						<button type="submit" onClick={() => props.clickedSubmit(boardName, boardDescription, boardPublic)}> Submit </button>
 					</div>
 
 				</FormWrapper>
-			</div>
+			</form>
 		</div>
 	)
 
