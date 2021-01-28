@@ -13,6 +13,7 @@
   "browserslist": "> 0.25%, not dead",
   "dependencies": {
     "axios": "^0.21.1",
+    "express": "^4.17.1",
     "framer-motion": "^2.9.5",
     "fuzzy-search": "^3.2.1",
     "postcss-loader": "^4.1.0",
