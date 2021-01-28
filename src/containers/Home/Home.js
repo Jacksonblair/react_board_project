@@ -1,4 +1,4 @@
-import React, { Component } from 'React'
+import React, { Component } from 'react'
 import * as actionTypes from '../../store/actions.js'
 import { connect } from 'react-redux'
 import axios from 'axios'
@@ -51,10 +51,7 @@ class Home extends Component {
 		axios.get("/home")
 		.then((res) => {
 
-			console.log(res.data)
-
 			/* Add boards received from server to store */
-			// TODO: Get activity from server and push to store
 			this.props.updateBoards(res.data)
 			this.setState({
 				finishedLoading: true
@@ -68,7 +65,6 @@ class Home extends Component {
 	}
 
 	clearCreatorErrors = () => {
-		console.log("Clearing creator errors")
 		this.setState({
 			formError: "",
 			serverError: ""
@@ -138,9 +134,6 @@ class Home extends Component {
 									{boards}
 									{boardButton}
 								</div>
-								<div className="activity">
-									<HomeActivity/>
-								</div>	
 							</div>
 						</Route>
 						<Route>

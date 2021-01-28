@@ -75,3 +75,37 @@
 .auth-form .loading-message {
 	text-align: center;
 }
+
+
+@media screen and (max-width: 450px) {
+
+	.auth-form {
+		border-radius: 0px;
+		border-left: 0px;
+		border-right: 0px;
+		min-height: 100px;
+	}
+
+	.auth-form .header {
+	    margin: 5px;
+	    margin-top: 20px;
+	    font-size: 1.2em;
+	}
+
+	.auth-form button, .auth-form textarea, .auth-form input {
+	    font-size: 1em;
+	    margin: 5px 10px;
+	    padding: 5px 10px;
+	}
+
+	.auth-form button {
+	    margin: 10px;
+	    flex-basis: auto;
+	    margin-bottom: 20px;
+	}
+
+	.auth-form .form-error, .auth-form .form-success, .auth-form .server-error {
+	    font-size: 1em;
+	}
+
+}

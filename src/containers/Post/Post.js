@@ -1,4 +1,4 @@
-import React, { Component } from 'React'
+import React, { Component } from 'react'
 import * as actionTypes from '../../store/actions.js'
 import { connect } from 'react-redux'
 import axios from 'axios'
@@ -52,6 +52,7 @@ class Post extends Component {
 		}
 	}
 
+
 	getPost = (callback) => {
 		this.setState({
 			finishedLoading: false
@@ -60,6 +61,8 @@ class Post extends Component {
 		axios.get(`/board/${this.props.match.params.boardid}/post/${this.props.match.params.postid}`)
 		.then((res) => {
 			this.props.updateCurrentPost(res.data.post)
+
+
 			this.setState({
 				finishedLoading: true
 			})
@@ -72,7 +75,7 @@ class Post extends Component {
 	}
 
 
-	clickedSubmitEditedPostHandler = (event, title, content) => {
+	clickedSubmitEditedPostHandler = (event) => {
 		event.preventDefault()
 		this.setState({
 			processing: true
@@ -81,7 +84,9 @@ class Post extends Component {
 		// TODO: Pass post through client side validation
 
 		axios.put(`/board/${this.props.match.params.boardid}/post/${this.props.match.params.postid}/`, {
-			title, content, target_date: this.props.postTargetDate
+			title: this.props.editedPostTitle, 
+			content: this.props.editedPostContent, 
+			target_date: this.props.postTargetDate
 		})
 		.then((res) => {
 			this.props.history.push(`/board/${this.props.match.params.boardid}`)
@@ -101,7 +106,6 @@ class Post extends Component {
 	}
 
 	clearFormErrors = () => {
-		console.log("Clearing form errors")
 		this.setState({
 			formError: "",
 			serverError: ""
@@ -125,6 +129,10 @@ class Post extends Component {
 		})
 	}
 
+	clickedCancelPostEdit = () => {
+		this.props.updateEditedPostId(null)
+	}
+
 	render() {
 
 		let mm, dd, yyyy
@@ -143,6 +151,13 @@ class Post extends Component {
 								<button onClick={() => this.props.history.push(`/board/${this.props.match.params.boardid}/post/${this.props.match.params.postid}`)}> Back </button>
 							</div>
 							<PostEditor
+							cancelPostEdit={this.clickedCancelPostEdit}
+							editedPostTitle={this.props.editedPostTitle}
+							editedPostContent={this.props.editedPostContent}
+							editedPostId={this.props.editedPostId}
+							updateEditedPostTitle={this.props.updateEditedPostTitle}
+							updateEditedPostContent={this.props.updateEditedPostContent}
+							updateEditedPostId={this.props.updateEditedPostId}
 							clickedPostDate={this.clickedPostDateHandler}
 							clickedSubmit={this.clickedSubmitEditedPostHandler}
 							clearErrors={this.clearFormErrors}
@@ -169,7 +184,10 @@ class Post extends Component {
 								<button onClick={() => this.props.history.push(`/board/${this.props.match.params.boardid}/`)}> Back </button>
 							</div>
 							<div className="board-sub-menu">
-								<Link className="edit" to={`/board/${this.props.match.params.boardid}/post/${this.props.match.params.postid}/edit`}> <i className="fas fa-edit"></i> </Link>
+								{ this.props.userDetails.user_id == this.props.currentPost.created_by_user_id ?
+									<Link className="edit" to={`/board/${this.props.match.params.boardid}/post/${this.props.match.params.postid}/edit`}> <i className="fas fa-edit"></i> </Link>
+									: null
+								}
 							</div>
 							<div className="header">
 								<div className="date-column"> 
@@ -188,9 +206,6 @@ class Post extends Component {
 								<div className="title-column"> 
 									<div className="title"> {this.props.currentPost.title} </div>
 									<div className="metadata"> 
-										<div className="author">
-											Author:&nbsp;<div className="name">Jimmy Neutron</div>
-										</div>
 										<div className="created">
 											Created:&nbsp;<div className="date"> {this.props.currentPost.created_date} </div>
 										</div>
@@ -214,7 +229,10 @@ const mapStateToProps = (state) => {
 	return {
 		currentPost: state.currentPost,
 		userDetails: state.userDetails,
-		postTargetDate: state.postTargetDate
+		postTargetDate: state.postTargetDate,
+		editedPostTitle: state.editedPostTitle,
+		editedPostContent: state.editedPostContent,
+		editedPostId: state.editedPostId
 	}
 }
 
@@ -222,6 +240,9 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		updateCurrentPost: (post) => dispatch({ type: actionTypes.CURRENT_POST_UPDATE, payload: { post }}),
 		updateDateRangeType: (type) => dispatch({ type: actionTypes.DATE_RANGE_TYPE_UPDATE, payload: { type } }), 
+		updateEditedPostTitle: (title) => dispatch({ type: actionTypes.EDITED_POST_TITLE_UPDATE, payload: { title }}),
+		updateEditedPostContent: (content) => dispatch({ type: actionTypes.EDITED_POST_CONTENT_UPDATE, payload: { content }}),
+		updateEditedPostId: (id) => dispatch({ type: actionTypes.EDITED_POST_ID_UPDATE, payload: { id }}),
 	}
 }
 

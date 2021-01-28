@@ -6,10 +6,8 @@
 }
 
 .board-sub-menu {
-    height: 40px;
     display: flex;
     justify-content: space-between;
-    padding: 5px 10px;
 }
 
 .board-sub-menu .group {
@@ -24,6 +22,7 @@
     cursor: pointer;
     background: none;
     font-size: 1em;
+    min-width: 40px;
 }
 
 .board-sub-menu button:hover, .board-sub-menu a:hover {
@@ -35,9 +34,13 @@
 }
 
 .board-sub-menu .edit {
-	margin-left: auto;
+    margin: 0;
+    margin-left: auto;
+    font-size: 1.2em;
+    border: none;
+    color: black;
+    padding: 5px 0px;
 }
-
 
 
 @media screen and (max-width: 450px) {
@@ -45,6 +48,7 @@
 		flex-direction: column;
 		height: auto;
 		align-items: center;
+	    padding: 0px;
 	}
 
 	.board-sub-menu .group {
@@ -53,5 +57,9 @@
 
 	.board-sub-menu button, .board-sub-menu a {
 		flex-grow: 1;
+	    font-size: 1em;
+   		margin: 0px;
+   		border-radius: 0px;
 	}
+
 }

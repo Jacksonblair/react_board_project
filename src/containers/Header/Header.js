@@ -1,4 +1,4 @@
-import React, { Component } from 'React'
+import React, { Component } from 'react'
 import * as actionTypes from '../../store/actions.js'
 import { connect } from 'react-redux'
 import axios from 'axios'
@@ -131,7 +131,7 @@ class Header extends Component {
 						<div className="bar"/>
 						<div className={`options ${this.state.showMenuOptions ? "show" : null}`}>
 							{ this.props.userDetails.user_id ? 
-								<div onClick={this.clickedLogout} className="option"> Log Out </div>
+								<div onClick={this.clickedLogout} className="option" tabIndex={0}> Log Out </div>
 								: <React.Fragment>
 									<Link to="/auth/login" className={`option ${this.props.location.pathname.includes('/login') ? "disabled" : null}`}> Log in</Link>
 									<Link to="/auth/register" className={`option ${this.props.location.pathname.includes('/register') ? "disabled" : null}`}> Register </Link>

@@ -1,4 +1,4 @@
-import React, { Component } from 'React'
+import React, { Component } from 'react'
 import * as actionTypes from '../../store/actions.js'
 import { connect } from 'react-redux'
 import axios from 'axios'
@@ -11,10 +11,13 @@ import {
 	Link
 } from "react-router-dom";
 
+// Assuming logo.png is in the same folder as JS file
 import ResourceWrapper from '../../components/Body/Util/ResourceWrapper/ResourceWrapper.js'
 import ProfileEditor from '../../components/Body/Profile/ProfileEditor/ProfileEditor.js'
 import EmailEditor from '../../components/Body/Profile/EmailEditor/EmailEditor.js'
 import PasswordEditor from '../../components/Body/Profile/PasswordEditor/PasswordEditor.js'
+
+import profileImage from '../../assets/images/profile_picture.png'
 
 class Profile extends Component {
 
@@ -22,6 +25,7 @@ class Profile extends Component {
 		profile: {
 			id: null,
 			email: null,
+			username: null,
 			profile_image_url: null,			
 		},
 		finishedLoading: false,
@@ -53,6 +57,7 @@ class Profile extends Component {
 			this.setState({
 				profile: {
 					id: res.data.id,
+					username: res.data.username,
 					email: res.data.email,
 					profile_image_url: res.data.profile_image_url				
 				},
@@ -68,15 +73,10 @@ class Profile extends Component {
 	}
 
 	clearErrors = () => {
-		console.log("Clearing errors")
 		this.setState({
 			formError: "",
 			serverError: ""
 		})
-	}
-
-	clickedSubmitEditedProfileHandler = (name) => {
-
 	}
 
 	clickedSubmitEditedEmailHandler = (email, confirmEmail) => {
@@ -194,12 +194,15 @@ class Profile extends Component {
 						<Route path={`/profile/:userid/`}>
 							<div className="profile">
 								<div className="profile-image">
-									<img href=""/>
+									<img src={profileImage}/>
 								</div>
 								<div className="details">
 									<div className="email">
-										Email: {this.state.profile.email}
+										Email:&nbsp;<div>{this.state.profile.email}</div>
 									</div>
+									<div className="username">
+										Username:&nbsp;<div>{this.state.profile.username}</div>
+									</div>									
 									<div className="menu">
 {/*										<Link to={`/profile/${this.props.match.params.userid}/edit/profile`} className="edit">
 											Edit Profile

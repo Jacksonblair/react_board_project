@@ -13,7 +13,7 @@ const EmailEditor = props => {
 
 	return (
 		<div className="container-email-editor">
-			<div className="profile-form">
+			<div className="board-form">
 			<FormWrapper
 			clearErrors={props.clearErrors}
 			serverError={props.serverError}

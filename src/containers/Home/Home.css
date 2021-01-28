@@ -14,6 +14,7 @@
 	flex: 1;
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 }
 
 .container-home .boards .header {
@@ -21,10 +22,6 @@
 	margin-bottom: 10px;
     text-align: center;
     font-size: 1.5em;
-}
-
-.container-home .activity {
-	flex: 1;
 }
 
 .container-home .boards a.new {
@@ -43,6 +40,35 @@
 
 .container-home .boards a.new:hover {
 	color: grey;
+}
+ 
+
+@media screen and (max-width: 450px) {
+
+	.container-home {
+		justify-content: unset;
+	}
+
+	.container-home .home {
+		flex-direction: column;
+		flex: 0;
+	}
+
+	.container-home .boards .header {
+		font-size: 1.2em;
+		margin: 10px;
+	}
+
+	.container-home .boards a.new {
+	    border: 1px solid lightgrey;
+	    font-size: 1em;
+	    color: black;
+	    padding: 5px;
+	    margin: 5px 10px;
+	    border-radius: 5px;
+	    background: whitesmoke;
+	}
+	
 }
 
 @keyframes firstBoardIndicator {

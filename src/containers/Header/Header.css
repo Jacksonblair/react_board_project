@@ -136,6 +136,11 @@
 	font-size: 1em;
 }
 
+.container-header .menu .menu .options .option:focus {
+	outline: none;
+	box-shadow: 0px 0px 0px 2px blue inset;
+}
+
 .container-header .menu .menu .options .option:hover {
 	color: lightgrey;
 }

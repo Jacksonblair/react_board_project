@@ -13,6 +13,18 @@
     color: grey;
 }
 
+.container-board-calendar-viewer button.range-type {
+    width: fit-content;
+    font-size: 1em;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #bb506d;
+    align-self: center;
+    margin: 15px;
+    color: #bb3333;
+    background: #fff7f9;
+}
+
 .container-board-calendar-viewer .motion-div {
 	display: flex;
 	flex: 1;
@@ -76,6 +88,11 @@
 	width: 20%;
     height: 85%;
     border: 1px solid lightgrey;
+    color: grey;
+    border-radius: 5px;
+    text-transform: uppercase;
+    display: flex;
+    font-size: 2vw;
 }
 
 .container-board-calendar-viewer .years {
@@ -99,6 +116,71 @@
 	width: 20%;
     height: 85%;
     border: 1px solid lightgrey;
+    font-size: 2vw;
+    display: flex;
+    color: grey;
+    border-radius: 5px;
 }
 
 
+
+
+@media screen and (max-width: 450px) {
+
+    .container-board-calendar-viewer .days {
+        padding: 0px;
+    }
+    
+    .container-board-calendar-viewer .days .row {
+        height: 30px;
+    }
+
+    .container-board-calendar-viewer .days .row .no-day {
+        width: 14.28%;
+        height: 100%;
+        border-radius: 0px;
+        color: grey;
+        display: flex;
+    }
+
+    .container-board-calendar-viewer .days .row .day {
+        width: 14.28%;
+        height: 100%;
+        border-radius: 0px;
+        font-size: 5vw;
+    }
+
+    .container-board-calendar-viewer .months {
+        padding: 0;
+    }
+
+    .container-board-calendar-viewer .months .row {
+        height: 50px;
+        min-height: 0px;
+    }
+
+    .container-board-calendar-viewer .months .row .month {
+        width: 25%;
+        height: 100%;
+        font-size: 5vw;
+        border-radius: 0px;
+    }
+
+    .container-board-calendar-viewer .years {
+        padding: 0px;
+    }
+
+    .container-board-calendar-viewer .years .row {
+        height: 50px;
+        min-height: 0px;
+    }
+
+    .container-board-calendar-viewer .years .row .year {
+        width: 33.33%;
+        height: 100%;
+        font-size: 5vw;
+        border-radius: 0px;
+    }
+
+
+}

@@ -28,6 +28,7 @@
 .container-post .header .date-column .box .day {
 	font-size: 1.8em;
     line-height: 1em;
+    font-weight: bold;
 }
 
 .container-post .header .date-column .box .month {
@@ -48,9 +49,8 @@
 
 .container-post .header .title-column .title {
 	font-size: 1.8em;
+    font-weight: bold;
 }
-
-
 
 .container-post .header .title-column .metadata {
 	display: flex;
@@ -80,4 +80,41 @@
 .container-post .content {
 	border-top: 1px solid whitesmoke;
 	padding: 20px;
+}
+
+@media screen and (max-width: 450px) {
+    .container-post .header .date-column {
+        width: 50px;
+        height: 65px;
+        padding: 5px;
+    }
+
+    .container-post .header .date-column .box .day {
+        font-size: 1.5em;
+    }
+
+    .container-post .header .date-column .box .month {
+        font-size: 0.9em;
+    }
+
+    .container-post .header .date-column .box .year {
+        font-size: 0.9em;
+    }
+
+    .container-post .header .title-column {
+        padding: 5px;
+    }
+
+    .container-post .header .title-column .title {
+        font-size: 1.2em;
+    }    
+
+    .container-post .header .title-column .metadata {
+        font-size: 0.9em;
+    }
+
+    .container-post .content {
+        padding: 10px;
+    }
+
 }

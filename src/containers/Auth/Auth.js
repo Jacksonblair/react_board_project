@@ -1,4 +1,4 @@
-import React, { Component } from 'React'
+import React, { Component } from 'react'
 import './Auth.css'
 import { connect } from 'react-redux'
 import axios from 'axios'
@@ -21,6 +21,7 @@ class Auth extends Component {
 		registerEmail: "",
 		registerPassword: "",
 		registerConfirmPassword: "",
+		registerUsername: "",
 		serverError: "",
 		formError: "",
 		formSuccess: "",
@@ -73,6 +74,12 @@ class Auth extends Component {
 		})
 	}
 
+	updateUsernameHandler = (username) => {
+		this.setState({
+			registerUsername: username
+		})
+	}
+
 	clickedSubmitLoginHandler = () => {
 		this.setState({
 			processing: true
@@ -110,42 +117,56 @@ class Auth extends Component {
 		})
 		this.clearErrors()
 
-
-		if (this.emailIsValid(this.state.registerEmail)) {
-			if (this.state.registerPassword == this.state.registerConfirmPassword) {
-				axios.post("/register", {
-					email: this.state.registerEmail,
-					password: this.state.registerPassword
-				})
-				.then((res) => {
-					this.setState({
-						processing: false,
-						formSuccess: true
-					})
-				})
-				.catch((err) => {
-					this.setState({
-						processing: false,
-						formError: err.response ? err.response.data : "Error"
-					})
-				})
-			} else {
-				this.setState({
-					processing: false,
-					formError: "Passwords do not match"
-				})
-			}
-		} else {
+		if (!this.emailIsValid(this.state.registerEmail)) {
 			this.setState({
 				processing: false,
-				formError: "Email is not valid"
+				formError: "Invalid email"
+			})
+		} else if (!this.usernameIsValid(this.state.registerUsername)) {
+			this.setState({
+				processing: false,
+				formError: "Invalid username"
+			})
+		} else if (this.state.registerPassword.length < 5) {
+			this.setState({
+				processing: false,
+				formError: "Password is too short"
+			})
+		} else if (this.state.registerPassword != this.state.registerConfirmPassword) {
+			this.setState({
+				processing: false,
+				formError: "Passwords do not match"
+			})
+		} else {
+			axios.post("/register", {
+				email: this.state.registerEmail,
+				password: this.state.registerPassword,
+				username: this.state.registerUsername
+			})
+			.then((res) => {
+				this.setState({
+					processing: false,
+					formSuccess: true
+				})
+			})
+			.catch((err) => {
+				this.setState({
+					processing: false,
+					formError: err.response ? err.response.data : "Error"
+				})
 			})
 		}
+
 	}
 
 	emailIsValid = (email) => {
-	    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-	    return re.test(String(email).toLowerCase());
+	    let regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	    return regex.test(String(email).toLowerCase());
+	}	
+
+	usernameIsValid = (username) => {
+		let regex = /^[a-zA-Z\-]+$/;
+	    return (regex.test(String(username)) && username.length <= 20);
 	}
 
 	clearErrors = () => {
@@ -174,6 +195,7 @@ class Auth extends Component {
 					</Route>
 					<Route path="/auth/register">
 						<Register		
+						updateUsername={this.updateUsernameHandler}
 						clearErrors={this.clearErrors}
 						processing={this.state.processing}
 						clickedSubmit={this.clickedSubmitRegisterHandler}

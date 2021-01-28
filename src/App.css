@@ -60,7 +60,6 @@ button:focus {
 
 .fas.fa-asterisk {
 	animation: 2s spin linear infinite;
-	color: grey;
 }
 
 @keyframes spin {
@@ -123,6 +122,7 @@ button:focus {
 	font-size: 1.2em;
 	color: black;
 	flex-basis: auto;
+	min-width: 40px;
 }
 
 .board-form button:hover, .board-form a:hover {
@@ -162,7 +162,7 @@ button:focus {
 
 .board-form .form-error {
 	font-size: 1.2em;
-    margin-bottom: 20px;
+    margin: 10px;
     color: #f18c24;
 }
 
@@ -173,7 +173,7 @@ button:focus {
 
 .board-form .server-error {
 	font-size: 1.2em;
-    margin-top: 20px;
+    margin: 10px;
     color: #d94444;
 }
 
@@ -186,6 +186,38 @@ button:focus {
 /* Mobile Styling */
 @media screen and (max-width: 450px) {
 
+	.board-form {
+		justify-content: unset;
+	}
+
+	.board-form .header {
+	    margin: 20px 0px 0px 0px;
+    	font-size: 1.2em;
+	}
+
+	.board-form .toggle button {
+	    font-size: 1em;
+	    margin: 5px;
+	}
+
+	.board-form input, .board-form textarea {
+	    padding: 5px;
+	    margin: 5px 0px 5px 0px;
+	    border-radius: 0px;
+	    border-left: 0px;
+	    border-right: 0px;
+	    font-size: 1em;
+	}
+
+	.board-form button, .board-form a {
+	    padding: 5px 10px;
+	    margin: 5px;
+	    font-size: 1em;
+	}
+
+	.board-form a.delete {
+	    margin-top: 50px;
+	}
 
 }
 

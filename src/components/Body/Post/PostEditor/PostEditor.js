@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react'
+import React, { Component, useEffect } from 'react'
 import './PostEditor.css'
 import {
 	Link, 
@@ -9,12 +9,17 @@ import FormWrapper from '../../Util/FormWrapper/FormWrapper.js'
 
 const PostEditor = props => {
 
-	let [ title, setTitle ] = useState(props.currentPost.title)
-	let [ content, setContent ] = useState(props.currentPost.content) 
+	useEffect(() => {
+		// If we're editing a different post, we update the store
+		if (props.editedPostId != props.currentPost.id) {
+			props.updateEditedPostTitle(props.currentPost.title)
+			props.updateEditedPostContent(props.currentPost.content)
+			props.updateEditedPostId(props.currentPost.id)
+		} else {
+			// We've come back to editing the same post.	
+		}
+	}, [])
 
-	console.log(props.currentPost)
-	console.log(title)
-	console.log(content)
 
 	return (
 		<div className="container-post-editor">
@@ -36,18 +41,18 @@ const PostEditor = props => {
 					<div className="row">
 						<input 
 						placeholder="A post title..."
-						defaultValue={props.currentPost.title}
-						onChange={() => setTitle(event.target.value)}/>
+						value={props.editedPostTitle}
+						onChange={() => props.updateEditedPostTitle(event.target.value)}/>
 					</div>
 					<div className="row">
 						<textarea 
 						placeholder="Post content..."
-						defaultValue={props.currentPost.content}
-						onChange={() => setContent(event.target.value)}/>
+						value={props.editedPostContent}
+						onChange={() => props.updateEditedPostContent(event.target.value)}/>
 					</div>
 					<div className="row">
-						<button type="submit" onClick={() => props.clickedSubmit(event, title, content)}> Submit </button>
-						<Link to={`/board/${props.match.params.boardid}/post/${props.match.params.postid}`} > Cancel </Link>
+						<button type="submit" onClick={props.clickedSubmit}> Submit </button>
+						<Link to={`/board/${props.match.params.boardid}/post/${props.match.params.postid}`} onClick={props.cancelPostEdit} > Cancel </Link>
 					</div>			
 					<div className="row">
 						<Link to={`/board/${props.match.params.boardid}/post/${props.match.params.postid}/delete`} className="delete"> Delete Post&nbsp;<i className="fas fa-trash"></i></Link>

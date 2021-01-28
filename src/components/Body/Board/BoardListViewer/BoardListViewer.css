@@ -20,3 +20,21 @@
 .container-board-list-viewer a.new:hover {
 	color: grey;
 }
+
+.container-board-list-viewer > .year {
+    font-size: 1.2em;
+    margin: 0px 20px;
+    color: grey;
+    font-style: italic;
+}
+
+@media screen and (max-width: 450px) {
+    .container-board-list-viewer a.new {
+        width: -webkit-fill-available;
+        font-size: 1em;
+    }
+
+    .container-board-list-viewer {
+        padding-top: 5px;
+    }
+}

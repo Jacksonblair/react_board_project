@@ -1,12 +1,9 @@
-import React, { Component, useState } from 'react'
+import React, { Component, useEffect } from 'react'
 import './PostCreator.css'
 
 import FormWrapper from '../../Util/FormWrapper/FormWrapper.js'
 
 const PostCreator = props => {
-
-	let [ postTitle, setPostTitle ] = useState("")
-	let [ postContent, setPostContent ] = useState("")
 
 	return (
 		<div className="container-board-creator"> 
@@ -23,20 +20,22 @@ const PostCreator = props => {
 						Creating New Post
 					</div>
 					<div className="row">
-						<button onClick={props.clickedUpdateDateRangeType}> Date: {props.postTargetDate.toLocaleDateString("EN-au")} </button>
+						<button type="button" onClick={props.clickedUpdateDateRangeType}> Date: {props.postTargetDate.toLocaleDateString("EN-au")} </button>
 					</div>					
 					<div className="row">
 						<input 
+						defaultValue={props.newPostTitle}
 						placeholder="A post title..."
-						onChange={() => setPostTitle(event.target.value)}/>
+						onChange={() => props.updateNewPostTitle(event.target.value)}/>
 					</div>
 					<div className="row">
 						<textarea 
+						defaultValue={props.newPostContent}
 						placeholder="Some content..."
-						onChange={() => setPostContent(event.target.value)}/>
+						onChange={() => props.updateNewPostContent(event.target.value)}/>
 					</div>
 					<div className="row">
-						<button type="submit" onClick={() => props.clickedSubmit(event, postTitle, postContent)}> Submit </button>
+						<button type="submit" onClick={props.clickedSubmit}> Submit </button>
 					</div>
 				</FormWrapper>
 			</form>

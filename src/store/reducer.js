@@ -4,8 +4,9 @@ const initialState = {
 	/* User Auth */
 	userDetails: {
 		user_id: null,
+		username: null,
 		email: null,
-		profile_image_url: null
+		profile_image_url: null,
 	},
 
 	/* CSS transition object */
@@ -45,6 +46,14 @@ const initialState = {
 	dateRangeEnd: null,
 	postTargetDate: new Date(),
 
+	/* Post editing functionality */
+	editedPostTitle: "",
+	editedPostContent: "",
+	editedPostId: null,
+
+	/* New post functionality */
+	newPostTitle: "",
+	newPostContent: ""
 }
 
 const reducer = (state = initialState, action) => {
@@ -81,6 +90,37 @@ const reducer = (state = initialState, action) => {
 				currentPost: action.payload.post
 			}
 
+
+		/* PostEditor functionality */
+		case actionTypes.EDITED_POST_TITLE_UPDATE:
+			return {
+				...state,
+				editedPostTitle: action.payload.title
+			}		
+		case actionTypes.EDITED_POST_CONTENT_UPDATE:
+			return {
+				...state,
+				editedPostContent: action.payload.content
+			}
+		
+		case actionTypes.EDITED_POST_ID_UPDATE:
+			return {
+				...state,
+				editedPostId: action.payload.id
+			}
+
+
+		/* PostCreator functionality */
+		case actionTypes.NEW_POST_TITLE_UPDATE:
+			return {
+				...state,
+				newPostTitle: action.payload.title
+			}
+		case actionTypes.NEW_POST_CONTENT_UPDATE:
+			return {
+				...state,
+				newPostContent: action.payload.content
+			}
 
 
 		/* BoardCalendarViewer Functionality */

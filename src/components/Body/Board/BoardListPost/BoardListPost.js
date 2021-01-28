@@ -1,4 +1,4 @@
-import React, { Component } from 'React'
+import React, { Component } from 'react'
 import './BoardListPost.css'
 import {
 	Link,
@@ -6,8 +6,6 @@ import {
 } from "react-router-dom";
 
 const BoardListPost = props => {
-
-	console.log(props)
 
 	return (
 		<button 
@@ -28,9 +26,6 @@ const BoardListPost = props => {
 					{props.post.title}
 				</div>
 				<div className="metadata">
-					<div className="author">
-						Author:&nbsp;<div className="name">Jimmy Neutron</div>
-					</div>
 					<div className="created">
 						Created:&nbsp;<div className="date"> {props.post.created_date} </div>
 					</div>

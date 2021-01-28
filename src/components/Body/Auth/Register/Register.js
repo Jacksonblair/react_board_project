@@ -1,4 +1,4 @@
-import React, { Component } from 'React'
+import React, { Component } from 'react'
 import './Register.css'
 import {
 	Link,
@@ -29,10 +29,17 @@ const Register = props => {
 							<div className="header"> Register </div>
 							<div className="row">
 								<input 
+								onChange={() => props.updateUsername(event.target.value)}
+								autoComplete="username"
+								placeholder="username (max 20 characters)"/>
+							</div>								
+							<div className="row">
+								<input 
 								onChange={() => props.updateEmail(event.target.value)}
 								autoComplete="email"
 								placeholder="email"/>
 							</div>
+							<br/>			
 							<div className="row">
 								<input 
 								type="password"

@@ -6,6 +6,7 @@
     background: none;
     border-radius: 5px;
     color: black;
+    width: 450px;
 }
 
 .container-home-board .name {
@@ -24,9 +25,25 @@
     margin: 5px 10px 0px 10px;
     font-size: 0.9em;
     color: #e96565;
+    font-style: italic;
 }
 
 .container-home-board .visibility.public {
     color: #5b87e9;
 }
 
+@media screen and (max-width: 450px) {
+    
+    .container-home-board {
+        margin: 5px 10px;
+    }
+
+    .container-home-board .name {
+        font-size: 1.2em;
+        margin: 0px 10px;
+    }
+
+    .container-home-board .description {
+        font-size: 0.9em;
+    }
+}

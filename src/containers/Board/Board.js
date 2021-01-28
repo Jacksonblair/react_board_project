@@ -1,4 +1,4 @@
-import React, { Component } from 'React'
+import React, { Component } from 'react'
 import './Board.css'
 import { connect } from 'react-redux'
 import axios from 'axios'
@@ -73,12 +73,10 @@ class Board extends Component {
 	}
 
 	clickedCalendarViewerHandler = () => {
-		console.log("wotm8")
 		this.props.history.push(`/board/${this.props.match.params.boardid}/calendar`)
 	}
 
 	clickedListViewerHandler = () => {
-		console.log("wotm9")
 		this.props.history.push(`/board/${this.props.match.params.boardid}/list`)
 	}
 
@@ -106,8 +104,7 @@ class Board extends Component {
 			name, description, public: isPublic
 		})
 		.then((res) => {
-			console.log(res)
-			this.props.history.push(`/home`)
+			this.props.history.push(`/board/${this.props.match.params.boardid}/`)
 		})
 		.catch((err) => {
 			this.setState({
@@ -118,23 +115,27 @@ class Board extends Component {
 	}
 
 	clearFormErrors = () => {
-		console.log("Clearing form errors")
 		this.setState({
 			formError: "",
 			serverError: ""
 		})
 	}
 
-	clickedSubmitNewPostHandler = (event, title, content) => {
+	clickedSubmitNewPostHandler = (event) => {
 		event.preventDefault()
 
 		// TODO: Pass post through client side validation
 
 		axios.post(this.props.location.pathname, {
-			title, content, target_date: this.props.postTargetDate
+			title: this.props.newPostTitle, 
+			content: this.props.newPostContent,
+			target_date: this.props.postTargetDate
 		})
 		.then((res) => {
 			this.props.history.push(`/board/${this.props.match.params.boardid}/`)
+			// And remove the post data from the store
+			this.props.updateNewPostTitle("")
+			this.props.updateNewPostContent("")
 		})
 		.catch((err) => {
 			this.setState({
@@ -263,6 +264,10 @@ class Board extends Component {
 		})
 	}
 
+	clickedClearRangeTypeHandler = () => {
+		this.props.updateDateRangeType(0)
+	}
+
 	render() {
 
 		let filteredPosts = this.getFilteredPosts()
@@ -307,6 +312,7 @@ class Board extends Component {
 											<button onClick={() => this.props.history.push(`/`)}> Back </button>
 										</div>
 										<BoardMenu 
+										userDetails={this.props.userDetails}
 										dateRangeStart={this.props.dateRangeStart}
 										dateRangeEnd={this.props.dateRangeEnd}
 										clickedClearDateRange={this.clickedClearDateRangeHandler}
@@ -316,6 +322,7 @@ class Board extends Component {
 										clickedListViewer={this.clickedListViewerHandler}
 										currentBoard={this.props.currentBoard}/>
 										<BoardListViewer 
+										userDetails={this.props.userDetails}
 										currentBoard={this.props.currentBoard}
 										posts={filteredPosts}/>
 									</Route>
@@ -324,11 +331,14 @@ class Board extends Component {
 											<button onClick={() => this.props.history.push(`/`)}> Back </button>
 										</div>
 										<BoardMenu 
+										userDetails={this.props.userDetails}
 										updateSearchTerm={this.updateSearchTermHandler}
 										clickedCalendarViewer={this.clickedCalendarViewerHandler}
 										clickedListViewer={this.clickedListViewerHandler}
 										currentBoard={this.props.currentBoard}/>
 										<BoardCalendarViewer 
+										clearDateRangeType={this.clickedClearRangeTypeHandler}
+										dateRangeType={this.props.dateRangeType}
 										clickedDay={this.clickedCalendarDayHandler}
 										updateCalendarMonth={this.updateCalendarMonthHandler}
 										updateCalendarYear={this.updateCalendarYearHandler}
@@ -345,6 +355,10 @@ class Board extends Component {
 										<PostCreator
 										clickedUpdateDateRangeType={() => this.clickedUpdateDateRangeTypeHandler(3)}
 										postTargetDate={this.props.postTargetDate}
+										newPostTitle={this.props.newPostTitle}
+										newPostContent={this.props.newPostContent}
+										updateNewPostTitle={this.props.updateNewPostTitle}
+										updateNewPostContent={this.props.updateNewPostContent}
 										clearErrors={this.clearFormErrors}
 										clickedSubmit={this.clickedSubmitNewPostHandler}
 										serverError={this.state.serverError}
@@ -382,6 +396,8 @@ const mapStateToProps = (state) => {
 		dateRangeStart: state.dateRangeStart,
 		dateRangeEnd: state.dateRangeEnd,
 		postTargetDate: state.postTargetDate,
+		newPostTitle: state.newPostTitle,
+		newPostContent: state.newPostContent,
 		userDetails: state.userDetails,
 	}
 }
@@ -395,6 +411,8 @@ const mapDispatchToProps = (dispatch) => {
 		updateDateRangeStart: (date) => dispatch({ type: actionTypes.DATE_RANGE_START_UPDATE, payload: { date } }), 
 		updateDateRangeEnd: (date) => dispatch({ type: actionTypes.DATE_RANGE_END_UPDATE, payload: { date } }), 
 		updatePostTargetDate: (date) => dispatch({ type: actionTypes.POST_TARGET_DATE_UPDATE, payload: { date } }), 
+		updateNewPostTitle: (title) => dispatch({ type: actionTypes.NEW_POST_TITLE_UPDATE, payload: { title } }),
+		updateNewPostContent: (content) => dispatch({ type: actionTypes.NEW_POST_CONTENT_UPDATE, payload: { content } }),
 		updateCurrentBoard: (board) => dispatch({ type: actionTypes.CURRENT_BOARD_UPDATE, payload: { board } }),
 		updateCurrentBoardPosts: (posts) => dispatch({ type: actionTypes.CURRENT_BOARD_POSTS_UPDATE, payload: { posts } }),
 	}

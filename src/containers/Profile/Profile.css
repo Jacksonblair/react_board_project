@@ -17,22 +17,34 @@
     margin: 20px;
 }
 
+.container-profile .profile-image img {
+	width: 100%;
+    height: 100%;
+}
+
 .container-profile .details {
 	margin: 20px 20px 20px 0px;
     flex: 1;
 	height: 200px;
 	display: flex;
     flex-direction: column;
+    color: black;
 }
 
 .container-profile .details .email {
 	font-size: 1.2em;
     padding-top: 10px;
+    display: flex;
 }
 
-.container-profile .details .name {
+.container-profile .details .username {
 	font-size: 1.2em;
-    padding-top: 10px;	
+    padding-top: 10px;
+    display: flex;
+}
+
+.container-profile .details .email div, .container-profile .details .username div {
+	color: grey;
 }
 
 .container-profile .details .menu {
@@ -53,102 +65,66 @@
     background: whitesmoke;
 }
 
-.container-profile a {
-    justify-content: flex-start;
-}
-
-
-
-.profile-form {
-	display: flex;
-    flex-direction: column;
-    min-height: 100px;
-    justify-content: center;
-    flex: 1;
-}
-
-.profile-form .header {
-	margin: 20px 10px 10px 10px;
-    font-size: 1.5em;
-    text-align: center;
-}
-
-.profile-form .row {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-}
-
-.profile-form button, .profile-form textarea, .profile-form input {
-	font-family: inherit;
-	flex: 1;
-	font-size: 1.2em;
-}
-
-.profile-form input, .profile-form textarea {
-	padding: 5px 10px;
-	margin: 10px 50px;
-	border: 1px solid lightgrey;
-	border-radius: 5px;
-	color: grey;
-}
-
-.profile-form textarea {
-	min-height: 200px;
-	resize: vertical;
-}
-
-.profile-form button {
-	padding: 5px 10px;
-	margin: 20px 20px;
-	border: 1px solid lightgrey;
-	border-radius: 5px;
-	width: auto;
-	flex: 0;
-	flex-basis: 150px;
-}
-
-.profile-form button:hover {
-	color: grey;
-}
-
-.profile-form .email-new, .profile-form .password-new {
-    min-width: 300px;
-    flex: 0;
-}
-
-.profile-form .password-old {
-    min-width: 300px;
-    flex: 0;
-    margin-bottom: 30px;
-}
-
-.profile-form .field-header {
-    display: flex;
-    justify-content: center;
-}
-
-.profile-form .form-error {
-	font-size: 1.2em;
-    margin-bottom: 20px;
-    color: #f18c24;
-}
-
-.profile-form .form-success {
-	font-size: 1.2em;
-    color: green;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.profile-form .server-error {
-	font-size: 1.2em;
-    margin-top: 20px;
-    color: #d94444;
-}
-
-.profile-form .loading-message {
+.board-form .field-header {
 	text-align: center;
+	margin-top: 20px;
+}
+
+.board-form .row .email-new {
+	max-width: 300px;
+}
+
+.board-form .row .password-old, .board-form .row .password-new {
+	max-width: 300px;
+}
+
+
+@media screen and (max-width: 450px) {
+
+	.container-profile .profile {
+	    flex-direction: column;
+	    align-items: center;
+	}
+
+	.container-profile .profile-image {
+	    height: 150px;
+	    width: 150px;
+	    margin: 10px;
+	}
+
+	.container-profile .details {
+		margin: 0;
+	    height: auto;
+	    display: flex;
+	    flex-direction: column;
+	    align-items: center;
+	}
+
+	.container-profile .details .email {
+	    font-size: 1em;
+	}
+
+	.container-profile .details .username {
+	    font-size: 1em;
+	    margin-bottom: 30px;
+	}
+
+	.container-profile .details .menu {
+	    flex-direction: column;
+	    align-items: center;
+	}
+
+	.container-profile .profile .details .menu button, .container-profile .profile .details .menu a {
+	    margin: 5px;
+	}
+
+	.board-form .row .email-new {
+		max-width: 450px;
+	}
+
+	.board-form .row .password-old, .board-form .row .password-new {
+		max-width: 450px;
+	}
+
+
 }

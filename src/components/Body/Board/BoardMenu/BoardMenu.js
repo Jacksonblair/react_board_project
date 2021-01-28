@@ -1,4 +1,4 @@
-import React, { Component } from 'React'
+import React, { Component } from 'react'
 import './BoardMenu.css'
 import {
 	Link,
@@ -6,21 +6,24 @@ import {
 } from "react-router-dom";
 
 const BoardMenu = props => {
+
 	return (
 		<div className="container-board-menu">
 			<div className="menu">
-				<button 
-				onClick={props.clickedCalendarViewer}
-				disabled={props.location.pathname.includes('calendar')}
-				className="calendar">
-					<i className="fas fa-calendar"></i> 
-				</button>
-				<button 
-				onClick={props.clickedListViewer}
-				disabled={props.location.pathname.includes('list')}
-				className="list">  
-					<i className="fas fa-list"></i>
-				</button>
+				<div className="row">
+					<button 
+					onClick={props.clickedCalendarViewer}
+					disabled={props.location.pathname.includes('calendar')}
+					className="calendar">
+						<i className="fas fa-calendar"></i> 
+					</button>
+					<button 
+					onClick={props.clickedListViewer}
+					disabled={props.location.pathname.includes('list')}
+					className="list">  
+						<i className="fas fa-list"></i>
+					</button>
+				</div>
 				<div className="wrapper">
 					<input className="search" placeholder="Search..." onChange={() => props.updateSearchTerm(event.target.value)}/>
 				</div>
@@ -37,15 +40,31 @@ const BoardMenu = props => {
 					</button>
 					</React.Fragment>
 				: null }
-				<Link to={`/board/${props.match.params.boardid}/edit`} replace className="edit">
-					<i className="fas fa-edit"></i>
-				</Link>
+				{ 
+					props.userDetails.user_id == props.currentBoard.created_by_user_id ?
+					<Link to={`/board/${props.match.params.boardid}/edit`} replace className="edit">
+						<i className="fas fa-edit"></i>
+					</Link>
+					: null
+				} 
+
 			</div>
 			<div className="name">
 				{props.currentBoard.name}
 			</div>
 			<div className="description">
-				{props.currentBoard.description}
+				"{props.currentBoard.description}"
+			</div>
+			<div className="about">
+				<div className={`${props.currentBoard.public ? "public" : "private"}`}>
+					{props.currentBoard.public ? 
+						<React.Fragment> PUBLIC <i className="fas fa-eye"></i> </React.Fragment> 
+						: <React.Fragment> PRIVATE <i className="fas fa-eye-slash"></i></React.Fragment> }
+				</div>
+				&nbsp;|&nbsp; 
+				<div className="author">
+					Author:&nbsp;<Link to={`/profile/${props.currentBoard.created_by_user_id}`}> {props.currentBoard.created_by_username} </Link>
+				</div>
 			</div>
 		</div>
 	)

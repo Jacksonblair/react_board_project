@@ -1,4 +1,4 @@
-import React, { Component } from 'React'
+import React, { Component } from 'react'
 import './Landing.css'
 import {
 	Link
@@ -30,7 +30,7 @@ class Landing extends Component {
 				</div>
 				<div className="buttons">
 					<Link className="register" to="/auth/register"> Sign up</Link>
-					<div> Or if you're already user, <Link to="/auth/login"> Log In </Link> </div>
+					<div> Or if you're already a user, <Link to="/auth/login"> Log In </Link> </div>
 				</div>
 			</div>
 		)

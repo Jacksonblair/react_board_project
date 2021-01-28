@@ -48,3 +48,19 @@
 .body-sub-menu button:disabled, .body-sub-menu a:disabled {
 	color: lightgrey;
 }
+
+
+@media screen and (max-width: 450px) {
+	.body-sub-menu {
+		padding: 5px;
+	}
+
+	.body-sub-menu button, .body-sub-menu a {
+	    font-size: 0.9em;
+	    padding: 5px;
+	}
+
+	.container-body .read-error {
+		font-size: 1.2em;
+	}
+}

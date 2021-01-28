@@ -20,7 +20,7 @@
 }
 
 .container-board-menu .menu button:disabled {
-	color: grey;
+	color: lightgrey;
 }
 
 .container-board-menu .menu button.date {
@@ -34,7 +34,6 @@
 	color: black;
 }
 
-
 .container-board-menu .name {
 	margin: 20px 10px 0px 10px;
     font-size: 1.8em;
@@ -42,15 +41,55 @@
 }
 
 .container-board-menu .description {
-    margin: 0px 10px 5px 10px;
+    margin: 0px 10px 0px 10px;
 	font-size: 1.2em;
 	font-style: italic;
     text-align: center;
 }
 
+.container-board-menu .about {
+    display: flex;
+    justify-content: center;
+    color: grey;
+    margin: 5px 10px 30px 10px;
+    font-style: italic;
+    font-size: 1em;
+}
+
+.container-board-menu .about .visibility {
+	display: flex;
+}
+
+.container-board-menu .about .public {
+	color: #5b87e9;
+}
+
+.container-board-menu .about .private {
+	color: #bb3333;
+}
+
+.container-board-menu .about .author {
+	display: flex;
+    justify-content: center;
+    text-transform: capitalize;
+}
+
+.container-board-menu .about .author a {
+	color: #5775b9;
+}
+
+.container-board-menu .about .author a:hover {
+	color: #7da5c1;
+}
+
 .container-board-menu .menu {
 	height: 40px;
 	display: flex;
+}
+
+.container-board-menu .menu .row {
+    padding: 5px;
+    display: flex;
 }
 
 .container-board-menu .menu .calendar {
@@ -75,3 +114,51 @@
 	margin-left: auto;
 }
 
+
+
+@media screen and (max-width: 450px) {
+
+	.container-board-menu .menu {
+	    display: flex;
+	    flex-direction: column;
+	    height: auto;
+	}
+
+	.container-board-menu .name {
+	    margin: 0px 10px;
+	    font-size: 1.5em;
+	    text-align: center;
+	}
+
+	.container-board-menu .description {
+	    margin: 0px 10px 0px 10px;
+	    font-size: 1em;
+	    font-style: italic;
+	    text-align: center;
+	}
+
+	.container-board-menu .menu .edit {
+	    margin-left: auto;
+	    padding: 5px 0px;
+	}
+
+	.container-board-menu .menu .wrapper .search {
+	    border-top: 1px solid lightgrey;
+	    border-bottom: 1px solid lightgrey;
+	    font-size: 1em;
+	    padding: 5px;
+	}
+
+	.container-board-menu .menu button.date {
+		font-size: 1.1em;
+		margin: 0px;
+		border-radius: 0px;
+		border: none;
+		border-bottom: 1px solid lightgrey;
+	}
+
+	.container-board-menu .about {
+		margin: 0px 10px 30px 10px;
+	}
+
+}

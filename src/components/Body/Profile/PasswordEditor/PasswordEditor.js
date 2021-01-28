@@ -14,7 +14,7 @@ const PasswordEditor = props => {
 
 	return (
 		<div className="container-profile-editor">
-			<div className="profile-form">
+			<div className="board-form">
 			<FormWrapper
 				clearErrors={props.clearErrors}
 				serverError={props.serverError}
@@ -34,16 +34,16 @@ const PasswordEditor = props => {
 					</div>
 
 					<div className="row">
-						<input type="password" autocomplete="password" className="password-old" placeholder="Old password..." onChange={() => setOldPassword(event.target.value)}/>
+						<input type="password" autoComplete="password" className="password-old" placeholder="Old password..." onChange={() => setOldPassword(event.target.value)}/>
 					</div>				
 
 					<div className="row">
-						<input type="password" autocomplete="password-new" className="password-new" placeholder="New password..." onChange={() => setNewPassword(event.target.value)}/>
+						<input type="password" autoComplete="password-new" className="password-new" placeholder="New password..." onChange={() => setNewPassword(event.target.value)}/>
 					</div>
 					
 					
 					<div className="row">
-						<input type="password" autocomplete="password-new" className="password-new" placeholder="Confirm new password..." onChange={() => setConfirmNewPassword(event.target.value)}/>
+						<input type="password" autoComplete="password-new" className="password-new" placeholder="Confirm new password..." onChange={() => setConfirmNewPassword(event.target.value)}/>
 					</div>
 
 					<div className="row">

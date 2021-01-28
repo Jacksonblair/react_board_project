@@ -9,6 +9,7 @@
 .container-landing .title {
 	font-size: 3em;
 	font-weight: bold;
+    text-align: center;
 }
 
 .container-landing .blurb {
@@ -44,4 +45,26 @@
 
 .container-landing .buttons div a {
 	display: inline-block;
+}
+
+@media screen and (max-width: 450px) {
+    .container-landing .title {
+        font-size: 1.5em;
+    }
+
+    .container-landing .blurb {
+        font-size: 0.9em;
+        margin-bottom: 30px;
+        width: auto;
+    }
+
+    .container-landing .buttons .register {
+        margin: 5px;
+        font-size: 1em;
+    }
+
+    .container-landing .buttons div {
+        font-size: 0.9em;
+    }
+
 }

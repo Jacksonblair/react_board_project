@@ -21,7 +21,7 @@ const ProfileEditor = props => {
 				</div>
 
 				<div className="row">
-					<input defaultValue="Some field..."/>
+					<input placeholder="Some field..."/>
 				</div>
 
 				<div className="row">

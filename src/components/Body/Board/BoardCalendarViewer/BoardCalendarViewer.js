@@ -1,4 +1,4 @@
-import React, { Component } from 'React'
+import React, { Component } from 'react'
 import './BoardCalendarViewer.css'
 
 import BoardCalendarViewerMenu from '../BoardCalendarViewerMenu/BoardCalendarViewerMenu.js'
@@ -19,10 +19,10 @@ const BoardCalendarViewer = props => {
 
 	let dateSelectionTypeText = [
 		null, 
-		( <div><i className="fas fa-times"></i> Getting range start</div> ), 
-		( <div><i className="fas fa-times"></i> Getting range end</div> ),
-		( <div><i className="fas fa-times"></i> Setting post target date</div>),
-		( <div><i className="fas fa-times"></i> Setting edited target date</div>),
+		( <React.Fragment><i className="fas fa-times"></i> Getting date range start</React.Fragment> ), 
+		( <React.Fragment><i className="fas fa-times"></i> Getting date range end</React.Fragment> ),
+		( <React.Fragment><i className="fas fa-times"></i> Setting target date for new post</React.Fragment>),
+		( <React.Fragment><i className="fas fa-times"></i> Setting target date for edited post</React.Fragment>),
 	]
 
 	let daysInMonth = (month, year) => { 
@@ -146,9 +146,9 @@ const BoardCalendarViewer = props => {
 			// For 4 months in a row
 			for (let j = 0; j < 4; j++) {
 				monthElements.push(
-					<div className="month" key={`month${i}${j}`}>
-						{_months[month]}
-					</div>
+					<button className="month" key={`month${i}${j}`}>
+						{_months[month].substr(0, 3)}
+					</button>
 				)
 				month++
 			}
@@ -178,9 +178,9 @@ const BoardCalendarViewer = props => {
 			// For 4 years in a row
 			for (let j = 0; j < 3; j++) {
 				yearElements.push(
-					<div className="year" key={`year${i}${j}`}>
+					<button className="year" key={`year${i}${j}`}>
 						{_years[year]}
-					</div>
+					</button>
 				) 
 				year++
 			}
@@ -232,6 +232,9 @@ const BoardCalendarViewer = props => {
 			updateCalendarUnit={props.updateCalendarUnit}
 			calendarUnitEnum={calendarUnitEnum}
 			calendar={props.calendar}/>
+			{ props.dateRangeType ? 
+				<button className="range-type" onClick={props.clearDateRangeType}> {dateSelectionTypeText[props.dateRangeType]} </button> 
+			: null}
 			<div className="header">  {_months[props.calendar.month].toUpperCase()} {props.calendar.year} </div>
 			<AnimatePresence exitBeforeEnter>
 				{content}
