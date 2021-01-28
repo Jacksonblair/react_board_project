@@ -7,7 +7,7 @@ import axios from 'axios'
 import './index.css'
 import App from './App'
 
-axios.defaults.baseURL = 'https://jackson-blair-node-demon.herokuapp.com/';
+axios.defaults.baseURL = 'https://jackson-blair-node-demon.herokuapp.com/api/';
 axios.defaults.withCredentials = true
 
 let updateUserDetailsFromCookie = () => {
