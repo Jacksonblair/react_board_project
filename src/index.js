@@ -15,17 +15,12 @@ let updateUserDetailsFromHeader = (headers) => {
 
 	console.log(headers)
 
-	if (headers["X-User"]) {
-		let userDetails = JSON.parse(headers["X-User"])
-
-		console.log(userDetails)
-
-		if (userDetails.user_id) {
-			store.dispatch({ type: "USER_DETAILS_UPDATE", payload: { userDetails: userDetails }})
-		} else {
-			store.dispatch({ type: "USER_DETAILS_UPDATE", payload: { userDetails: {} }})
-			store.dispatch({ type: "BOARDS_UPDATE", payload: { boards: [] }})		
-		}
+	let userDetails = JSON.parse(headers["x-user"])
+	if (userDetails.user_id) {
+		store.dispatch({ type: "USER_DETAILS_UPDATE", payload: { userDetails: userDetails }})
+	} else {
+		store.dispatch({ type: "USER_DETAILS_UPDATE", payload: { userDetails: {} }})
+		store.dispatch({ type: "BOARDS_UPDATE", payload: { boards: [] }})		
 	}
 }
 
