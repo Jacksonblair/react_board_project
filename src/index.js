@@ -13,6 +13,8 @@ axios.defaults.withCredentials = true
 let updateUserDetailsFromHeader = (headers) => {
 	// Update the store with whatever is stored in the x-user header in the response
 
+	console.log(headers)
+
 	if (headers["X-User"]) {
 		let userDetails = JSON.parse(headers["X-User"])
 
