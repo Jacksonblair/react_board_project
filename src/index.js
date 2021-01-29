@@ -11,9 +11,7 @@ axios.defaults.baseURL = 'https://jackson-blair-node-demon.herokuapp.com/api/';
 axios.defaults.withCredentials = true
 
 let updateUserDetailsFromHeader = (headers) => {
-	// Update the store with whatever is stored in the cookies 'user' field
-	// console.log(document.cookie)
-
+	// Update the store with whatever is stored in the x-user header in the response
 
 	if (headers["x-user"]) {
 		let userDetails = JSON.parse(headers["x-user"])
@@ -38,8 +36,17 @@ axios.interceptors.response.use(response => {
 
 const store = createStore(reducer)
 
-// Update user details from cookie as soon as the app loads
-updateUserDetailsFromCookie()
+// Initialize the app by sending a request to the server, which will check validity of
+// .. stored JWT (if there is one), and send back the user details with which we update
+// .. the store. Whatever happens, we set hasInit to true
+axios.get("/init")
+.then((res) => {
+	store.dispatch({ type: "HAS_INIT_UPDATE" })
+})
+.catch((err) => {
+	store.dispatch({ type: "HAS_INIT_UPDATE" })
+})
+
 
 const rootElement = document.getElementById('root')
 ReactDOM.render(

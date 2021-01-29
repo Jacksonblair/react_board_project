@@ -1,6 +1,8 @@
 import * as actionTypes from './actions';
 
 const initialState = {
+	hasInit: false,
+
 	/* User Auth */
 	userDetails: {
 		user_id: null,
@@ -62,6 +64,11 @@ const reducer = (state = initialState, action) => {
 	// log(action)
 
 	switch (action.type) {
+		case actionTypes.HAS_INIT_UPDATE:
+			return {
+				...state,
+				hasInit: true
+			}
 		case actionTypes.USER_DETAILS_UPDATE:
 			return {
 				...state,

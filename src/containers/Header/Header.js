@@ -18,7 +18,6 @@ class Header extends Component {
 
 	componentDidMount = () => {
 
-
 	}
 
 	componentDidUpdate = (prevProps) => {
@@ -94,52 +93,55 @@ class Header extends Component {
 
 		return (
 			<div className="container-header">
-				<div className="menu">
-					<Link className="logo" to="/home">
-						<div/>
-					</Link>
-					<Link className="home" to="/home">
-						<i className="fas fa-home"></i>
-					</Link>
-					{ this.props.userDetails.user_id ? 
-						<React.Fragment>
-						<button className={`navigate ${this.props.boards.length ? "show" : null }`} onClick={this.clickedNavigationOptions} onBlur={this.blurredNavigationOptions}>
-							<div className="location"> Go to... </div>
-							<div className={`options ${this.state.showNavigationOptions ? "show" : null}`}>
-								{options}
+				{ this.props.hasInit ? 
+					<div className="menu">
+						<Link className="logo" to="/home">
+							<div/>
+						</Link>
+						<Link className="home" to="/home">
+							<i className="fas fa-home"></i>
+						</Link>
+						{ this.props.userDetails.user_id ? 
+							<React.Fragment>
+							<button className={`navigate ${this.props.boards.length ? "show" : null }`} onClick={this.clickedNavigationOptions} onBlur={this.blurredNavigationOptions}>
+								<div className="location"> Go to... </div>
+								<div className={`options ${this.state.showNavigationOptions ? "show" : null}`}>
+									{options}
+								</div>
+							</button>
+
+							<button onClick={this.clickedLogout} className="logout"> Log Out </button>
+							<Link to={`/profile/${this.props.userDetails.user_id}`} className="profile">
+								<i className="fas fa-user"></i>
+							</Link>
+							</React.Fragment>
+							: <React.Fragment>
+							<Link to='/auth/register' className="register">
+								Register
+							</Link>
+							<Link to='/auth/login' className="login">
+								Log In
+							</Link>
+							</React.Fragment>
+
+						}
+						<button className={`menu ${this.props.userDetails.user_id ? "has-user" : null}`} onClick={this.clickedMenuOptions} onBlur={this.blurredMenuOptions}>
+							<div className="bar"/>
+							<div className="bar"/>
+							<div className="bar"/>
+							<div className={`options ${this.state.showMenuOptions ? "show" : null}`}>
+								{ this.props.userDetails.user_id ? 
+									<div onClick={this.clickedLogout} className="option" tabIndex={0}> Log Out </div>
+									: <React.Fragment>
+										<Link to="/auth/login" className={`option ${this.props.location.pathname.includes('/login') ? "disabled" : null}`}> Log in</Link>
+										<Link to="/auth/register" className={`option ${this.props.location.pathname.includes('/register') ? "disabled" : null}`}> Register </Link>
+									</React.Fragment>
+								}
 							</div>
 						</button>
-
-						<button onClick={this.clickedLogout} className="logout"> Log Out </button>
-						<Link to={`/profile/${this.props.userDetails.user_id}`} className="profile">
-							<i className="fas fa-user"></i>
-						</Link>
-						</React.Fragment>
-						: <React.Fragment>
-						<Link to='/auth/register' className="register">
-							Register
-						</Link>
-						<Link to='/auth/login' className="login">
-							Log In
-						</Link>
-						</React.Fragment>
-
-					}
-					<button className={`menu ${this.props.userDetails.user_id ? "has-user" : null}`} onClick={this.clickedMenuOptions} onBlur={this.blurredMenuOptions}>
-						<div className="bar"/>
-						<div className="bar"/>
-						<div className="bar"/>
-						<div className={`options ${this.state.showMenuOptions ? "show" : null}`}>
-							{ this.props.userDetails.user_id ? 
-								<div onClick={this.clickedLogout} className="option" tabIndex={0}> Log Out </div>
-								: <React.Fragment>
-									<Link to="/auth/login" className={`option ${this.props.location.pathname.includes('/login') ? "disabled" : null}`}> Log in</Link>
-									<Link to="/auth/register" className={`option ${this.props.location.pathname.includes('/register') ? "disabled" : null}`}> Register </Link>
-								</React.Fragment>
-							}
-						</div>
-					</button>
-				</div>
+					</div>
+					: <div className="init"><i className="fas fa-asterisk"></i></div>
+				}
 			</div>
 		)
 	}
@@ -149,7 +151,8 @@ class Header extends Component {
 const mapStateToProps = (state) => {
 	return {
 		userDetails: state.userDetails,
-		boards: state.boards
+		boards: state.boards,
+		hasInit: state.hasInit
 	}
 }
 

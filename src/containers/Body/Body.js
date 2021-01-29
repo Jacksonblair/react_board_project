@@ -38,41 +38,44 @@ class Body extends Component {
 		return (
 			<div className="container-body">
 				<div className="column">
-					<AnimatePresence location={this.props.location} key={this.props.location.pathname}>
-					<Switch>
-						<Route path="/home">
-							<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
-								{ this.props.userDetails.user_id ?
-									<Home/>
-									: <Redirect to="/landing"/>
-								}
-							</motion.div>
-						</Route>
-						<Route path="/auth/">
-							<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
-								<Auth/>
-							</motion.div>
-						</Route>
-						<Route path="/board/:boardid">
-							<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
-								<Board/>
-							</motion.div>
-						</Route>
-						<Route path="/profile/:userid">
-							<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
-								<Profile/>
-							</motion.div>
-						</Route>
-						<Route exact path="/landing"> 
-							<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
-								<Landing/>
-							</motion.div>
-						</Route>
-						<Route>
-							<Redirect to="/home"/>
-						</Route>
-					</Switch>
-					</AnimatePresence>
+					{ this.props.hasInit ? 
+						<AnimatePresence location={this.props.location} key={this.props.location.pathname}>
+						<Switch>
+							<Route path="/home">
+								<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
+									{ this.props.userDetails.user_id ?
+										<Home/>
+										: <Redirect to="/landing"/>
+									}
+								</motion.div>
+							</Route>
+							<Route path="/auth/">
+								<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
+									<Auth/>
+								</motion.div>
+							</Route>
+							<Route path="/board/:boardid">
+								<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
+									<Board/>
+								</motion.div>
+							</Route>
+							<Route path="/profile/:userid">
+								<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
+									<Profile/>
+								</motion.div>
+							</Route>
+							<Route exact path="/landing"> 
+								<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
+									<Landing/>
+								</motion.div>
+							</Route>
+							<Route>
+								<Redirect to="/home"/>
+							</Route>
+						</Switch>
+						</AnimatePresence>
+						: <div className="init"><i className="fas fa-asterisk"></i></div>
+					}
 				</div>
 			</div>
 		)
@@ -83,6 +86,7 @@ const mapStateToProps = (state) => {
 	return {
 		userDetails: state.userDetails,
 		pageVariants: state.pageVariants,
+		hasInit: state.hasInit
 	}
 }
 

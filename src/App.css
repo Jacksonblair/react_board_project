@@ -62,6 +62,15 @@ button:focus {
 	animation: 2s spin linear infinite;
 }
 
+.init {
+    height: 100%;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: grey;
+}
+
 @keyframes spin {
 	100% {
 		transform: rotate(360deg);
