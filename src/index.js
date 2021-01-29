@@ -15,13 +15,18 @@ let updateUserDetailsFromHeader = (headers) => {
 
 	console.log(headers)
 
-	let userDetails = JSON.parse(headers["x-user"])
-	if (userDetails.user_id) {
-		store.dispatch({ type: "USER_DETAILS_UPDATE", payload: { userDetails: userDetails }})
-	} else {
-		store.dispatch({ type: "USER_DETAILS_UPDATE", payload: { userDetails: {} }})
-		store.dispatch({ type: "BOARDS_UPDATE", payload: { boards: [] }})		
+	try {
+		let userDetails = JSON.parse(headers["x-user"])
+		if (userDetails.user_id) {
+			store.dispatch({ type: "USER_DETAILS_UPDATE", payload: { userDetails: userDetails }})
+		} else {
+			store.dispatch({ type: "USER_DETAILS_UPDATE", payload: { userDetails: {} }})
+			store.dispatch({ type: "BOARDS_UPDATE", payload: { boards: [] }})		
+		}	
+	} catch(err) {
+		console.log(err)
 	}
+
 }
 
 axios.interceptors.request.use(request => {
