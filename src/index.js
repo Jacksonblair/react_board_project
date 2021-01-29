@@ -38,11 +38,12 @@ axios.interceptors.request.use(request => {
 axios.interceptors.response.use(response => {
 
 	console.log(response)
+	console.log(response.headers)
 
 	updateUserDetailsFromCookie()
 	return response
 }, (err) => {
-	
+
 	console.log(err)
 
 	updateUserDetailsFromCookie()
