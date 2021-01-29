@@ -10,25 +10,19 @@ import App from './App'
 axios.defaults.baseURL = 'https://jackson-blair-node-demon.herokuapp.com/api/';
 axios.defaults.withCredentials = true
 
-let updateUserDetailsFromCookie = () => {
+let updateUserDetailsFromHeader = (headers) => {
 	// Update the store with whatever is stored in the cookies 'user' field
 	// console.log(document.cookie)
 
-	if (document.cookie.includes("user")) {
-		try {
-			let userDetails = document.cookie.split("=")[1]
-			if (userDetails) { 
-				userDetails = JSON.parse(userDetails)
-				store.dispatch({ type: "USER_DETAILS_UPDATE", payload: { userDetails: userDetails }})
-			} else {
-				store.dispatch({ type: "USER_DETAILS_UPDATE", payload: { userDetails: {} }})
-				store.dispatch({ type: "BOARDS_UPDATE", payload: { boards: [] }})
-			}
-		} catch(err) {
-			console.log(err)
-			store.dispatch({ type: "USER_DETAILS_UPDATE", payload: { userDetails: {} }})
-		}
+
+	if (headers["x-user"]) {
+		let userDetails = JSON.parse(headers["x-user"])
+		store.dispatch({ type: "USER_DETAILS_UPDATE", payload: { userDetails: userDetails }})
+	} else {
+		store.dispatch({ type: "USER_DETAILS_UPDATE", payload: { userDetails: {} }})
+		store.dispatch({ type: "BOARDS_UPDATE", payload: { boards: [] }})
 	}
+
 }
 
 axios.interceptors.request.use(request => {
@@ -36,17 +30,9 @@ axios.interceptors.request.use(request => {
 })
 
 axios.interceptors.response.use(response => {
-
-	console.log(response)
-	console.log(response.headers)
-
-	updateUserDetailsFromCookie()
+	updateUserDetailsFromHeader(response.headers)
 	return response
 }, (err) => {
-
-	console.log(err)
-
-	updateUserDetailsFromCookie()
 	return Promise.reject(err);
 })
 
