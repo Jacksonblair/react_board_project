@@ -42,6 +42,9 @@ axios.interceptors.response.use(response => {
 	updateUserDetailsFromCookie()
 	return response
 }, (err) => {
+	
+	console.log(err)
+
 	updateUserDetailsFromCookie()
 	return Promise.reject(err);
 })
