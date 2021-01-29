@@ -35,7 +35,7 @@ axios.interceptors.response.use(response => {
 	updateUserDetailsFromHeader(response.headers)
 	return response
 }, (err) => {
-	updateUserDetailsFromHeader(response.headers)
+	updateUserDetailsFromHeader(err.response.headers)
 	return Promise.reject(err);
 })
 
