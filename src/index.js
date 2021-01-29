@@ -36,6 +36,9 @@ axios.interceptors.request.use(request => {
 })
 
 axios.interceptors.response.use(response => {
+
+	console.log(response)
+
 	updateUserDetailsFromCookie()
 	return response
 }, (err) => {
