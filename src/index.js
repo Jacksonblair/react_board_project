@@ -14,13 +14,15 @@ let updateUserDetailsFromHeader = (headers) => {
 	// Update the store with whatever is stored in the x-user header in the response
 
 	if (headers["x-user"]) {
-		let userDetails = JSON.parse(headers["x-user"])
-		store.dispatch({ type: "USER_DETAILS_UPDATE", payload: { userDetails: userDetails }})
-	} else {
-		store.dispatch({ type: "USER_DETAILS_UPDATE", payload: { userDetails: {} }})
-		store.dispatch({ type: "BOARDS_UPDATE", payload: { boards: [] }})
+		let userDetails = JSON.parse(headers["X-User"])
+		
+		if (userDetails.user_id) {
+			store.dispatch({ type: "USER_DETAILS_UPDATE", payload: { userDetails: userDetails }})
+		} else {
+			store.dispatch({ type: "USER_DETAILS_UPDATE", payload: { userDetails: {} }})
+			store.dispatch({ type: "BOARDS_UPDATE", payload: { boards: [] }})		
+		}
 	}
-
 }
 
 axios.interceptors.request.use(request => {
