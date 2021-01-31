@@ -237,7 +237,7 @@ const BoardCalendarViewer = props => {
 			{ props.dateRangeType ? 
 				<button className="range-type" onClick={props.clearDateRangeType}> {dateSelectionTypeText[props.dateRangeType]} </button> 
 			: null}
-			<div className="header">  {_months[props.calendar.month].toUpperCase()} {props.calendar.year} </div>
+			<div className="header">  {_months[props.calendar.month].toUpperCase()} {_years[props.calendar.year]} </div>
 			<AnimatePresence exitBeforeEnter>
 				{content}
 			</AnimatePresence>
