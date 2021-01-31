@@ -206,8 +206,16 @@ class Board extends Component {
 				this.props.history.push(`/board/${this.props.match.params.boardid}/post/${this.props.currentPost.id}/edit`)
 			break;
 		}
+	}
 
+	clickedCalendarMonthHandler = (month) => {
+		this.props.updateCalendarMonth(month)
+		this.props.updateCalendarUnit(0)
+	}
 
+	clickedCalendarYearHandler = (year) => {
+		this.props.updateCalendarYear(year)
+		this.props.updateCalendarUnit(1)
 	}
 
 	/* We pass the contents of currentBoard through this filter each render */
@@ -340,6 +348,8 @@ class Board extends Component {
 										clearDateRangeType={this.clickedClearRangeTypeHandler}
 										dateRangeType={this.props.dateRangeType}
 										clickedDay={this.clickedCalendarDayHandler}
+										clickedMonth={this.clickedCalendarMonthHandler}
+										clickedYear={this.clickedCalendarYearHandler}
 										updateCalendarMonth={this.updateCalendarMonthHandler}
 										updateCalendarYear={this.updateCalendarYearHandler}
 										updateCalendarUnit={this.updateCalendarUnitHandler}

@@ -145,8 +145,9 @@ const BoardCalendarViewer = props => {
 
 			// For 4 months in a row
 			for (let j = 0; j < 4; j++) {
+				let whyCantIPassThisByValue = month
 				monthElements.push(
-					<button className="month" key={`month${i}${j}`}>
+					<button onClick={() => props.clickedMonth(whyCantIPassThisByValue)} className="month" key={`month${i}${j}`}>
 						{_months[month].substr(0, 3)}
 					</button>
 				)
@@ -177,8 +178,9 @@ const BoardCalendarViewer = props => {
 
 			// For 4 years in a row
 			for (let j = 0; j < 3; j++) {
+				let whyCantIPassThisByValue = year
 				yearElements.push(
-					<button className="year" key={`year${i}${j}`}>
+					<button onClick={() => props.clickedYear(whyCantIPassThisByValue)} className="year" key={`year${i}${j}`}>
 						{_years[year]}
 					</button>
 				) 
