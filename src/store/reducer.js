@@ -40,7 +40,7 @@ const initialState = {
 		1: month
 		2: year
 	*/
-	calendarYear: 2021,
+	calendarYear: new Date().getFullYear(),
 	calendarMonth: 0,
 
 	/* Date setting functionality */
@@ -71,8 +71,6 @@ const reducer = (state = initialState, action) => {
 				hasInit: true
 			}
 		case actionTypes.USER_DETAILS_UPDATE:
-			console.log(state.userDetails)
-			console.log(action.payload.userDetails)
 			return {
 				...state,
 				userDetails: action.payload.userDetails

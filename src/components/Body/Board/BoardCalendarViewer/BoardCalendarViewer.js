@@ -9,7 +9,10 @@ import { AnimatePresence, motion } from "framer-motion"
 
 const BoardCalendarViewer = props => {
 
-	let _years = [2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029]
+	// Get array of years from current year to 10 years in the future
+	let _years = new Array(10).fill().map((x, i) => {
+		return (new Date().getFullYear() + i)		
+	})
 	let _months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
 	let calendarUnitEnum = {
 		DAY: 0,
@@ -138,20 +141,20 @@ const BoardCalendarViewer = props => {
 	let getMonthElements = () => {
 		let months = []
 
-		let month = 0
+		let monthIndex = 0
 		// For 3 rows of months
 		for (let i = 0; i < 3; i++) {
 			let monthElements = []
 
 			// For 4 months in a row
 			for (let j = 0; j < 4; j++) {
-				let whyCantIPassThisByValue = month
+				let whyCantIPassThisByValue = monthIndex
 				monthElements.push(
 					<button onClick={() => props.clickedMonth(whyCantIPassThisByValue)} className="month" key={`month${i}${j}`}>
-						{_months[month].substr(0, 3)}
+						{_months[monthIndex].substr(0, 3)}
 					</button>
 				)
-				month++
+				monthIndex++
 			}
 
 			months.push(
@@ -171,20 +174,20 @@ const BoardCalendarViewer = props => {
 	let getYearElements = () => {
 		let years = []
 
-		let year = 0;
+		let yearIndex = 0;
 		// For 3 rows of years
 		for (let i = 0; i < 3; i++) {
 			let yearElements = []
 
 			// For 4 years in a row
 			for (let j = 0; j < 3; j++) {
-				let whyCantIPassThisByValue = year
+				let whyCantIPassThisByValue = _years[yearIndex]
 				yearElements.push(
 					<button onClick={() => props.clickedYear(whyCantIPassThisByValue)} className="year" key={`year${i}${j}`}>
-						{_years[year]}
+						{_years[yearIndex]}
 					</button>
 				) 
-				year++
+				yearIndex++
 			}
 
 			years.push(

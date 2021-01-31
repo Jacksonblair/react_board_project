@@ -123,26 +123,38 @@ class Board extends Component {
 
 	clickedSubmitNewPostHandler = (event) => {
 		event.preventDefault()
-
-		// TODO: Pass post through client side validation
-
-		axios.post(this.props.location.pathname, {
-			title: this.props.newPostTitle, 
-			content: this.props.newPostContent,
-			target_date: this.props.postTargetDate
+		this.setState({
+			processing: true
 		})
-		.then((res) => {
-			this.props.history.push(`/board/${this.props.match.params.boardid}/`)
-			// And remove the post data from the store
-			this.props.updateNewPostTitle("")
-			this.props.updateNewPostContent("")
-		})
-		.catch((err) => {
+
+		// Soome basic content validation
+		if (this.props.newPostTitle.length < 1) {
 			this.setState({
-				serverError: err.response ? err.response.data : "Error",
-				processing: false				
+				formError: "Please add a title to the post"
 			})
-		})
+		} else if (this.props.newPostContent.length < 1) {
+			this.setState({
+				formError: "Please add some content to the post"
+			})
+		} else {
+			axios.post(this.props.location.pathname, {
+				title: this.props.newPostTitle, 
+				content: this.props.newPostContent,
+				target_date: this.props.postTargetDate
+			})
+			.then((res) => {
+				this.props.history.push(`/board/${this.props.match.params.boardid}/`)
+				// And remove the post data from the store
+				this.props.updateNewPostTitle("")
+				this.props.updateNewPostContent("")
+			})
+			.catch((err) => {
+				this.setState({
+					serverError: err.response ? err.response.data : "Error",
+					processing: false
+				})
+			})
+		}
 	}
 
 	updateSearchTermHandler = (searchTerm) => {

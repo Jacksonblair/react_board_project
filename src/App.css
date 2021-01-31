@@ -60,6 +60,7 @@ button:focus {
 
 .fas.fa-asterisk {
 	animation: 2s spin linear infinite;
+    color: grey;
 }
 
 .init {
@@ -68,7 +69,6 @@ button:focus {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: grey;
 }
 
 @keyframes spin {
