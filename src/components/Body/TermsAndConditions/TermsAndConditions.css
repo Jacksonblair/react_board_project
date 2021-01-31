@@ -1,0 +1,25 @@
+.container-terms-and-conditions {
+	height: 100%;
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+}
+
+.container-terms-and-conditions .content {
+	display: flex;
+	flex: 1;
+	justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 0px 10px;
+}
+
+.container-terms-and-conditions .header {
+	color: grey;
+	font-size: 1.5em;
+}
+
+.container-terms-and-conditions .paragraph {
+	color: black;
+    text-align: center;
+}

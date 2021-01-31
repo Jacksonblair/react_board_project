@@ -9,9 +9,9 @@ class Footer extends Component {
 	render() {
 		return (
 			<div className="container-footer">
-				<Link to=""> Terms and Conditions</Link>
+				<Link to="/toc"> Terms and Conditions</Link>
 				&nbsp;|&nbsp;
-				<Link to=""> Contact </Link>
+				<Link to="/contact"> Contact </Link>
 				&nbsp;|&nbsp;
 				<a href="https://pixabay.com/users/wanderercreative-855399/"> Default Profile Image</a>
 			</div>

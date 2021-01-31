@@ -74,10 +74,10 @@ class Header extends Component {
 
 		axios.post('/logout')
 		.then((res) => {
-			this.props.history.push('/xxxx')
+			this.props.history.push('/')
 		})
 		.catch((err) => {
-			this.props.history.push('/xxxx')
+			this.props.history.push('/')
 		})
 	}
 

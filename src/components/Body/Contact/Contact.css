@@ -1,0 +1,30 @@
+.container-contact {
+	height: 100%;
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+}
+
+.container-contact .content {
+	display: flex;
+	flex: 1;
+	justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 0px 10px;
+}
+
+.container-contact .header {
+    font-size: 1.5em;
+    color: grey;
+}
+
+#emailCopyButton {
+	color: black;
+    padding: 5px 10px;
+    font-size: 1em;
+    border-radius: 5px;
+    font-family: inherit;
+    border: 1px solid grey;
+    margin: 5px;
+}

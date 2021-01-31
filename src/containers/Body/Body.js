@@ -18,6 +18,8 @@ import Home from '../Home/Home.js'
 import Auth from '../Auth/Auth.js'
 import Profile from '../Profile/Profile.js'
 import Landing from '../Landing/Landing.js'
+import TermsAndConditions from '../../components/Body/TermsAndConditions/TermsAndConditions.js'
+import Contact from '../../components/Body/Contact/Contact.js'
 
 class Body extends Component {
 
@@ -67,6 +69,16 @@ class Body extends Component {
 							<Route exact path="/landing"> 
 								<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
 									<Landing/>
+								</motion.div>
+							</Route>
+							<Route exact path="/toc"> 
+								<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
+									<TermsAndConditions/>
+								</motion.div>
+							</Route>
+							<Route exact path="/contact"> 
+								<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
+									<Contact/>
 								</motion.div>
 							</Route>
 							<Route>
