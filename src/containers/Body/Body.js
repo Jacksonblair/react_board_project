@@ -41,51 +41,35 @@ class Body extends Component {
 			<div className="container-body">
 				<div className="column">
 					{ this.props.hasInit ? 
-						<AnimatePresence location={this.props.location} key={this.props.location.pathname}>
 						<Switch>
 							<Route path="/home">
-								<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
-									{ this.props.userDetails.user_id ?
-										<Home/>
-										: <Redirect to="/landing"/>
-									}
-								</motion.div>
+								{ this.props.userDetails.user_id ?
+									<Home/>
+									: <Redirect to="/landing"/>
+								}
 							</Route>
 							<Route path="/auth/">
-								<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
-									<Auth/>
-								</motion.div>
+								<Auth/>
 							</Route>
-							<Route path="/board/:boardid">
-								<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
-									<Board/>
-								</motion.div>
+							<Route path="/board/:boardid" render={() => 
+								<Board/> }>
 							</Route>
 							<Route path="/profile/:userid">
-								<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
-									<Profile/>
-								</motion.div>
+								<Profile/>
 							</Route>
 							<Route exact path="/landing"> 
-								<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
-									<Landing/>
-								</motion.div>
+								<Landing/>
 							</Route>
 							<Route exact path="/toc"> 
-								<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
-									<TermsAndConditions/>
-								</motion.div>
+								<TermsAndConditions/>
 							</Route>
 							<Route exact path="/contact"> 
-								<motion.div className="motion-div" initial="initial" animate="in" exit="out" variants={this.props.pageVariants}>
-									<Contact/>
-								</motion.div>
+								<Contact/>
 							</Route>
 							<Route>
 								<Redirect to="/home"/>
 							</Route>
 						</Switch>
-						</AnimatePresence>
 						: <div className="init"><i className="fas fa-asterisk"></i></div>
 					}
 				</div>

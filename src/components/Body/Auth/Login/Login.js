@@ -19,6 +19,10 @@ const Login = props => {
 				processing={props.processing}
 				canView={true}
 				resourceName="email">
+					<div className="guest-details"> 
+						<div> Guest Email: <div> guest@live.com </div></div>
+						<div> Guest Password: <div> 123456 </div></div>
+					</div>
 					<div className="header"> Login </div>
 					<div className="row">
 						<input 

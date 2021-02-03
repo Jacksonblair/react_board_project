@@ -69,7 +69,7 @@ class Header extends Component {
 		console.log("Clicked option")
 	}
 
-	clickedLogout = (e) => {
+	clickedLogout = () => {
 		console.log("CLICKED LOGOUT")
 
 		axios.post('/logout')
@@ -95,11 +95,8 @@ class Header extends Component {
 			<div className="container-header">
 				{ this.props.hasInit ? 
 					<div className="menu">
-						<Link className="logo" to="/home">
-							<div/>
-						</Link>
 						<Link className="home" to="/home">
-							<i className="fas fa-home"></i>
+							<i className="fas fa-home" title="Go home"></i>
 						</Link>
 						{ this.props.userDetails.user_id ? 
 							<React.Fragment>
@@ -112,7 +109,7 @@ class Header extends Component {
 
 							<button onClick={this.clickedLogout} className="logout"> Log Out </button>
 							<Link to={`/profile/${this.props.userDetails.user_id}`} className="profile">
-								<i className="fas fa-user"></i>
+								<i className="fas fa-user" title="Go to profile"></i>
 							</Link>
 							</React.Fragment>
 							: <React.Fragment>

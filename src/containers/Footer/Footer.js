@@ -12,8 +12,6 @@ class Footer extends Component {
 				<Link to="/toc"> Terms and Conditions</Link>
 				&nbsp;|&nbsp;
 				<Link to="/contact"> Contact </Link>
-				&nbsp;|&nbsp;
-				<a href="https://pixabay.com/users/wanderercreative-855399/"> Default Profile Image</a>
 			</div>
 
 		)

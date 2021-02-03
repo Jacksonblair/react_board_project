@@ -58,8 +58,23 @@ const BoardListViewer = props => {
 		</Link>
 		: null
 
+	let dateRangeHeader = props.startDate || props.endDate ?
+		<div className="date-range">
+			Date Range: 
+			{ props.startDate ? 
+				<div> From: {props.startDate.toLocaleDateString("EN-au")} </div>
+				: <div> From: ~ </div>
+			}			
+			{ props.endDate ? 
+				<div> To: {props.endDate.toLocaleDateString("EN-au")} </div>
+				: <div> To: ~ </div>
+			}
+		</div>
+		: null
+
 	return (
 		<div className="container-board-list-viewer"> 
+			{dateRangeHeader}
 			{content}
 			{newPostButton}
 		</div>

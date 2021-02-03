@@ -17,9 +17,17 @@
 .container-terms-and-conditions .header {
 	color: grey;
 	font-size: 1.5em;
+	margin-bottom: 10px;
 }
 
 .container-terms-and-conditions .paragraph {
 	color: black;
     text-align: center;
+	width: 450px;
+}
+
+@media screen and (max-width: 450px) {
+	.container-terms-and-conditions .paragraph {
+	    width: -webkit-fill-available;
+	}
 }

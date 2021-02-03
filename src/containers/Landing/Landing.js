@@ -23,14 +23,14 @@ class Landing extends Component {
 		return (
 			<div className="container-landing">
 				<div className="title">
-					Demonstration Website
+					Jackson Blair Portfolio Website
 				</div>				
 				<div className="blurb">
-					Create your own free board to manage your schedule, or share it with your friends or group. 
+					A React CRUD app, using Redux, a Node/Express backend, PostgreSQL database and JavaScript Web Tokens, served from Heroku.
 				</div>
 				<div className="buttons">
 					<Link className="register" to="/auth/register"> Sign up</Link>
-					<div> Or if you're already a user, <Link to="/auth/login"> Log In </Link> </div>
+					<div>Or <Link to="/auth/login"> Log In </Link> with the guest account</div>
 				</div>
 			</div>
 		)

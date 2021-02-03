@@ -1,49 +1,92 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import './BoardMenu.css'
 import {
 	Link,
 	withRouter
 } from "react-router-dom";
+import CalendarDropdown from '../CalendarDropdown/CalendarDropdown.js'
 
 const BoardMenu = props => {
+
+	let [ showCalendarDropdown, setShowCalendarDropdown ] = useState(true)
+
+	let blurredCalendarDropdown = (event) => {
+		console.log("Blurred")
+		if (wasClickOutsideElement(event)) {
+			setShowCalendarDropdown(false)
+		}
+	}	
+
+	let clickedCalendarDropdown = () => {
+		setShowCalendarDropdown(!showCalendarDropdown)
+	}
+
+	let pressedKeyCalendarDropdown = (event) => {
+		if (event.charCode == 13) {
+			setShowCalendarDropdown(!showCalendarDropdown)
+		}
+	}
+
+	let wasClickOutsideElement = (event) => {
+	    if (!event.currentTarget.contains(event.relatedTarget)) {
+	    	return true
+	    }
+	}
+
+	let clickedCalendarDay = (calendarSide, day) => {
+
+	}
 
 	return (
 		<div className="container-board-menu">
 			<div className="menu">
 				<div className="row">
+
 					<button 
 					onClick={props.clickedCalendarViewer}
 					disabled={props.location.pathname.includes('calendar')}
 					className="calendar">
-						<i className="fas fa-calendar"></i> 
+						<i className="fas fa-calendar" title="Calendar Viewer"></i> 
 					</button>
 					<button 
 					onClick={props.clickedListViewer}
 					disabled={props.location.pathname.includes('list')}
 					className="list">  
-						<i className="fas fa-list"></i>
+						<i className="fas fa-list" title="List Viewer"></i>
 					</button>
+
 				</div>
-				<div className="wrapper">
+
+				<div className="search-wrapper">
 					<input className="search" placeholder="Search..." onChange={() => props.updateSearchTerm(event.target.value)}/>
 				</div>
-				{ props.clickedUpdateDateRangeType ? 
+
+				{ 
+					props.clickedDay ? 
 					<React.Fragment>
-					<button className="date" onClick={() => props.clickedUpdateDateRangeType(1)}>
-						After: { props.dateRangeStart ? props.dateRangeStart.toLocaleDateString("EN-au") : '~' }
-					</button>
-					<button className="date" onClick={() => props.clickedUpdateDateRangeType(2)}>
-						Before: { props.dateRangeEnd ? props.dateRangeEnd.toLocaleDateString("EN-au") : '~' }
-					</button>
-					<button className="date" onClick={props.clickedClearDateRange}>
-						Clear
-					</button>
+						<div className="date div-button" 
+						onKeyPress={pressedKeyCalendarDropdown}
+						onClick={clickedCalendarDropdown}
+						onBlur={blurredCalendarDropdown} 
+						tabIndex={0}>
+							Select Date Range
+							<CalendarDropdown 
+							startDate={props.startDate}
+							endDate={props.endDate}
+							clickedDay={props.clickedDay}
+							visible={showCalendarDropdown}/>
+						</div>
+						<button className="date" onClick={props.clickedClearDateRange}>
+							Clear
+						</button>
 					</React.Fragment>
-				: null }
+					: null 
+				}
+				
 				{ 
 					props.userDetails.user_id == props.currentBoard.created_by_user_id ?
 					<Link to={`/board/${props.match.params.boardid}/edit`} replace className="edit">
-						<i className="fas fa-edit"></i>
+						<i className="fas fa-edit" title="Edit Board"></i>
 					</Link>
 					: null
 				} 

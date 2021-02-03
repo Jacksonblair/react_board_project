@@ -2,7 +2,6 @@ import * as actionTypes from './actions';
 
 const initialState = {
 	hasInit: false,
-	production: true,
 
 	/* User Auth */
 	userDetails: {

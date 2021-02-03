@@ -1,0 +1,109 @@
+.container-calendar-dropdown {
+	display: none;
+	position: absolute;
+	top: 120%;
+	left: 0;
+	border: 1px solid grey;
+	background: white;
+	width: 560px;
+    height: 180px;
+    flex-direction: row;
+    border-radius: 5px;
+}
+
+.container-calendar-dropdown.visible {
+	display: flex;
+}
+
+.container-calendar-dropdown .left-calendar {
+	flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid grey;
+    box-sizing: border-box;
+}
+
+.container-calendar-dropdown .right-calendar {
+	flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.container-calendar-dropdown .row button {
+	border: none;
+	margin: 0px;
+	padding: 0px;
+	font-size: 1em;
+}
+
+.container-calendar-dropdown .header {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-top: 5px;
+}
+
+.container-calendar-dropdown .controller {
+	display: flex;
+    justify-content: space-between;
+    font-size: 0.9em;
+}
+
+.container-calendar-dropdown .controller .current-date {
+	flex: 1;
+}
+
+.container-calendar-dropdown .days {
+	height: 100%;
+}
+
+.container-calendar-dropdown .days .row {
+	min-height: 0px;
+	padding: 0px;
+	height: 16.67%;
+}
+
+.container-calendar-dropdown .days .row .day {
+    padding: 0px;
+    min-width: 0px;
+    width: 14.28%;
+    line-height: 1em;
+}
+
+.container-calendar-dropdown .days .row .no-day {
+	background: red;
+    width: 14.28%;
+}
+
+
+
+.container-calendar-dropdown .months {
+	height: 100%;
+}
+
+.container-calendar-dropdown .months .row {
+	height: 33.33%;
+	padding: 0px;
+}
+
+.container-calendar-dropdown .months .row .month {
+	width: 25%;
+	padding: 0px;
+}
+
+
+
+.container-calendar-dropdown .years {
+	height: 100%;
+}
+
+.container-calendar-dropdown .years .row {
+	height: 33.33%;
+	padding: 0px;
+}
+
+.container-calendar-dropdown .years .row .year {
+	width: 33.33%;
+	padding: 0px;
+}
+

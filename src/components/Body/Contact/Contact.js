@@ -23,14 +23,27 @@ const Contact = props => {
 				<button onClick={() => props.history.goBack()}> Back </button>
 			</div>
 			<div className="content">
-				<div className="header"> Contact Information </div>
-				<button id="emailCopyButton" onClick={clickedCopy}>
-					{ copied ? "Copied to clipboard!" : "jackson.blair@live.com" }
-				</button>
+				<div className="header"> Contact </div>
+				<div className="paragraph">
+					I'm a Computer Science student at Deakin University and an aspiring 'full-stack' web developer from the ACT, Australia.
+				</div>
+				<div className="buttons">
+					<button onClick={clickedCopy}>
+						{ copied ? "Copied to clipboard!" : 
+						<React.Fragment> 
+							<i className='fas fa-envelope'></i>&nbsp;
+							jackson.blair@live.com 
+						</React.Fragment>}
+					</button>
+					<a href=""><button> Github </button></a>
+				</div>
 			</div>
 		</div>
 	)
 
 }
+
+
+/*david-edelstein-N4DbvTUDikw-unsplash*/
 
 export default withRouter(Contact)

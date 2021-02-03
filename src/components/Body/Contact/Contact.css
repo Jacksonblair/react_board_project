@@ -6,20 +6,32 @@
 }
 
 .container-contact .content {
-	display: flex;
 	flex: 1;
-	justify-content: center;
-    align-items: center;
+	background: white; 
+    display: flex;
     flex-direction: column;
-    padding: 0px 10px;
+    justify-content: center;
+    align-items: center;
 }
 
 .container-contact .header {
-    font-size: 1.5em;
+    font-size: 2em;
     color: grey;
 }
 
-#emailCopyButton {
+.container-contact .paragraph {
+	width: 450px;
+	font-style: italic;
+	font-size: 1.1em;
+	text-align: center;
+	margin: 5px 0px 30px 0px;
+}
+
+.container-contact .buttons {
+	display: flex;
+}
+
+.container-contact button {
 	color: black;
     padding: 5px 10px;
     font-size: 1em;
@@ -27,4 +39,15 @@
     font-family: inherit;
     border: 1px solid grey;
     margin: 5px;
+}
+
+
+
+
+@media screen and (max-width: 450px) {
+
+	.container-contact .paragraph {
+	    width: -webkit-fill-available;
+	}
+
 }

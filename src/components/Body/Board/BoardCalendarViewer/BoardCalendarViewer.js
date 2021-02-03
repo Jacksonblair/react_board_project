@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import './BoardCalendarViewer.css'
 
 import BoardCalendarViewerMenu from '../BoardCalendarViewerMenu/BoardCalendarViewerMenu.js'
@@ -10,23 +10,51 @@ import { AnimatePresence, motion } from "framer-motion"
 const BoardCalendarViewer = props => {
 
 	// Get array of years from current year to 10 years in the future
-	let _years = new Array(10).fill().map((x, i) => {
-		return (new Date().getFullYear() + i)		
-	})
-	let _months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
-	let calendarUnitEnum = {
-		DAY: 0,
-		MONTH: 1,
-		YEAR: 2
+	let years = new Array(10).fill().map((x, i) => { return 2020 + i })
+	let months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
+	
+	let today = new Date()
+	let [ month, setMonth ] = useState(today.getMonth())
+	let [ year, setYear ] = useState(today.getFullYear())
+
+	/* 0: Days, 1: Months, 2: Years */ /* View days by default */
+	let [ dateUnit, setDateUnit ] = useState(0)
+
+	let clickedNextMonth = () => {
+		if (month == 11) {
+			setYear(year + 1)
+			setMonth(0)
+		} else {
+			setMonth(month + 1)
+		}
 	}
 
-	let dateSelectionTypeText = [
-		null, 
-		( <React.Fragment><i className="fas fa-times"></i> Getting date range start</React.Fragment> ), 
-		( <React.Fragment><i className="fas fa-times"></i> Getting date range end</React.Fragment> ),
-		( <React.Fragment><i className="fas fa-times"></i> Setting target date for new post</React.Fragment>),
-		( <React.Fragment><i className="fas fa-times"></i> Setting target date for edited post</React.Fragment>),
-	]
+	let clickedPrevMonth = () => {
+		if (month == 0) {
+			setYear(year - 1)
+			setMonth(11)
+		} else {
+			setMonth(month - 1)
+		}
+	}
+
+	let clickedPrevYear = () => {
+		setYear(year - 1)
+	}
+
+	let clickedNextYear = () => {
+		setYear(year + 1)
+	}
+
+	let clickedMonth = (month) => {
+		setMonth(month)
+		setDateUnit(0)
+	}	
+
+	let clickedYear = (year) => {
+		setYear(year)
+		setDateUnit(1)
+	}
 
 	let daysInMonth = (month, year) => { 
 	    return 32 - new Date(year, month, 32).getDate()
@@ -52,8 +80,8 @@ const BoardCalendarViewer = props => {
 
 	let getDayMatch = (day, month, year) => {
 		let match = false
-		if (this.props.searchTerm) {
-			let dates = this.getFilteredDates()
+		if (props.searchTerm) {
+			let dates = getFilteredDates()
 			dates.forEach((date) => {
 				if (date[2] == year && date[1] == (month + 1) && date[0] == day) {
 					match = true
@@ -65,8 +93,8 @@ const BoardCalendarViewer = props => {
 
 	let getMonthMatch = (month, year) => {
 		let match = false
-		if (this.props.searchTerm) {
-			let dates = this.getFilteredDates()
+		if (props.searchTerm) {
+			let dates = getFilteredDates()
 			dates.forEach((date) => {
 				if (date[2] == year && date[1] == (month + 1)) {
 					match = true
@@ -78,8 +106,8 @@ const BoardCalendarViewer = props => {
 
 	let getYearMatch = (year) => {
 		let match = false
-		if (this.props.searchTerm) {
-			let dates = this.getFilteredDates()
+		if (props.searchTerm) {
+			let dates = getFilteredDates()
 			dates.forEach((date) => {
 				if (date[2] == year) {
 					match = true
@@ -92,7 +120,7 @@ const BoardCalendarViewer = props => {
 	let getDayElements = () => {
 		let days = []
 
-		let firstDay = (new Date(props.calendar.year, props.calendar.month)).getDay();
+		let firstDay = (new Date(props.year, props.month)).getDay();
 		let day = 1
 		// For 6 possible rows of calendar
 		for (let i = 0; i < 6; i++) {
@@ -105,7 +133,7 @@ const BoardCalendarViewer = props => {
 						<div className="no-day" key={`_day${i}${j}`}/>
 					)			
 				/* If not in possible days for this month */
-				} else if (day > daysInMonth(props.calendar.month, props.calendar.year)) {
+				} else if (day > daysInMonth(month, year)) {
 					if (j < 7) {
 						dayElements.push( 
 							<div className="no-day" key={`day__${i}${j}`}/>
@@ -114,9 +142,9 @@ const BoardCalendarViewer = props => {
 						break
 					}
 				} else {
-					let whyCantIPassThisByValue = day
+					let _day = day
 					dayElements.push( 
-						<button onClick={() => props.clickedDay(whyCantIPassThisByValue)} className="day" key={`day${i}${j}`}>
+						<button onClick={() => props.clickedDay(_day, month, year)} className="day" key={`day${i}${j}`}>
 							{day}
 						</button>
 					)
@@ -139,7 +167,7 @@ const BoardCalendarViewer = props => {
 	}
 
 	let getMonthElements = () => {
-		let months = []
+		let _months = []
 
 		let monthIndex = 0
 		// For 3 rows of months
@@ -148,16 +176,16 @@ const BoardCalendarViewer = props => {
 
 			// For 4 months in a row
 			for (let j = 0; j < 4; j++) {
-				let whyCantIPassThisByValue = monthIndex
+				let _monthIndex = monthIndex
 				monthElements.push(
-					<button onClick={() => props.clickedMonth(whyCantIPassThisByValue)} className="month" key={`month${i}${j}`}>
-						{_months[monthIndex].substr(0, 3)}
+					<button onClick={() => clickedMonth(_monthIndex) } className="month" key={`month${i}${j}`}>
+						{months[monthIndex].substr(0, 3)}
 					</button>
 				)
 				monthIndex++
 			}
 
-			months.push(
+			_months.push(
 				<div className="row" key={`monthsRow${i}`}> 
 					{monthElements}
 				</div>
@@ -166,13 +194,13 @@ const BoardCalendarViewer = props => {
 
 		return (
 			<div className="months">
-				{months}
+				{_months}
 			</div>
 		)
 	}
 
 	let getYearElements = () => {
-		let years = []
+		let _years = []
 
 		let yearIndex = 0;
 		// For 3 rows of years
@@ -181,16 +209,16 @@ const BoardCalendarViewer = props => {
 
 			// For 4 years in a row
 			for (let j = 0; j < 3; j++) {
-				let whyCantIPassThisByValue = _years[yearIndex]
+				let _year = years[yearIndex]
 				yearElements.push(
-					<button onClick={() => props.clickedYear(whyCantIPassThisByValue)} className="year" key={`year${i}${j}`}>
-						{_years[yearIndex]}
+					<button onClick={() => clickedYear(_year)} className="year" key={`year${i}${j}`}>
+						{years[yearIndex]}
 					</button>
 				) 
 				yearIndex++
 			}
 
-			years.push(
+			_years.push(
 				<div className="row" key={`yearsRow${i}`}> 
 					{yearElements}
 				</div>
@@ -199,28 +227,28 @@ const BoardCalendarViewer = props => {
 
 		return (
 			<div className="years">
-				{years}
+				{_years}
 			</div>
 		)
 	}
 
 	let content
-	switch(props.calendar.unit) {
-		case calendarUnitEnum.DAY: // Day
+	switch(dateUnit) {
+		case 0: // Day
 			content = (
 				<motion.div className="motion-div" transition={{ duration: 0.1 }} key="BoardCalendarViewerMotionDivDays" initial="initial" animate="in" exit="out" variants={props.pageVariants}>
 					{ getDayElements() }
 				</motion.div>
 			)
 			break;
-		case calendarUnitEnum.MONTH: 
+		case 1: 
 			content = (
 				<motion.div className="motion-div" transition={{ duration: 0.1 }} key="BoardCalendarViewerMotionDivMonths" initial="initial" animate="in" exit="out" variants={props.pageVariants}>
 					{ getMonthElements() }
 				</motion.div>
 			)
 			break;
-		case calendarUnitEnum.YEAR:
+		case 2:
 			content = (
 				<motion.div transition={{ duration: 0.1 }} key="BoardCalendarViewerMotionDivYears" initial="initial" animate="in" exit="out" variants={props.pageVariants}>
 					{ getYearElements() }
@@ -232,15 +260,15 @@ const BoardCalendarViewer = props => {
 	return (
 		<div className="container-board-calendar-viewer"> 
 			<BoardCalendarViewerMenu 
-			updateCalendarMonth={props.updateCalendarMonth}
-			updateCalendarYear={props.updateCalendarYear}
-			updateCalendarUnit={props.updateCalendarUnit}
-			calendarUnitEnum={calendarUnitEnum}
-			calendar={props.calendar}/>
-			{ props.dateRangeType ? 
-				<button className="range-type" onClick={props.clearDateRangeType}> {dateSelectionTypeText[props.dateRangeType]} </button> 
-			: null}
-			<div className="header">  {_months[props.calendar.month].toUpperCase()} {props.calendar.year} </div>
+			clickedNextMonth={clickedNextMonth}
+			clickedNextYear={clickedNextYear}
+			clickedPrevMonth={clickedPrevMonth}
+			clickedPrevYear={clickedPrevYear}
+			updateDateUnit={(unit) => setDateUnit(unit)}
+			month={month}
+			year={year}
+			dateUnit={dateUnit}/>
+			<div className="header">  {months[month].toUpperCase()} {year} </div>
 			<AnimatePresence exitBeforeEnter>
 				{content}
 			</AnimatePresence>

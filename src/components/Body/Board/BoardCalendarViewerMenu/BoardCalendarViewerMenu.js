@@ -8,18 +8,18 @@ const BoardCalendarViewerMenu = props => {
 		(
 			<React.Fragment>
 				<div className="group">
-					<button onClick={() => props.updateCalendarMonth(props.calendar.month - 1)}>
+					<button onClick={props.clickedPrevMonth}>
 						Prev Month
 					</button>			
-					<button onClick={() => props.updateCalendarMonth(props.calendar.month + 1)}>
+					<button onClick={props.clickedNextMonth}>
 						Next Month
 					</button>
 				</div>
 				<div className="group">
-					<button onClick={() => props.updateCalendarYear(props.calendar.year - 1)}>
+					<button onClick={props.clickedPrevYear}>
 						Prev Year
 					</button>			
-					<button onClick={() => props.updateCalendarYear(props.calendar.year + 1)}>
+					<button onClick={props.clickedNextYear}>
 						Next Year
 					</button>
 				</div>
@@ -28,10 +28,10 @@ const BoardCalendarViewerMenu = props => {
 		(
 			<React.Fragment>
 				<div className="group">
-					<button onClick={() => props.updateCalendarYear(props.calendar.year - 1)}>
+					<button onClick={props.clickedPrevYear}>
 						Prev Year
 					</button>			
-					<button onClick={() => props.updateCalendarYear(props.calendar.year + 1)}>
+					<button onClick={props.clickedNextYear}>
 						Next Year
 					</button>
 				</div>
@@ -44,20 +44,20 @@ const BoardCalendarViewerMenu = props => {
 		<div className="container-board-calendar-viewer-menu">
 			<div className="board-sub-menu">
 				<div className="group">
-					<button disabled={props.calendar.unit == props.calendarUnitEnum.DAY} 
-					onClick={() => props.updateCalendarUnit(props.calendarUnitEnum.DAY)}> 
+					<button disabled={props.dateUnit == 0} 
+					onClick={() => props.updateDateUnit(0)}> 
 						Days
 					</button>				
-					<button disabled={props.calendar.unit == props.calendarUnitEnum.MONTH} 
-					onClick={() => props.updateCalendarUnit(props.calendarUnitEnum.MONTH)}> 
+					<button disabled={props.dateUnit == 1} 
+					onClick={() => props.updateDateUnit(1)}> 
 						Months
 					</button>				
-					<button disabled={props.calendar.unit == props.calendarUnitEnum.YEAR}  
-					onClick={() => props.updateCalendarUnit(props.calendarUnitEnum.YEAR)}> 
+					<button disabled={props.dateUnit == 2}  
+					onClick={() => props.updateDateUnit(2)}> 
 						Years
 					</button>
 				</div>
-				{ incrementDecrementButtons[props.calendar.unit] }
+				{ incrementDecrementButtons[props.dateUnit] }
 			</div>
 		</div>
 	)

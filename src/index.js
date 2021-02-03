@@ -7,7 +7,8 @@ import axios from 'axios'
 import './index.css'
 import App from './App'
 
-axios.defaults.baseURL = 'https://jackson-blair-node-demon.herokuapp.com/api/';
+// axios.defaults.baseURL = 'https://jackson-blair-node-demon.herokuapp.com/api/';
+axios.defaults.baseURL = 'http://localhost:4555/api/';
 axios.defaults.withCredentials = true
 
 let updateUserDetailsFromHeader = (headers) => {
@@ -57,8 +58,8 @@ axios.get("/init")
 
 const rootElement = document.getElementById('root')
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  rootElement
+	<Provider store={store}>
+		<App />
+	</Provider>,
+	rootElement
 )

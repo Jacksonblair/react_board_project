@@ -7,13 +7,13 @@
 }
 
 .container-landing .title {
-	font-size: 3em;
+	font-size: 2.5em;
 	font-weight: bold;
     text-align: center;
 }
 
 .container-landing .blurb {
-	font-size: 1.5em;
+	font-size: 1.3em;
     font-style: italic;
     color: #8282dc;
     width: 490px;

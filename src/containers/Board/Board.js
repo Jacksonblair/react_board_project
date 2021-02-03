@@ -33,6 +33,17 @@ class Board extends Component {
 
 		/* Filter variables */
 		searchTerm: "",
+
+		/* Calendar Variables (Calendar Viewer & Dropdown In <BoardMenu>) */
+		leftDay: 0,
+		leftMonth: 0,
+		leftYear: 2020,
+		rightDay: 0,
+		rightMonth: 0,
+		rightYear: 2020,
+
+		startDate: null,
+		endDate: null
 	}
 
 	componentDidMount = () => {
@@ -41,6 +52,8 @@ class Board extends Component {
 			If it's not there, we try to get the board from the server
 		*/
 		this.getBoard()
+
+		console.log("Component mounted")
 	}
 
 	componentDidUpdate = (prevProps) => {
@@ -72,6 +85,7 @@ class Board extends Component {
 		})
 	}
 
+
 	clickedCalendarViewerHandler = () => {
 		this.props.history.push(`/board/${this.props.match.params.boardid}/calendar`)
 	}
@@ -80,17 +94,6 @@ class Board extends Component {
 		this.props.history.push(`/board/${this.props.match.params.boardid}/list`)
 	}
 
-	updateCalendarUnitHandler = (unit) => {
-		this.props.updateCalendarUnit(unit)
-	}
-
-	updateCalendarMonthHandler = (month) => {
-		this.props.updateCalendarMonth(month)
-	}
-
-	updateCalendarYearHandler = (month) => {
-		this.props.updateCalendarYear(month)
-	}
 
 	clickedSubmitEditedBoardHandler = (event, name, description, isPublic) => {
 		event.preventDefault()		
@@ -163,71 +166,61 @@ class Board extends Component {
 		})
 	}
 
-	clickedUpdateDateRangeTypeHandler = (dateRangeType) => {
-		/* 
-			We get a type of range to set here, then swap to calendar view
-			.. Then when the user clicks a date in the calendar viewer
-			.. That becomes the date for that range type
-			( User clicks set 'Start' date, clicks 11th of Jan > Everything is filtered from on/after 11th Jan )
-			* We also use this for setting dates for editing/creating posts
-
-			0: particular day
-			1: start date
-			2: end date
-			3: new post target date
-			4: updated post target date
-
-		*/
-		this.props.updateDateRangeType(dateRangeType)
-		this.props.history.push(`/board/${this.props.match.params.boardid}/calendar`)
-	}
 
 	clickedClearDateRangeHandler = () => {
-		this.props.updateDateRangeStart(null)
-		this.props.updateDateRangeEnd(null)
+		this.setState({
+			startDate: null,
+			endDate: null,
+
+			leftDay: null,
+			leftMonth: null,
+			leftYear: null,
+			rightDay: null,
+			rightMonth: null,
+			rightYear: null
+		})
 	}
 
-	clickedCalendarDayHandler = (day) => {
-		let date = new Date(this.props.calendar.year, this.props.calendar.month, day)
+	clickedCalendarViewerDayHandler = (day, month, year) => {
+		this.setState({
+			startDate: new Date(year, month, day),
+			endDate: new Date(year, month, day),
 
-		switch (this.props.dateRangeType) {
-			case 0: // Picking a particular day
-				this.props.updateDateRangeStart(new Date(date.getTime() - (24 * 60 * 60 * 1000)))
-				this.props.updateDateRangeEnd(new Date(date.getTime() + (24 * 60 * 60 * 1000)))
-				this.props.updateDateRangeType(0)
-				this.props.history.push(`/board/${this.props.match.params.boardid}/list`)
-			break;
-			case 1: // Picking start date
-				this.props.updateDateRangeStart(date)
-				this.props.updateDateRangeType(0)
-				this.props.history.push(`/board/${this.props.match.params.boardid}/list`)
-			break;
-			case 2: // Picking end date
-				this.props.updateDateRangeEnd(date)
-				this.props.updateDateRangeType(0)
-				this.props.history.push(`/board/${this.props.match.params.boardid}/list`)
-			break;
-			case 3: // New post target date
-				this.props.updatePostTargetDate(date)
-				this.props.updateDateRangeType(0)
-				this.props.history.push(`/board/${this.props.match.params.boardid}/post/new`)
-			break;
-			case 4: // Updating post target date 
-				this.props.updatePostTargetDate(date)
-				this.props.updateDateRangeType(0)
-				this.props.history.push(`/board/${this.props.match.params.boardid}/post/${this.props.currentPost.id}/edit`)
-			break;
+			leftDay: day,
+			leftMonth: month,
+			leftYear: year,
+			rightDay: day,
+			rightMonth: month,
+			rightYear: year
+		})
+		this.props.history.push(`/board/${this.props.match.params.boardid}/list`)
+	}
+
+	clickedBoardMenuCalendarDayHandler = (day, month, year, calendarSide) => {
+		/* If calendarSide == 0, its the left. Otherwise its the right */
+		if (calendarSide == 0) {
+			this.setState({
+				startDate: new Date(year, month, day),
+				leftDay: day,
+				leftMonth: month,
+				leftYear: year
+			})
+		} else {
+			this.setState({
+				endDate: new Date(year, month, day),
+				rightDay: day,
+				rightMonth: month,
+				rightYear: year
+			})		
 		}
 	}
 
-	clickedCalendarMonthHandler = (month) => {
-		this.props.updateCalendarMonth(month)
-		this.props.updateCalendarUnit(0)
+	clickedNewPostCalendarDayHandler = () => {
+
 	}
 
-	clickedCalendarYearHandler = (year) => {
-		this.props.updateCalendarYear(year)
-		this.props.updateCalendarUnit(1)
+	clickedEditedPostCalendarDayHandler = () => {
+
 	}
 
 	/* We pass the contents of currentBoard through this filter each render */
@@ -240,16 +233,17 @@ class Board extends Component {
 
 			let [ dd, mm, yyyy ] = post.target_date.split('/') 
 			let postDate = new Date(parseInt(yyyy), parseInt(mm - 1), parseInt(dd))
+			if (left)
 
-			if (this.props.dateRangeStart) {
+			if (this.state.dateRangeStart) {
 				// If post date pre-dates our range start date
-				if (postDate <= this.props.dateRangeStart)
+				if (postDate <= this.state.startDate)
 					canShow = false 
 			}
 
 			if (this.props.dateRangeEnd) {
 				// If post date post-dates our range end date
-				if (postDate >= this.props.dateRangeEnd)
+				if (postDate >= this.state.endDate)
 					canShow = false
 			}
 
@@ -284,11 +278,9 @@ class Board extends Component {
 		})
 	}
 
-	clickedClearRangeTypeHandler = () => {
-		this.props.updateDateRangeType(0)
-	}
-
 	render() {
+
+		console.log(this.state)
 
 		let filteredPosts = this.getFilteredPosts()
 
@@ -331,17 +323,18 @@ class Board extends Component {
 										<div className="body-sub-menu" key="bodySubMenu">
 											<button onClick={() => this.props.history.push(`/`)}> Back </button>
 										</div>
-										<BoardMenu 
+										<BoardMenu
 										userDetails={this.props.userDetails}
-										dateRangeStart={this.props.dateRangeStart}
-										dateRangeEnd={this.props.dateRangeEnd}
+										startDate={this.state.startDate}
+										endDate={this.state.endDate}
+										clickedDay={this.clickedBoardMenuCalendarDayHandler}
 										clickedClearDateRange={this.clickedClearDateRangeHandler}
-										clickedUpdateDateRangeType={this.clickedUpdateDateRangeTypeHandler}
 										updateSearchTerm={this.updateSearchTermHandler}
 										clickedCalendarViewer={this.clickedCalendarViewerHandler}
-										clickedListViewer={this.clickedListViewerHandler}
 										currentBoard={this.props.currentBoard}/>
 										<BoardListViewer 
+										startDate={this.state.startDate}
+										endDate={this.state.endDate}
 										userDetails={this.props.userDetails}
 										currentBoard={this.props.currentBoard}
 										posts={filteredPosts}/>
@@ -353,20 +346,11 @@ class Board extends Component {
 										<BoardMenu 
 										userDetails={this.props.userDetails}
 										updateSearchTerm={this.updateSearchTermHandler}
-										clickedCalendarViewer={this.clickedCalendarViewerHandler}
 										clickedListViewer={this.clickedListViewerHandler}
 										currentBoard={this.props.currentBoard}/>
 										<BoardCalendarViewer 
-										clearDateRangeType={this.clickedClearRangeTypeHandler}
-										dateRangeType={this.props.dateRangeType}
-										clickedDay={this.clickedCalendarDayHandler}
-										clickedMonth={this.clickedCalendarMonthHandler}
-										clickedYear={this.clickedCalendarYearHandler}
-										updateCalendarMonth={this.updateCalendarMonthHandler}
-										updateCalendarYear={this.updateCalendarYearHandler}
-										updateCalendarUnit={this.updateCalendarUnitHandler}
+										clickedDay={this.clickedCalendarViewerDayHandler}
 										pageVariants={this.props.pageVariants}
-										calendar={this.props.calendar}
 										currentBoard={this.props.currentBoard}
 										posts={filteredPosts}/>
 									</Route>
@@ -375,7 +359,6 @@ class Board extends Component {
 											<button onClick={() => this.props.history.push(`/board/${this.props.match.params.boardid}`)}> Back </button>
 										</div>
 										<PostCreator
-										clickedUpdateDateRangeType={() => this.clickedUpdateDateRangeTypeHandler(3)}
 										postTargetDate={this.props.postTargetDate}
 										newPostTitle={this.props.newPostTitle}
 										newPostContent={this.props.newPostContent}
@@ -406,33 +389,20 @@ class Board extends Component {
 const mapStateToProps = (state) => {
 	return {
 		pageVariants: state.pageVariants,
+
 		currentBoard: state.currentBoard,
 		currentPost: state.currentPost,
 		currentBoardPosts: state.currentBoardPosts,
-		calendar: {
-			unit: state.calendarUnit,
-			year: state.calendarYear,
-			month: state.calendarMonth
-		},
-		dateRangeType: state.dateRangeType,
-		dateRangeStart: state.dateRangeStart,
-		dateRangeEnd: state.dateRangeEnd,
-		postTargetDate: state.postTargetDate,
+
 		newPostTitle: state.newPostTitle,
 		newPostContent: state.newPostContent,
+
 		userDetails: state.userDetails,
 	}
 }
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		updateCalendarUnit: (unit) => dispatch({ type: actionTypes.CALENDAR_UNIT_UPDATE, payload: { unit } }), 
-		updateCalendarMonth: (month) => dispatch({ type: actionTypes.CALENDAR_MONTH_UPDATE, payload: { month } }), 
-		updateCalendarYear: (year) => dispatch({ type: actionTypes.CALENDAR_YEAR_UPDATE, payload: { year } }), 
-		updateDateRangeType: (type) => dispatch({ type: actionTypes.DATE_RANGE_TYPE_UPDATE, payload: { type } }), 
-		updateDateRangeStart: (date) => dispatch({ type: actionTypes.DATE_RANGE_START_UPDATE, payload: { date } }), 
-		updateDateRangeEnd: (date) => dispatch({ type: actionTypes.DATE_RANGE_END_UPDATE, payload: { date } }), 
-		updatePostTargetDate: (date) => dispatch({ type: actionTypes.POST_TARGET_DATE_UPDATE, payload: { date } }), 
 		updateNewPostTitle: (title) => dispatch({ type: actionTypes.NEW_POST_TITLE_UPDATE, payload: { title } }),
 		updateNewPostContent: (content) => dispatch({ type: actionTypes.NEW_POST_CONTENT_UPDATE, payload: { content } }),
 		updateCurrentBoard: (board) => dispatch({ type: actionTypes.CURRENT_BOARD_UPDATE, payload: { board } }),

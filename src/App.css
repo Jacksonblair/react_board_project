@@ -38,7 +38,7 @@ input {
 	font-family: inherit;
 }
 
-input:focus, textarea:focus, select:focus {
+input:focus, textarea:focus, select:focus, .div-button:focus {
 	box-shadow: inset 0px 0px 0px 2px blue, inset 0px 0px 5px 5px lightgrey;
     border: 1px solid #c5cce4;
     outline: none;
@@ -76,8 +76,6 @@ button:focus {
 		transform: rotate(360deg);
 	}
 }
-
-
 
 .board-form {
 	display: flex;
