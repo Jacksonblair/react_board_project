@@ -1,21 +1,18 @@
 .container-board-menu {
 	display: flex;
     flex-direction: column;
-    /* margin-bottom: 20px; */
-    /* padding-bottom: 40px; */
     border-bottom: 1px solid whitesmoke;
+    padding: 0px 10px;
 }
 
-
 .container-board-menu .menu button, 
-.container-board-menu .menu a, 
-.container-board-menu .menu .date {
+.container-board-menu .menu a,
+.container-board-menu .menu .div-button {
 	border-radius: 5px;
 	background: none;
 	font-size: 1.2em;
     min-width: 40px;
     color: black;
-    border: 1px solid grey;
     margin: 5px;
    	padding: 0px 5px;
     display: flex;
@@ -27,37 +24,64 @@
 
 .container-board-menu .menu button:hover, 
 .container-board-menu .menu a:hover,
-.container-board-menu .menu .date:hover {
-	color: grey;
+.container-board-menu .menu .div-button:hover {
+	color: lightgrey;
 }
 
 .container-board-menu .menu button:disabled {
 	color: lightgrey;
+	cursor: default;
 }
-
-.container-board-menu .menu .date {
-	position: relative;
-}
-
 
 .container-board-menu .menu {
-	height: 40px;
 	display: flex;
+	justify-content: space-between;
+	border: 1px solid lightgrey;
+    border-radius: 5px;
+    background: whitesmoke;
+	font-size: 1.2em;
 }
 
 .container-board-menu .menu .row {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.container-board-menu .menu .row .header {
+	color: grey;
+}
+
+.container-board-menu .menu .icon-button {
+	border: none;
+	margin: 5px 0px;
+	font-size: 1em;
+}
+
+.container-board-menu .menu .clear-calendar {
+	border: 1px solid lightgrey;
+    color: grey;
+    font-size: 1em;
+    min-width: 30px;
     padding: 5px;
-    display: flex;
+    margin: 0px;
+    margin-right: 5px;
+    height: 34px;
 }
 
-.container-board-menu > .menu > .row > .calendar {
-	margin: 0px;
-    border: none;
+.container-board-menu .menu .calendar-button {
+    border: 1px solid lightgrey;
+    position: relative;
+    font-size: 1em;
+    padding: 5px 10px;
+    margin: 5px;
+    font-style: italic;
+    color: grey;
+    background: white;
 }
 
-.container-board-menu > .menu > .row > .list {
-	margin: 0px;
-    border: none;
+.container-board-menu .menu .calendar-button.has-date {
+    color: black;
 }
 
 .container-board-menu .menu .search-wrapper {
@@ -69,28 +93,25 @@
 	width: 100%;
 	padding: 5px 10px;
 	border: none;
-	font-size: 1.2em;
+	font-size: 1em;
+	font-style: italic;
+	border: 1px solid #e4e4e4;
+	border-radius: 5px;
+	margin: 5px;
 }
-
-.container-board-menu .menu .edit {
-	margin-left: auto;
-}
-
-
-
-
-
-
 
 .container-board-menu .name {
 	margin: 20px 10px 0px 10px;
     font-size: 1.8em;
     text-align: center;
+	width: max-content;
+    align-self: center;
+    position: relative;
 }
 
 .container-board-menu .description {
     margin: 0px 10px 0px 10px;
-	font-size: 1.2em;
+	font-size: 1em;
 	font-style: italic;
     text-align: center;
 }
@@ -102,6 +123,7 @@
     margin: 5px 10px 30px 10px;
     font-style: italic;
     font-size: 1em;
+    flex-wrap: wrap;
 }
 
 .container-board-menu .about .visibility {
@@ -131,7 +153,13 @@
 }
 
 
+
+
 @media screen and (max-width: 450px) {
+
+	.container-board-menu {
+		padding: 0px;
+	}
 
 	.container-board-menu .menu {
 	    display: flex;
@@ -140,7 +168,7 @@
 	}
 
 	.container-board-menu .name {
-	    margin: 0px 10px;
+	    margin: 15px 10px 0px 10px;
 	    font-size: 1.5em;
 	    text-align: center;
 	}
@@ -152,28 +180,41 @@
 	    text-align: center;
 	}
 
-	.container-board-menu .menu .edit {
-	    margin-left: auto;
-	    padding: 5px 0px;
-	}
-
-	.container-board-menu .menu .wrapper .search {
-	    border-top: 1px solid lightgrey;
-	    border-bottom: 1px solid lightgrey;
-	    font-size: 1em;
-	    padding: 5px;
-	}
-
-	.container-board-menu .menu button.date {
-		font-size: 1.1em;
-		margin: 0px;
-		border-radius: 0px;
-		border: none;
-		border-bottom: 1px solid lightgrey;
-	}
-
 	.container-board-menu .about {
-		margin: 0px 10px 30px 10px;
+		margin: 0px 10px 20px 10px;
 	}
 
+	.container-board-menu .menu {
+		border-radius: 0px;
+		border-left: none;
+		border-right: none;
+	}
+
+	.container-board-menu .menu .row .header {
+		display: none;
+	}
+
+	.container-board-menu .menu .calendar-button {
+		position: initial;
+		flex: 1;
+		padding: 0px;
+		margin-top: 0px;
+	}
+
+	.container-board-menu .menu .clear-calendar {
+	    position: relative;
+		padding: 0px 5px;
+	    min-width: 22px;
+	    height: 24px;
+	    margin: 0px 5px 5px 0px;
+	}
+
+	.container-board-menu .menu .search-wrapper {
+		flex: 1;
+	}
+
+	.container-board-menu .menu .search-wrapper .search {
+		margin-right: 5px;
+		padding: 0px 10px;
+	}
 }

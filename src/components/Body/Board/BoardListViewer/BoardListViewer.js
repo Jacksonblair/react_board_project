@@ -48,35 +48,16 @@ const BoardListViewer = props => {
 
 	let newPostButton = (props.userDetails.user_id == props.currentBoard.created_by_user_id) ?
 		<Link to={`/board/${props.match.params.boardid}/post/new`} className="new">
-			{ props.posts.length ? 
 			<React.Fragment>
 			Add new post&nbsp;<i className="fas fa-plus-circle"></i>
 			</React.Fragment>
-			: <React.Fragment>
-			Add a first post!&nbsp;<i className="fas fa-plus-circle"></i>
-			</React.Fragment> }
 		</Link>
-		: null
-
-	let dateRangeHeader = props.startDate || props.endDate ?
-		<div className="date-range">
-			Date Range: 
-			{ props.startDate ? 
-				<div> From: {props.startDate.toLocaleDateString("EN-au")} </div>
-				: <div> From: ~ </div>
-			}			
-			{ props.endDate ? 
-				<div> To: {props.endDate.toLocaleDateString("EN-au")} </div>
-				: <div> To: ~ </div>
-			}
-		</div>
 		: null
 
 	return (
 		<div className="container-board-list-viewer"> 
-			{dateRangeHeader}
-			{content}
 			{newPostButton}
+			{content}
 		</div>
 	)
 

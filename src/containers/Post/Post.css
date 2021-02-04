@@ -57,6 +57,7 @@
     flex-direction: column;
     font-style: italic;
     color: grey;
+    align-items: flex-start;
 }
 
 .container-post .header .title-column .metadata .author {
@@ -75,6 +76,9 @@
 
 }
 
+.container-post .header .title-column .metadata a {
+    text-align: left;
+}
 
 
 .container-post .content {

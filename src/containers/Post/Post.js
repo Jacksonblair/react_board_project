@@ -183,12 +183,6 @@ class Post extends Component {
 							<div className="body-sub-menu" key="bodySubMenu">
 								<button onClick={() => this.props.history.push(`/board/${this.props.match.params.boardid}/`)}> Back </button>
 							</div>
-							<div className="board-sub-menu">
-								{ this.props.userDetails.user_id == this.props.currentPost.created_by_user_id ?
-									<Link className="edit" to={`/board/${this.props.match.params.boardid}/post/${this.props.match.params.postid}/edit`}> <i className="fas fa-edit"></i> </Link>
-									: null
-								}
-							</div>
 							<div className="header">
 								<div className="date-column"> 
 									<div className="box">
@@ -209,6 +203,10 @@ class Post extends Component {
 										<div className="created">
 											Created:&nbsp;<div className="date"> {this.props.currentPost.created_date} </div>
 										</div>
+										{ this.props.userDetails.user_id == this.props.currentPost.created_by_user_id ?
+											<Link to={`/board/${this.props.match.params.boardid}/post/${this.props.match.params.postid}/edit`}><i className="fas fa-pen"></i>&nbsp;Edit Post  </Link>
+											: null
+										}	
 									</div>
 								</div>
 							</div>

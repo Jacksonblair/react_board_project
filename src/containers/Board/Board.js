@@ -35,13 +35,6 @@ class Board extends Component {
 		searchTerm: "",
 
 		/* Calendar Variables (Calendar Viewer & Dropdown In <BoardMenu>) */
-		leftDay: 0,
-		leftMonth: 0,
-		leftYear: 2020,
-		rightDay: 0,
-		rightMonth: 0,
-		rightYear: 2020,
-
 		startDate: null,
 		endDate: null
 	}
@@ -94,7 +87,6 @@ class Board extends Component {
 		this.props.history.push(`/board/${this.props.match.params.boardid}/list`)
 	}
 
-
 	clickedSubmitEditedBoardHandler = (event, name, description, isPublic) => {
 		event.preventDefault()		
 		this.setState({
@@ -124,32 +116,35 @@ class Board extends Component {
 		})
 	}
 
-	clickedSubmitNewPostHandler = (event) => {
+	clickedSubmitNewPostHandler = (event, title, content, date) => {
 		event.preventDefault()
 		this.setState({
 			processing: true
 		})
 
 		// Soome basic content validation
-		if (this.props.newPostTitle.length < 1) {
+		if (title.length < 1) {
 			this.setState({
-				formError: "Please add a title to the post"
+				formError: "Please add a title to the post",
+				processing: false
 			})
-		} else if (this.props.newPostContent.length < 1) {
+		} else if (content.length < 1) {
 			this.setState({
-				formError: "Please add some content to the post"
+				formError: "Please add some content to the post",
+				processing: false
 			})
 		} else {
 			axios.post(this.props.location.pathname, {
-				title: this.props.newPostTitle, 
-				content: this.props.newPostContent,
-				target_date: this.props.postTargetDate
+				title, 
+				content,
+				target_date: date.toLocaleDateString("EN-au")
 			})
 			.then((res) => {
+				this.getBoard()
 				this.props.history.push(`/board/${this.props.match.params.boardid}/`)
-				// And remove the post data from the store
-				this.props.updateNewPostTitle("")
-				this.props.updateNewPostContent("")
+				this.setState({
+					processing: false
+				})
 			})
 			.catch((err) => {
 				this.setState({
@@ -166,52 +161,46 @@ class Board extends Component {
 		})
 	}
 
-
 	clickedClearDateRangeHandler = () => {
 		this.setState({
 			startDate: null,
 			endDate: null,
-
-			leftDay: null,
-			leftMonth: null,
-			leftYear: null,
-			rightDay: null,
-			rightMonth: null,
-			rightYear: null
 		})
 	}
 
 	clickedCalendarViewerDayHandler = (day, month, year) => {
 		this.setState({
 			startDate: new Date(year, month, day),
-			endDate: new Date(year, month, day),
-
-			leftDay: day,
-			leftMonth: month,
-			leftYear: year,
-			rightDay: day,
-			rightMonth: month,
-			rightYear: year
+			endDate: new Date(year, month, day)
 		})
 		this.props.history.push(`/board/${this.props.match.params.boardid}/list`)
 	}
 
-	clickedBoardMenuCalendarDayHandler = (day, month, year, calendarSide) => {
-		/* If calendarSide == 0, its the left. Otherwise its the right */
-		if (calendarSide == 0) {
+	clickedLeftBoardMenuCalendarDayHandler = (day, month, year) => {
+		let startDate = new Date(year, month, day)
+		if (this.state.endDate && startDate > this.state.endDate) {
 			this.setState({
-				startDate: new Date(year, month, day),
-				leftDay: day,
-				leftMonth: month,
-				leftYear: year
-			})
+				startDate,
+				endDate: startDate
+			})			
 		} else {
 			this.setState({
-				endDate: new Date(year, month, day),
-				rightDay: day,
-				rightMonth: month,
-				rightYear: year
-			})		
+				startDate
+			})
+		}
+	}
+
+	clickedRightBoardMenuCalendarDayHandler = (day, month, year) => {
+		let endDate = new Date(year, month, day)
+		if (this.state.startDate && endDate < this.state.startDate) {
+			this.setState({
+				endDate,
+				startDate: endDate
+			})	
+		} else {
+			this.setState({
+				endDate
+			})
 		}
 	}
 
@@ -233,17 +222,16 @@ class Board extends Component {
 
 			let [ dd, mm, yyyy ] = post.target_date.split('/') 
 			let postDate = new Date(parseInt(yyyy), parseInt(mm - 1), parseInt(dd))
-			if (left)
 
-			if (this.state.dateRangeStart) {
+			if (this.state.startDate) {
 				// If post date pre-dates our range start date
-				if (postDate <= this.state.startDate)
+				if (postDate < this.state.startDate)
 					canShow = false 
 			}
 
-			if (this.props.dateRangeEnd) {
+			if (this.state.endDate) {
 				// If post date post-dates our range end date
-				if (postDate >= this.state.endDate)
+				if (postDate > this.state.endDate)
 					canShow = false
 			}
 
@@ -279,9 +267,6 @@ class Board extends Component {
 	}
 
 	render() {
-
-		console.log(this.state)
-
 		let filteredPosts = this.getFilteredPosts()
 
 		return (
@@ -324,10 +309,12 @@ class Board extends Component {
 											<button onClick={() => this.props.history.push(`/`)}> Back </button>
 										</div>
 										<BoardMenu
+										showCalendar={true}
 										userDetails={this.props.userDetails}
 										startDate={this.state.startDate}
 										endDate={this.state.endDate}
-										clickedDay={this.clickedBoardMenuCalendarDayHandler}
+										clickedLeftDay={this.clickedLeftBoardMenuCalendarDayHandler}
+										clickedRightDay={this.clickedRightBoardMenuCalendarDayHandler}
 										clickedClearDateRange={this.clickedClearDateRangeHandler}
 										updateSearchTerm={this.updateSearchTermHandler}
 										clickedCalendarViewer={this.clickedCalendarViewerHandler}
@@ -350,7 +337,6 @@ class Board extends Component {
 										currentBoard={this.props.currentBoard}/>
 										<BoardCalendarViewer 
 										clickedDay={this.clickedCalendarViewerDayHandler}
-										pageVariants={this.props.pageVariants}
 										currentBoard={this.props.currentBoard}
 										posts={filteredPosts}/>
 									</Route>
@@ -359,11 +345,6 @@ class Board extends Component {
 											<button onClick={() => this.props.history.push(`/board/${this.props.match.params.boardid}`)}> Back </button>
 										</div>
 										<PostCreator
-										postTargetDate={this.props.postTargetDate}
-										newPostTitle={this.props.newPostTitle}
-										newPostContent={this.props.newPostContent}
-										updateNewPostTitle={this.props.updateNewPostTitle}
-										updateNewPostContent={this.props.updateNewPostContent}
 										clearErrors={this.clearFormErrors}
 										clickedSubmit={this.clickedSubmitNewPostHandler}
 										serverError={this.state.serverError}
@@ -388,23 +369,15 @@ class Board extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		pageVariants: state.pageVariants,
-
 		currentBoard: state.currentBoard,
 		currentPost: state.currentPost,
 		currentBoardPosts: state.currentBoardPosts,
-
-		newPostTitle: state.newPostTitle,
-		newPostContent: state.newPostContent,
-
 		userDetails: state.userDetails,
 	}
 }
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		updateNewPostTitle: (title) => dispatch({ type: actionTypes.NEW_POST_TITLE_UPDATE, payload: { title } }),
-		updateNewPostContent: (content) => dispatch({ type: actionTypes.NEW_POST_CONTENT_UPDATE, payload: { content } }),
 		updateCurrentBoard: (board) => dispatch({ type: actionTypes.CURRENT_BOARD_UPDATE, payload: { board } }),
 		updateCurrentBoardPosts: (posts) => dispatch({ type: actionTypes.CURRENT_BOARD_POSTS_UPDATE, payload: { posts } }),
 	}

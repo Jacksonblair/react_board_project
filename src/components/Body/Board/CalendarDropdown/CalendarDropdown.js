@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react'
+import React, { Component, useState, useEffect } from 'react'
 import './CalendarDropdown.css'
 
 const CalendarDropdown = props => {
@@ -11,106 +11,112 @@ const CalendarDropdown = props => {
 		a user clicks on an individual day.
 	*/
 
-	console.log(props.startDate ? props.startDate.toLocaleDateString("EN-au") : null)
-
 	let today = new Date()
-	let [ leftMonth, setLeftMonth ] = useState(props.startDate ? props.startDate.getMonth() : today.getMonth())
-	let [ leftYear, setLeftYear ] = useState(props.startDate ? props.startDate.getFullYear() : today.getFullYear())
-	let [ rightMonth, setRightMonth ] = useState(props.endDate ? props.endDate.getMonth() : today.getMonth())
-	let [ rightYear, setRightYear ] = useState(props.endDate ? props.endDate.getFullYear() : today.getFullYear())
+	let [ day, setDay ] = useState(null)
+	let [ month, setMonth ] = useState(props.date ? props.date.getMonth() : today.getMonth())
+	let [ year, setYear ] = useState(props.date ? props.date.getFullYear() : today.getFullYear())
 
 	/* 0: Days, 1: Months, 2: Years */ /* View days by default */
-	let [ leftDateUnit, setLeftDateUnit ] = useState(0)
-	let [ rightDateUnit, setRightDateUnit ] = useState(0)
+	let [ dateUnit, setDateUnit ] = useState(0)
 
 	let months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
 	let years = new Array(9).fill().map((x, i) => { return 2020 + i })
+
+	useEffect(() => {
+		if (props.date) {
+			setDay(props.date.getDate())
+		}
+	})
 
 	/* Function to stop click events 'bubbling' up the DOM*/
 	let dontPropogate = (e) => {
 		e.stopPropagation();
 	}
 
-	let clickedUnit = (event, calendar) => {
+	let clickedUnit = (event) => {
 		dontPropogate(event)
-		let dateUnit = calendar == 0 ? leftDateUnit : rightDateUnit
 		switch(dateUnit) {
 			case 0: // Clicked on day, so show months
-				calendar == 0 ? setLeftDateUnit(1) : setRightDateUnit(1)
+				setDateUnit(1) 
 				break;
 			case 1: // Clicked on months, so show years
-				calendar == 0 ? setLeftDateUnit(2) : setRightDateUnit(2)
+				setDateUnit(2)
 				break;
 		}
 	}
 
-	let clickedLeftArrow = (event, calendar) => {
+	let clickedLeftArrow = (event) => {
 		dontPropogate(event)
-		let dateUnit = calendar == 0 ? leftDateUnit : rightDateUnit
 		switch(dateUnit) {
 			case 0: // Viewing days, so go to prev month
-				let month = calendar == 0 ? leftMonth : rightMonth
-				let year = calendar == 0 ? leftYear : rightYear
 				if (month == 0) {
-					calendar == 0 ? setLeftMonth(11) : setRightMonth(11)
-					calendar == 0 ? setLeftYear(year - 1) : setRightYear(year - 1)
+					setMonth(11)
+					setYear(year - 1)
 				} else {
-					calendar == 0 ? setLeftMonth(month - 1) : setRightMonth(month - 1)
+					setMonth(month - 1)
 				}
 				break;
 			case 1: // Viewing months, so go to prev year
-				calendar == 0 ? setLeftYear(year - 1) : setRightYear(year - 1)
+				setYear(year - 1)
 				break;
 		}
 	}
 
-	let clickedRightArrow = (event, calendar) => {
+	let clickedRightArrow = (event) => {
 		dontPropogate(event)
-		let dateUnit = calendar == 0 ? leftDateUnit : rightDateUnit
 		switch(dateUnit) {
-			case 0: // Viewing days, so go to next month
-				let month = calendar == 0 ? leftMonth : rightMonth
-				let year = calendar == 0 ? leftYear : rightYear
+			case 0: // Viewing days, so go to prev month
 				if (month == 11) {
-					calendar == 0 ? setLeftMonth(0) : setRightMonth(0)
-					calendar == 0 ? setLeftYear(year + 1) : setRightYear(year + 1)
+					setMonth(0)
+					setYear(year + 1)
 				} else {
-					calendar == 0 ? setLeftMonth(month + 1) : setRightMonth(month + 1)
+					setMonth(month + 1)
 				}
 				break;
-			case 1: // Viewing months, so go to next year
-				calendar == 0 ? setLeftYear(year + 1) : setRightYear(year + 1)
+			case 1: // Viewing months, so go to prev year
+				setYear(year + 1)
 				break;
 		}
 	}
 
-	let clickedYear = (event, year, calendar) => {
+	let clickedYear = (event, year) => {
 		dontPropogate(event)
-		calendar == 0 ? setLeftYear(year) : setRightYear(year)
-		calendar == 0 ? setLeftDateUnit(1) : setRightDateUnit(1)
-		console.log(year)
+		setYear(year)
+		setDateUnit(1)
 	}
 
-	let clickedMonth = (event, month, calendar) => {
+	let clickedMonth = (event, month) => {
 		dontPropogate(event)
-		calendar == 0 ? setLeftMonth(month) : setRightMonth(month)
-		calendar == 0 ? setLeftDateUnit(0) : setRightDateUnit(0)
-		console.log(month)
+		setMonth(month)
+		setDateUnit(0)
 	}
 
-	let clickedDay = (event, day, calendar) => {
+	let clickedDay = (event, day) => {
 		dontPropogate(event)
-		props.clickedDay(day, (calendar == 0 ? leftMonth : rightMonth), (calendar == 0 ? leftYear : rightYear), calendar)
+		props.clickedDay(day, month, year)
 	}
 
 	let daysInMonth = (month, year) => { 
 	    return 32 - new Date(year, month, 32).getDate()
 	}
 
-	let getDayElements = (month, year, calendar) => {
+	let getDayElements = (month, year) => {
 		let days = []
 		let firstDay = (new Date(year, month)).getDay();
-		let day = 1
+		let _day = 1
+
+		// First push in a row of names of the days of the week
+		days.push(
+			<div className="row" key="dd_dotwRow">
+				<div className="dotw"> SUN </div> 
+				<div className="dotw"> MON </div> 
+				<div className="dotw"> TUE </div> 
+				<div className="dotw"> WED </div> 
+				<div className="dotw"> THU </div> 
+				<div className="dotw"> FRI </div> 
+				<div className="dotw"> SAT </div> 
+			</div>
+		)	
 
 		// For 6 possible rows of calendar
 		for (let i = 0; i < 6; i++) {
@@ -123,7 +129,7 @@ const CalendarDropdown = props => {
 						<div className="no-day" key={`dd_day__${i}${j}`}/>
 					)			
 				/* If not in possible days for this month */
-				} else if (day > daysInMonth(month, year)) {
+				} else if (_day > daysInMonth(month, year)) {
 					if (j < 7) {
 						dayElements.push( 
 							<div className="no-day" key={`dd_day_${i}${j}`}/>
@@ -132,13 +138,17 @@ const CalendarDropdown = props => {
 						break
 					}
 				} else {
-					let _day = day
+					let __day = _day
+					// Add extra class if the day is 'selected'
 					dayElements.push( 
-						<button onClick={(event) => clickedDay(event, _day, calendar)} className="day" key={`dd_day${i}${j}`}>
-							{day}
+						<button 
+						onClick={(event) => clickedDay(event, __day)} 
+						className={`day ${day == __day ? "selected" : null }`} 
+						key={`dd_day${i}${j}`}>
+							{_day}
 						</button>
 					)
-					day++
+					_day++
 				}
 			}
 
@@ -168,7 +178,7 @@ const CalendarDropdown = props => {
 			for (let j = 0; j < 4; j++) {
 				let _month = monthIndex
 				monthElements.push(
-					<button onClick={(event) => clickedMonth(event, _month, calendar)} className="month" key={`month${i}${j}`}>
+					<button onClick={(event) => clickedMonth(event, _month)} className="month" key={`month${i}${j}`}>
 						{months[monthIndex].substr(0, 3)}
 					</button>
 				)
@@ -201,7 +211,7 @@ const CalendarDropdown = props => {
 			for (let j = 0; j < 3; j++) {
 				let _year = years[yearIndex]
 				yearElements.push(
-					<button onClick={(event) => clickedYear(event, _year, calendar)} className="year" key={`year${i}${j}`}>
+					<button onClick={(event) => clickedYear(event, _year)} className="year" key={`year${i}${j}`}>
 						{years[yearIndex]}
 					</button>
 				) 
@@ -223,57 +233,27 @@ const CalendarDropdown = props => {
 	}
 
 	return (
-
 		<div className={`container-calendar-dropdown ${props.visible ? "visible" : null}`} > 
-			<div className="left-calendar">
+			<div className="calendar">
+				<button className="exit" onClick={props.clickedExit}>
+					Cancel
+				</button>
 				<div className="header">
-					Start Date
+					{props.calendarTitle}
 				</div>
 				<div className="controller"> 
-					<button className="left" onClick={(event) => clickedLeftArrow(event, 0)}> <i className="fas fa-arrow-left"/> </button>
-					<button className="current-date" onClick={(event) => clickedUnit(event, 0)}> 
-						{ months[leftMonth] }&nbsp;
-						{ leftYear }
+					<button className="left" onClick={(event) => clickedLeftArrow(event)}> <i className="fas fa-arrow-left"/> </button>
+					<button className="current-date" onClick={(event) => clickedUnit(event)}> 
+						{ months[month] }&nbsp;
+						{ year }
 					</button>
-					<button className="right" onClick={(event) => clickedRightArrow(event, 0)}> <i className="fas fa-arrow-right"/>  </button>
+					<button className="right" onClick={(event) => clickedRightArrow(event)}> <i className="fas fa-arrow-right"/>  </button>
 				</div>
-				{ leftDateUnit == 0 ? 
-					getDayElements(leftMonth, leftYear, 0) 
-					: leftDateUnit == 1 ?
+				{ dateUnit == 0 ? 
+					getDayElements(month, year, 0) 
+					: dateUnit == 1 ?
 						 getMonthElements(0) 
 						 : getYearElements(0)
-				}
-			</div>
-			<div className="right-calendar">
-				<div className="header">
-					End Date
-				</div>
-				<div className="controller"> 
-					{ rightDateUnit == 0 ? 
-					<button className="left" onClick={(event) => clickedLeftArrow(event, 1)}> <i className="fas fa-arrow-left"/> </button>
-					: null }
-
-					{ rightDateUnit == 0 ? 
-						<button className="current-date" onClick={(event) => clickedUnit(event, 1)}> 
-							{ months[rightMonth] } &nbsp;
-							{ leftYear }
-						</button>
-						: rightDateUnit == 1 ?
-						<button className="current-date" onClick={(event) => clickedUnit(event, 1)}> 
-							{ leftYear }
-						</button>
-						: null
-					}
-
-					{ rightDateUnit == 0 ? 
-					<button className="right" onClick={(event) => clickedRightArrow(event, 1)}> <i className="fas fa-arrow-right"/>  </button>
-					: null }
-				</div>
-				{ rightDateUnit == 0 ? 
-					getDayElements(rightMonth, rightYear, 1) 
-					: rightDateUnit == 1 ?
-						 getMonthElements(1) 
-						 : getYearElements(1)
 				}
 			</div>
 		</div>

@@ -8,92 +8,112 @@ import CalendarDropdown from '../CalendarDropdown/CalendarDropdown.js'
 
 const BoardMenu = props => {
 
-	let [ showCalendarDropdown, setShowCalendarDropdown ] = useState(true)
+	let [ showLeftCalendarDropdown, setShowLeftCalendarDropdown ] = useState(false)
+	let [ showRightCalendarDropdown, setShowRightCalendarDropdown ] = useState(false)
 
-	let blurredCalendarDropdown = (event) => {
-		console.log("Blurred")
+	let blurredCalendarDropdown = (event, calendar) => {
 		if (wasClickOutsideElement(event)) {
-			setShowCalendarDropdown(false)
+			calendar == 0 ? setShowLeftCalendarDropdown(false) 
+			: setShowRightCalendarDropdown(false)
 		}
 	}	
 
-	let clickedCalendarDropdown = () => {
-		setShowCalendarDropdown(!showCalendarDropdown)
+	let clickedCalendarDropdown = (calendar) => {
+		calendar == 0 ? setShowLeftCalendarDropdown(!showLeftCalendarDropdown)
+		: setShowRightCalendarDropdown(!showRightCalendarDropdown)
 	}
 
-	let pressedKeyCalendarDropdown = (event) => {
+	let pressedKeyCalendarDropdown = (event, calendar) => {
 		if (event.charCode == 13) {
-			setShowCalendarDropdown(!showCalendarDropdown)
+			calendar == 0 ? setShowLeftCalendarDropdown(!showLeftCalendarDropdown)
+			: setShowRightCalendarDropdown(!showRightCalendarDropdown)
 		}
 	}
 
-	let wasClickOutsideElement = (event) => {
+	let wasClickOutsideElement = (event, calendar) => {
 	    if (!event.currentTarget.contains(event.relatedTarget)) {
 	    	return true
 	    }
 	}
 
-	let clickedCalendarDay = (calendarSide, day) => {
+	let clickedExit = (calendar) => {
+		calendar == 0 ? setShowLeftCalendarDropdown(false) :
+		setShowRightCalendarDropdown(false)
+	}
 
+	let clickedLeftDay = (day, month, year) => {
+		setShowLeftCalendarDropdown(false)
+		props.clickedLeftDay(day, month, year)
+	}
+
+	let clickedRightDay = (day, month, year) => {
+		setShowRightCalendarDropdown(false)
+		props.clickedRightDay(day, month, year)
 	}
 
 	return (
 		<div className="container-board-menu">
 			<div className="menu">
-				<div className="row">
 
+				<div className="row">
 					<button 
 					onClick={props.clickedCalendarViewer}
 					disabled={props.location.pathname.includes('calendar')}
-					className="calendar">
+					className="icon-button">
 						<i className="fas fa-calendar" title="Calendar Viewer"></i> 
 					</button>
 					<button 
 					onClick={props.clickedListViewer}
 					disabled={props.location.pathname.includes('list')}
-					className="list">  
+					className="icon-button">  
 						<i className="fas fa-list" title="List Viewer"></i>
 					</button>
 
+					<div className="search-wrapper">
+						<input className="search" placeholder="Search..." onChange={() => props.updateSearchTerm(event.target.value)}/>
+					</div>
 				</div>
 
-				<div className="search-wrapper">
-					<input className="search" placeholder="Search..." onChange={() => props.updateSearchTerm(event.target.value)}/>
-				</div>
-
-				{ 
-					props.clickedDay ? 
-					<React.Fragment>
-						<div className="date div-button" 
-						onKeyPress={pressedKeyCalendarDropdown}
-						onClick={clickedCalendarDropdown}
-						onBlur={blurredCalendarDropdown} 
+				{ props.showCalendar ? 
+					<div className="row">
+						<div className="header"> Date Range: </div>
+						<div className={`calendar-button div-button ${props.startDate ? "has-date" : null}`} 
+						onKeyPress={(event) => pressedKeyCalendarDropdown(event, 0)}
+						onClick={(event) => clickedCalendarDropdown(0)}
+						onBlur={(event) => blurredCalendarDropdown(event, 0)} 
 						tabIndex={0}>
-							Select Date Range
+							{props.startDate ? props.startDate.toLocaleDateString("EN-au") : "dd/mm/yyyy"}
 							<CalendarDropdown 
-							startDate={props.startDate}
-							endDate={props.endDate}
-							clickedDay={props.clickedDay}
-							visible={showCalendarDropdown}/>
+							calendarTitle="Start date"
+							clickedExit={() => clickedExit(0)}
+							date={props.startDate}
+							clickedDay={clickedLeftDay}
+							visible={showLeftCalendarDropdown}/>
 						</div>
-						<button className="date" onClick={props.clickedClearDateRange}>
-							Clear
+						<i className="fas fa-long-arrow-alt-right"/>
+						<div className={`calendar-button div-button ${props.endDate ? "has-date" : null}`} 
+						onKeyPress={(event) => pressedKeyCalendarDropdown(event, 1)}
+						onClick={(event) => clickedCalendarDropdown(1)}
+						onBlur={(event) => blurredCalendarDropdown(event, 1)} 
+						tabIndex={0}>
+							{props.endDate ? props.endDate.toLocaleDateString("EN-au") : "dd/mm/yyyy"}
+							<CalendarDropdown 
+							calendarTitle="End date"
+							clickedExit={() => clickedExit(1)}
+							date={props.endDate}
+							clickedDay={clickedRightDay}
+							visible={showRightCalendarDropdown}/>
+						</div>
+						<button disabled={!props.startDate && !props.endDate} className="clear-calendar" onClick={props.clickedClearDateRange}>
+							<i className="fas fa-times"/>
 						</button>
-					</React.Fragment>
-					: null 
-				}
-				
-				{ 
-					props.userDetails.user_id == props.currentBoard.created_by_user_id ?
-					<Link to={`/board/${props.match.params.boardid}/edit`} replace className="edit">
-						<i className="fas fa-edit" title="Edit Board"></i>
-					</Link>
+					</div>
 					: null
-				} 
+				}
 
 			</div>
 			<div className="name">
-				{props.currentBoard.name}
+				{props.currentBoard.name} 
 			</div>
 			<div className="description">
 				"{props.currentBoard.description}"
@@ -106,8 +126,16 @@ const BoardMenu = props => {
 				</div>
 				&nbsp;|&nbsp; 
 				<div className="author">
-					Author:&nbsp;<Link to={`/profile/${props.currentBoard.created_by_user_id}`}> {props.currentBoard.created_by_username} </Link>
+					Created by:&nbsp;<Link to={`/profile/${props.currentBoard.created_by_user_id}`}> {props.currentBoard.created_by_username} </Link>
 				</div>
+				&nbsp;|&nbsp; 
+				{ 
+					props.userDetails.user_id == props.currentBoard.created_by_user_id ?
+					<Link to={`/board/${props.match.params.boardid}/edit`} replace>
+						<i className="fas fa-pen"/>&nbsp;Edit Board
+					</Link>
+					: null
+				}
 			</div>
 		</div>
 	)

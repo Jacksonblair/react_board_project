@@ -5,12 +5,6 @@
     padding-top: 10px;
 }
 
-.container-board-list-viewer .date-range {
-    display: flex;
-    justify-content: center;
-    font-size: 1.1em;
-}
-
 .container-board-list-viewer a.new {
     border: 1px solid lightgrey;
     font-size: 1.2em;
@@ -29,14 +23,14 @@
 
 .container-board-list-viewer > .year {
     font-size: 1.2em;
-    margin: 0px 20px;
+    margin: 5px 20px 0px 20px;
     color: grey;
     font-style: italic;
 }
 
 @media screen and (max-width: 450px) {
     .container-board-list-viewer a.new {
-        width: -webkit-fill-available;
+        width: fit-content;
         font-size: 1em;
     }
 

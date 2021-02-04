@@ -1,14 +1,15 @@
 .container-board-list-post {
-    margin: 10px;
+    margin: 0px 10px;
     display: flex;
     padding: 0px;
-    border: 1px solid lightgrey;
-    border-radius: 5px;
+    border: none;
+    border-bottom: 2px solid #e2e2e2;
+    /* border-radius: 5px; */
     background: none;
 }
 
 .container-board-list-post:hover, .container-board-list-post:focus {
-	background: white;
+	background: whitesmoke;
 }
 
 .container-board-list-post .content-column {
@@ -71,7 +72,7 @@
 
 @media screen and (max-width: 450px) {
 	.container-board-list-post {
-		margin: 5px;
+		margin: 0px 5px;
 	}
 
     .container-board-list-post .content-column .metadata {

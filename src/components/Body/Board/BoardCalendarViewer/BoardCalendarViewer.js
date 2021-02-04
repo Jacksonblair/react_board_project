@@ -3,7 +3,6 @@ import './BoardCalendarViewer.css'
 
 import BoardCalendarViewerMenu from '../BoardCalendarViewerMenu/BoardCalendarViewerMenu.js'
 import FuzzySearch from 'fuzzy-search'
-import { AnimatePresence, motion } from "framer-motion"
 
 /* https://medium.com/@nitinpatel_20236/challenge-of-building-a-calendar-with-pure-javascript-a86f1303267d */
 
@@ -235,25 +234,13 @@ const BoardCalendarViewer = props => {
 	let content
 	switch(dateUnit) {
 		case 0: // Day
-			content = (
-				<motion.div className="motion-div" transition={{ duration: 0.1 }} key="BoardCalendarViewerMotionDivDays" initial="initial" animate="in" exit="out" variants={props.pageVariants}>
-					{ getDayElements() }
-				</motion.div>
-			)
+			content = getDayElements()
 			break;
 		case 1: 
-			content = (
-				<motion.div className="motion-div" transition={{ duration: 0.1 }} key="BoardCalendarViewerMotionDivMonths" initial="initial" animate="in" exit="out" variants={props.pageVariants}>
-					{ getMonthElements() }
-				</motion.div>
-			)
+			content = getMonthElements()
 			break;
 		case 2:
-			content = (
-				<motion.div transition={{ duration: 0.1 }} key="BoardCalendarViewerMotionDivYears" initial="initial" animate="in" exit="out" variants={props.pageVariants}>
-					{ getYearElements() }
-				</motion.div>
-			)
+			content = getYearElements()
 			break;
 	}
 
@@ -269,9 +256,7 @@ const BoardCalendarViewer = props => {
 			year={year}
 			dateUnit={dateUnit}/>
 			<div className="header">  {months[month].toUpperCase()} {year} </div>
-			<AnimatePresence exitBeforeEnter>
-				{content}
-			</AnimatePresence>
+			{content}
 		</div>
 	)
 

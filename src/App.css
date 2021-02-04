@@ -117,7 +117,7 @@ button:focus {
 	resize: vertical;
 }
 
-.board-form button, .board-form a {
+.board-form button, .board-form a, .board-form .div-button {
 	padding: 5px 10px;
 	margin: 10px;
 	border: 1px solid lightgrey;

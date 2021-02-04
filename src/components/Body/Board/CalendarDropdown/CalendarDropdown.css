@@ -3,30 +3,30 @@
 	position: absolute;
 	top: 120%;
 	left: 0;
-	border: 1px solid grey;
+	border: 1px solid lightgrey;
 	background: white;
-	width: 560px;
-    height: 180px;
     flex-direction: row;
     border-radius: 5px;
+    overflow: hidden;
 }
 
 .container-calendar-dropdown.visible {
 	display: flex;
 }
 
-.container-calendar-dropdown .left-calendar {
+.container-calendar-dropdown .calendar {
 	flex: 1;
     display: flex;
     flex-direction: column;
-    border-right: 1px solid grey;
     box-sizing: border-box;
+    width: 280px;
 }
 
-.container-calendar-dropdown .right-calendar {
-	flex: 1;
-    display: flex;
-    flex-direction: column;
+.container-calendar-dropdown .calendar .exit {
+	display: none;
+    font-size: 1em;
+    width: max-content;
+    border: 1px solid lightgrey;
 }
 
 .container-calendar-dropdown .row button {
@@ -34,13 +34,25 @@
 	margin: 0px;
 	padding: 0px;
 	font-size: 1em;
+	height: 100%;
+	background: none;
+}
+
+.container-calendar-dropdown .row button:hover {
+	color: grey;
+	background: whitesmoke;
+	border: 1px solid lightgrey;
+	border-radius: 0px;
 }
 
 .container-calendar-dropdown .header {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	padding-top: 5px;
+	font-size: 1em;
+    margin: 0px;
+    margin-top: 5px;
+    font-weight: bold;
 }
 
 .container-calendar-dropdown .controller {
@@ -49,8 +61,19 @@
     font-size: 0.9em;
 }
 
+.container-calendar-dropdown .controller button {
+	margin: 0px;
+	background: none;
+	border: none;
+}
+
 .container-calendar-dropdown .controller .current-date {
 	flex: 1;
+    text-transform: capitalize;
+    border: 1px solid lightgrey;
+    margin: 5px;
+    padding: 0px;
+    border-radius: 5px;
 }
 
 .container-calendar-dropdown .days {
@@ -60,7 +83,21 @@
 .container-calendar-dropdown .days .row {
 	min-height: 0px;
 	padding: 0px;
-	height: 16.67%;
+	height: 30px;
+	box-sizing: border-box;
+}
+
+.container-calendar-dropdown .days .row .dotw {
+	text-align: center;
+    font-size: 0.8em;
+    padding: 0px;
+    min-width: 0px;
+    width: 14.28%;
+    color: grey;
+    cursor: default;
+}
+.container-calendar-dropdown .days .row .dotw:hover {
+	color: grey;
 }
 
 .container-calendar-dropdown .days .row .day {
@@ -71,10 +108,12 @@
 }
 
 .container-calendar-dropdown .days .row .no-day {
-	background: red;
     width: 14.28%;
 }
 
+.container-calendar-dropdown .days .row .day.selected {
+	background: lightgrey;
+}
 
 
 .container-calendar-dropdown .months {
@@ -82,15 +121,15 @@
 }
 
 .container-calendar-dropdown .months .row {
-	height: 33.33%;
+	height: 70px;
 	padding: 0px;
 }
 
 .container-calendar-dropdown .months .row .month {
 	width: 25%;
 	padding: 0px;
+	text-transform: capitalize;
 }
-
 
 
 .container-calendar-dropdown .years {
@@ -98,7 +137,7 @@
 }
 
 .container-calendar-dropdown .years .row {
-	height: 33.33%;
+	height: 70px;
 	padding: 0px;
 }
 
@@ -107,3 +146,22 @@
 	padding: 0px;
 }
 
+
+
+@media screen and (max-width: 450px) {
+	.container-calendar-dropdown {
+		top: -1px;
+		left: -1px;
+		width: 100%;
+		z-index: 100;
+	    border-radius: 0px;
+	}
+
+	.container-calendar-dropdown .calendar {
+	    width: 100%;
+	}
+
+	.container-calendar-dropdown .calendar .exit {
+		display: flex;
+	}
+}

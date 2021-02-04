@@ -6,7 +6,6 @@
 }
 
 .container-body .column {
-	border: 1px solid whitesmoke;
 	width: 1000px;
 	display: flex;
 }
@@ -29,7 +28,6 @@
 .body-sub-menu {
 	display: flex;
     padding: 10px;
-    border-bottom: 1px solid whitesmoke;
 }
 
 .body-sub-menu button, .body-sub-menu a {
