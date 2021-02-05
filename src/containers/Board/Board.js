@@ -63,6 +63,10 @@ class Board extends Component {
 	}
 
 	getBoard = (callback) => {
+		this.setState({
+			finishedLoading: false
+		})
+
 		axios.get(`/board/${this.props.match.params.boardid}`)
 		.then((res) => {
 			this.props.updateCurrentBoard(res.data.board)
@@ -90,7 +94,8 @@ class Board extends Component {
 	clickedSubmitEditedBoardHandler = (event, name, description, isPublic) => {
 		event.preventDefault()		
 		this.setState({
-			processing: true
+			processing: true,
+			finishedLoading: false
 		})
 
 		// TODO: Pass board through client side validation
@@ -99,6 +104,10 @@ class Board extends Component {
 			name, description, public: isPublic
 		})
 		.then((res) => {
+			this.getBoard()
+			this.setState({
+				processing: false
+			})
 			this.props.history.push(`/board/${this.props.match.params.boardid}/`)
 		})
 		.catch((err) => {
@@ -280,7 +289,7 @@ class Board extends Component {
 								<Switch>	
 									<Route exact path="/board/:boardid/edit">
 										<div className="body-sub-menu" key="bodySubMenu">
-											<button onClick={() => this.props.history.push(`/board/${this.props.match.params.boardid}`)}> Back </button>
+											<button className="type-one" onClick={() => this.props.history.push(`/board/${this.props.match.params.boardid}`)}> Back </button>
 										</div>
 										<BoardEditor
 										clearErrors={this.clearFormErrors}
@@ -293,7 +302,7 @@ class Board extends Component {
 									</Route>
 									<Route exact path="/board/:boardid/delete">
 										<div className="body-sub-menu" key="bodySubMenu">
-											<button onClick={() => this.props.history.push(`/board/${this.props.match.params.boardid}/edit`)}> Back </button>
+											<button className="type-one" onClick={() => this.props.history.push(`/board/${this.props.match.params.boardid}/edit`)}> Back </button>
 										</div>
 										<BoardDeleter
 										clearErrors={this.clearFormErrors}
@@ -306,7 +315,7 @@ class Board extends Component {
 									</Route>
 									<Route exact path="/board/:boardid/list">
 										<div className="body-sub-menu" key="bodySubMenu">
-											<button onClick={() => this.props.history.push(`/`)}> Back </button>
+											<button className="type-one" onClick={() => this.props.history.push(`/`)}> Back </button>
 										</div>
 										<BoardMenu
 										showCalendar={true}
@@ -328,7 +337,7 @@ class Board extends Component {
 									</Route>
 									<Route exact path="/board/:boardid/calendar">
 										<div className="body-sub-menu" key="bodySubMenu">
-											<button onClick={() => this.props.history.push(`/`)}> Back </button>
+											<button className="type-one" onClick={() => this.props.history.push(`/`)}> Back </button>
 										</div>
 										<BoardMenu 
 										userDetails={this.props.userDetails}
@@ -336,13 +345,14 @@ class Board extends Component {
 										clickedListViewer={this.clickedListViewerHandler}
 										currentBoard={this.props.currentBoard}/>
 										<BoardCalendarViewer 
+										searchTerm={this.state.searchTerm}
 										clickedDay={this.clickedCalendarViewerDayHandler}
 										currentBoard={this.props.currentBoard}
 										posts={filteredPosts}/>
 									</Route>
 									<Route exact path="/board/:boardid/post/new">
 										<div className="body-sub-menu" key="bodySubMenu">
-											<button onClick={() => this.props.history.push(`/board/${this.props.match.params.boardid}`)}> Back </button>
+											<button className="type-one" onClick={() => this.props.history.push(`/board/${this.props.match.params.boardid}`)}> Back </button>
 										</div>
 										<PostCreator
 										clearErrors={this.clearFormErrors}

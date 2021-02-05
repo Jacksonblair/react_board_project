@@ -1,0 +1,24 @@
+.form-error {
+	font-size: 1.2em;
+    margin: 10px;
+    color: #ef3b3b;
+    background: #ffe8ec;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #ef3b3b;
+}
+
+.form-success {
+	font-size: 1.2em;
+    color: green;
+}
+
+.server-error {
+	font-size: 1.2em;
+    margin: 10px;
+    color: #ef3b3b;
+    background: #ffe8ec;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #ef3b3b;
+}

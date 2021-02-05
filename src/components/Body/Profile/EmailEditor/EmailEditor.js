@@ -45,7 +45,7 @@ const EmailEditor = props => {
 					</div>
 
 					<div className="row">
-						<button onClick={() => props.clickedSubmit(email, confirmEmail)}> Submit </button>
+						<button className="type-three" onClick={() => props.clickedSubmit(email, confirmEmail)}> Submit </button>
 					</div>
 				</React.Fragment> }
 			</FormWrapper>

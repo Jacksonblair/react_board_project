@@ -27,6 +27,8 @@ class Post extends Component {
 		serverError: "",
 		formError: "",
 		processing: false,
+
+		currentPost: {}
 	}
 
 	componentDidMount = () => {
@@ -60,10 +62,8 @@ class Post extends Component {
 
 		axios.get(`/board/${this.props.match.params.boardid}/post/${this.props.match.params.postid}`)
 		.then((res) => {
-			this.props.updateCurrentPost(res.data.post)
-
-
 			this.setState({
+				currentPost: res.data.post,
 				finishedLoading: true
 			})
 		})
@@ -75,7 +75,7 @@ class Post extends Component {
 	}
 
 
-	clickedSubmitEditedPostHandler = (event) => {
+	clickedSubmitEditedPostHandler = (event, title, content, targetDate) => {
 		event.preventDefault()
 		this.setState({
 			processing: true
@@ -84,11 +84,12 @@ class Post extends Component {
 		// TODO: Pass post through client side validation
 
 		axios.put(`/board/${this.props.match.params.boardid}/post/${this.props.match.params.postid}/`, {
-			title: this.props.editedPostTitle, 
-			content: this.props.editedPostContent, 
-			target_date: this.props.postTargetDate
+			title, 
+			content, 
+			target_date: targetDate
 		})
 		.then((res) => {
+			this.props.getBoard()
 			this.props.history.push(`/board/${this.props.match.params.boardid}`)
 		})
 		.catch((err) => {
@@ -98,11 +99,6 @@ class Post extends Component {
 			})
 		})
 
-	}
-
-	clickedPostDateHandler = () => {
-		this.props.updateDateRangeType(4)
-		this.props.history.push(`/board/${this.props.match.params.boardid}/calendar`)
 	}
 
 	clearFormErrors = () => {
@@ -119,6 +115,7 @@ class Post extends Component {
 
 		axios.delete(`/board/${this.props.match.params.boardid}/post/${this.props.match.params.postid}`)
 		.then((res) => {
+			this.props.getBoard()
 			this.props.history.push(`/board/${this.props.match.params.boardid}/`)
 		})
 		.catch((err) => {
@@ -129,15 +126,11 @@ class Post extends Component {
 		})
 	}
 
-	clickedCancelPostEdit = () => {
-		this.props.updateEditedPostId(null)
-	}
-
 	render() {
 
 		let mm, dd, yyyy
-		if (this.props.currentPost.target_date) {
-			[ dd, mm, yyyy ] = this.props.currentPost.target_date.split('/')
+		if (this.state.currentPost.target_date) {
+			[ dd, mm, yyyy ] = this.state.currentPost.target_date.split('/')
 		}
 
 		return (
@@ -148,40 +141,31 @@ class Post extends Component {
 					<Switch>
 						<Route exact path="/board/:boardid/post/:postid/edit">
 							<div className="body-sub-menu" key="bodySubMenu">
-								<button onClick={() => this.props.history.push(`/board/${this.props.match.params.boardid}/post/${this.props.match.params.postid}`)}> Back </button>
+								<button className="type-one" onClick={() => this.props.history.push(`/board/${this.props.match.params.boardid}/post/${this.props.match.params.postid}`)}> Back </button>
 							</div>
 							<PostEditor
-							cancelPostEdit={this.clickedCancelPostEdit}
-							editedPostTitle={this.props.editedPostTitle}
-							editedPostContent={this.props.editedPostContent}
-							editedPostId={this.props.editedPostId}
-							updateEditedPostTitle={this.props.updateEditedPostTitle}
-							updateEditedPostContent={this.props.updateEditedPostContent}
-							updateEditedPostId={this.props.updateEditedPostId}
-							clickedPostDate={this.clickedPostDateHandler}
+							currentPost={this.state.currentPost}
 							clickedSubmit={this.clickedSubmitEditedPostHandler}
 							clearErrors={this.clearFormErrors}
 							userDetails={this.props.userDetails}
-							currentPost={this.props.currentPost}
-							postTargetDate={this.props.postTargetDate}
 							serverError={this.state.serverError}
 							formError={this.state.formError}
 							processing={this.state.processing}/>
 						</Route>
 						<Route exact path="/board/:boardid/post/:postid/delete">
 							<div className="body-sub-menu" key="bodySubMenu">
-								<button onClick={() => this.props.history.push(`/board/${this.props.match.params.boardid}/post/${this.props.match.params.postid}`)}> Back </button>
+								<button className="type-one" onClick={() => this.props.history.push(`/board/${this.props.match.params.boardid}/post/${this.props.match.params.postid}`)}> Back </button>
 							</div>
 							<PostDeleter
 							userDetails={this.props.userDetails}
 							processing={this.state.processing}
 							serverError={this.state.serverError}
 							clickedConfirm={this.clickedConfirmDeleteHandler}
-							currentPost={this.props.currentPost}/>
+							currentPost={this.state.currentPost}/>
 						</Route>
 						<Route exact path="/board/:boardid/post/:postid/">
 							<div className="body-sub-menu" key="bodySubMenu">
-								<button onClick={() => this.props.history.push(`/board/${this.props.match.params.boardid}/`)}> Back </button>
+								<button className="type-one" onClick={() => this.props.history.push(`/board/${this.props.match.params.boardid}/`)}> Back </button>
 							</div>
 							<div className="header">
 								<div className="date-column"> 
@@ -198,19 +182,19 @@ class Post extends Component {
 									</div>
 								</div>
 								<div className="title-column"> 
-									<div className="title"> {this.props.currentPost.title} </div>
+									<div className="title"> {this.state.currentPost.title} </div>
 									<div className="metadata"> 
 										<div className="created">
-											Created:&nbsp;<div className="date"> {this.props.currentPost.created_date} </div>
+											Created:&nbsp;<div className="date"> {this.state.currentPost.created_date} </div>
 										</div>
-										{ this.props.userDetails.user_id == this.props.currentPost.created_by_user_id ?
+										{ this.props.userDetails.user_id == this.state.currentPost.created_by_user_id ?
 											<Link to={`/board/${this.props.match.params.boardid}/post/${this.props.match.params.postid}/edit`}><i className="fas fa-pen"></i>&nbsp;Edit Post  </Link>
 											: null
 										}	
 									</div>
 								</div>
 							</div>
-							<div className="content"> {this.props.currentPost.content} </div>
+							<div className="content"> {this.state.currentPost.content} </div>
 						</Route>
 						<Route> 
 							<Redirect to={`/board/${this.props.match.params.boardid}/post/${this.props.match.params.postid}`}/>
@@ -225,22 +209,13 @@ class Post extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		currentPost: state.currentPost,
 		userDetails: state.userDetails,
-		postTargetDate: state.postTargetDate,
-		editedPostTitle: state.editedPostTitle,
-		editedPostContent: state.editedPostContent,
-		editedPostId: state.editedPostId
 	}
 }
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		updateCurrentPost: (post) => dispatch({ type: actionTypes.CURRENT_POST_UPDATE, payload: { post }}),
-		updateDateRangeType: (type) => dispatch({ type: actionTypes.DATE_RANGE_TYPE_UPDATE, payload: { type } }), 
-		updateEditedPostTitle: (title) => dispatch({ type: actionTypes.EDITED_POST_TITLE_UPDATE, payload: { title }}),
-		updateEditedPostContent: (content) => dispatch({ type: actionTypes.EDITED_POST_CONTENT_UPDATE, payload: { content }}),
-		updateEditedPostId: (id) => dispatch({ type: actionTypes.EDITED_POST_ID_UPDATE, payload: { id }}),
+
 	}
 }
 

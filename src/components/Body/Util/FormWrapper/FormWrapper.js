@@ -20,7 +20,7 @@ const FormWrapper = props => {
 		<React.Fragment>
 			{ props.serverError ? 
 			<div className="row">	
-				<div className="server-error"> {props.serverError} <i className="fas fa-exclamation"></i> </div>
+				<div className="server-error"> {props.serverError} <i className="fas fa-exclamation-triangle"></i> </div>
 			</div>
 			: null }
 
@@ -28,12 +28,12 @@ const FormWrapper = props => {
 
 			{ props.formError ? 
 			<div className="row">
-				<div className="form-error"> {props.formError} <i className="fas fa-exclamation"></i> </div>
+				<div className="form-error"> {props.formError} <i className="fas fa-exclamation-triangle"></i> </div>
 			</div>
 			: null }
 		</React.Fragment>
 	: <div className="row">
-		<div className="server-error"> You cannot edit this {props.resourceName} <i className="fas fa-exclamation"/> </div>
+		<div className="server-error"> You cannot edit this {props.resourceName} <i className="fas fa-exclamation-triangle"/> </div>
 	</div>
 
 	return (

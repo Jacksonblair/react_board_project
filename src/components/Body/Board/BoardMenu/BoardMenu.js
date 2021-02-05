@@ -4,7 +4,7 @@ import {
 	Link,
 	withRouter
 } from "react-router-dom";
-import CalendarDropdown from '../CalendarDropdown/CalendarDropdown.js'
+import CalendarDropdown from '../../Util/CalendarDropdown/CalendarDropdown.js'
 
 const BoardMenu = props => {
 
@@ -128,12 +128,14 @@ const BoardMenu = props => {
 				<div className="author">
 					Created by:&nbsp;<Link to={`/profile/${props.currentBoard.created_by_user_id}`}> {props.currentBoard.created_by_username} </Link>
 				</div>
-				&nbsp;|&nbsp; 
 				{ 
 					props.userDetails.user_id == props.currentBoard.created_by_user_id ?
-					<Link to={`/board/${props.match.params.boardid}/edit`} replace>
-						<i className="fas fa-pen"/>&nbsp;Edit Board
-					</Link>
+					<React.Fragment>
+						&nbsp;|&nbsp; 
+						<Link to={`/board/${props.match.params.boardid}/edit`} replace>
+							<i className="fas fa-pen"/>&nbsp;Edit Board
+						</Link>
+					</React.Fragment>
 					: null
 				}
 			</div>

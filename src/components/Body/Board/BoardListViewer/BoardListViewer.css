@@ -6,19 +6,7 @@
 }
 
 .container-board-list-viewer a.new {
-    border: 1px solid lightgrey;
-    font-size: 1.2em;
-    color: black;
-    padding: 5px 10px;
-    margin: 10px;
-    border-radius: 5px;
-    background: whitesmoke;
-    width: 400px;
     align-self: center;
-}
-
-.container-board-list-viewer a.new:hover {
-	color: grey;
 }
 
 .container-board-list-viewer > .year {
@@ -29,10 +17,6 @@
 }
 
 @media screen and (max-width: 450px) {
-    .container-board-list-viewer a.new {
-        width: fit-content;
-        font-size: 1em;
-    }
 
     .container-board-list-viewer {
         padding-top: 5px;

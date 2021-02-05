@@ -6,6 +6,7 @@
 
 .container-post > .header {
     display: flex;
+    border-bottom: 2px solid #e2e2e2;
 }
 
 .container-post .header .date-column {
@@ -82,7 +83,6 @@
 
 
 .container-post .content {
-	border-top: 1px solid whitesmoke;
 	padding: 20px;
 }
 

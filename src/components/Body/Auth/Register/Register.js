@@ -55,7 +55,7 @@ const Register = props => {
 								placeholder="confirm password"/>
 							</div>
 							<div className="row">
-								<button onClick={props.clickedSubmit}> Submit </button>
+								<button className="type-one" onClick={props.clickedSubmit}> Submit </button>
 							</div>
 						</React.Fragment>
 					}

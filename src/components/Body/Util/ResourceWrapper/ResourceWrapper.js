@@ -7,7 +7,7 @@ const ResourceWrapper = props => {
 
 	if (props.readError) {
 		content = (
-			<div className="read-error"> {props.readError} <i className="fas fa-exclamation"></i> </div>
+			<div className="read-error"> {props.readError} <i className="fas fa-exclamation-triangle"></i> </div>
 		)
 	} else if (!props.finishedLoading) {
 		content = (

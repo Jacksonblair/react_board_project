@@ -21,8 +21,8 @@ const BoardDeleter = props => {
 					Delete board "<div className="board-to-delete">{props.currentBoard.name}</div>" ?
 				</div>
 				<div className="row">
-					<button onClick={props.clickedConfirm}> Confirm </button>
-					<Link to={`/board/${props.match.params.boardid}/edit`}> Cancel </Link>
+					<button className="type-three" onClick={props.clickedConfirm}> Confirm </button>
+					<Link className="type-three" to={`/board/${props.match.params.boardid}/edit`}> Cancel </Link>
 				</div>
 				</FormWrapper>
 			</div>

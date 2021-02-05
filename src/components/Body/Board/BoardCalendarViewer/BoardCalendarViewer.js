@@ -68,13 +68,13 @@ const BoardCalendarViewer = props => {
 			.. on the calendar view.
 		*/
 
-		const searcher = new FuzzySearch(this.props.posts, ['title', 'content'], {
+		const searcher = new FuzzySearch(props.posts, ['title', 'content'], {
 			caseSensitive: false,
 		});
 
-		let posts = searcher.search(this.props.searchTerm);
+		let posts = searcher.search(props.searchTerm);
 
-		return posts.map((post) => post.date.split("/"))
+		return posts.map((post) => post.target_date.split("/"))
 	}
 
 	let getDayMatch = (day, month, year) => {
@@ -143,7 +143,9 @@ const BoardCalendarViewer = props => {
 				} else {
 					let _day = day
 					dayElements.push( 
-						<button onClick={() => props.clickedDay(_day, month, year)} className="day" key={`day${i}${j}`}>
+						<button onClick={() => props.clickedDay(_day, month, year)} 
+						className={`day ${getDayMatch(_day, month, year) ? "match" : props.searchTerm ? "nomatch" : null}`} 
+						key={`day${i}${j}`}>
 							{day}
 						</button>
 					)
@@ -177,7 +179,9 @@ const BoardCalendarViewer = props => {
 			for (let j = 0; j < 4; j++) {
 				let _monthIndex = monthIndex
 				monthElements.push(
-					<button onClick={() => clickedMonth(_monthIndex) } className="month" key={`month${i}${j}`}>
+					<button onClick={() => clickedMonth(_monthIndex) } 
+					className={`month ${getMonthMatch(_monthIndex, year) ? "match" : props.searchTerm ? "nomatch" : null}`} 
+					key={`month${i}${j}`}>
 						{months[monthIndex].substr(0, 3)}
 					</button>
 				)
@@ -210,7 +214,9 @@ const BoardCalendarViewer = props => {
 			for (let j = 0; j < 3; j++) {
 				let _year = years[yearIndex]
 				yearElements.push(
-					<button onClick={() => clickedYear(_year)} className="year" key={`year${i}${j}`}>
+					<button onClick={() => clickedYear(_year)} 
+					className={`year ${getYearMatch(_year) ? "match" : props.searchTerm ? "nomatch" : null}`} 
+					key={`year${i}${j}`}>
 						{years[yearIndex]}
 					</button>
 				) 

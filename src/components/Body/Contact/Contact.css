@@ -31,23 +31,14 @@
 	display: flex;
 }
 
-.container-contact button {
-	color: black;
-    padding: 5px 10px;
-    font-size: 1em;
-    border-radius: 5px;
-    font-family: inherit;
-    border: 1px solid grey;
-    margin: 5px;
-}
-
-
-
-
 @media screen and (max-width: 450px) {
 
 	.container-contact .paragraph {
 	    width: -webkit-fill-available;
+	}
+
+	.container-contact .header {
+		font-size: 1.5em;
 	}
 
 }

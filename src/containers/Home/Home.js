@@ -101,11 +101,11 @@ class Home extends Component {
 
 		let boardButton = boards.length ? 
 		(
-			<Link to="/home/new" className='new'>
+			<Link to="/home/new" className='new type-two'>
 				Add New Board&nbsp;<i className="fas fa-plus-circle"></i>
 			</Link>
 		) : (
-			<Link to="/home/new" className='new first'>
+			<Link to="/home/new" className='new first type-two'>
 				Create your first board!&nbsp;<i className="fas fa-plus-circle"></i>
 			</Link>
 		)
@@ -118,7 +118,7 @@ class Home extends Component {
 					<Switch>
 						<Route exact path="/home/new">
 							<div className="body-sub-menu">
-								<button onClick={this.props.history.goBack}> Back </button>
+								<button className="type-one" onClick={this.props.history.goBack}> Back </button>
 							</div>
 							<BoardCreator
 							clearErrors={this.clearCreatorErrors}

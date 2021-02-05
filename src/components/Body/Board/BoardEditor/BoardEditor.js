@@ -29,8 +29,8 @@ const BoardEditor = props => {
 					</div>
 					<div className="row">
 						<div className="toggle">
-							<button onClick={() => setBoardPublic(true)} className={`${boardPublic ? "on" : null}`}> Public <i className="fas fa-eye"></i> </button> 
-							<button onClick={() => setBoardPublic(false)} className={`private ${boardPublic ? null : "on"}`}> Private <i className="fas fa-eye-slash"></i></button>
+							<button onClick={() => setBoardPublic(true)} className={`type-three green ${boardPublic ? "on" : null}`}> Public <i className="fas fa-eye"></i> </button> 
+							<button onClick={() => setBoardPublic(false)} className={`type-three red private ${boardPublic ? null : "on"}`}> Private <i className="fas fa-eye-slash"></i></button>
 						</div>
 					</div>
 					<div className="row">
@@ -46,11 +46,11 @@ const BoardEditor = props => {
 						onChange={() => setBoardDescription(event.target.value)}/>
 					</div>
 					<div className="row">
-						<button onClick={() => props.clickedSubmit(event, boardName, boardDescription, boardPublic)}> Submit </button>
-						<Link to={`/board/${props.match.params.boardid}/`}> Cancel </Link>
+						<button className="type-three" onClick={() => props.clickedSubmit(event, boardName, boardDescription, boardPublic)}> Submit </button>
+						<Link className="type-three" to={`/board/${props.match.params.boardid}/`}> Cancel </Link>
 					</div>			
 					<div className="row">
-						<Link to={`/board/${props.match.params.boardid}/delete`} className="delete"> Delete Board&nbsp;<i className="fas fa-trash"></i></Link>
+						<Link to={`/board/${props.match.params.boardid}/delete`} className="type-three delete"> Delete Board&nbsp;<i className="fas fa-trash"></i></Link>
 					</div>			
 				</FormWrapper>
 			</div>

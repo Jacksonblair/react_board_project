@@ -4,3 +4,13 @@
 	flex: 1;
 	flex-direction: column;
 }
+
+.container-post-editor .target-date {
+	position: relative;
+}
+
+@media screen and (max-width: 450px) {
+	.container-post-editor .target-date {
+		position: initial;
+	}
+}

@@ -38,7 +38,7 @@ const Login = props => {
 						placeholder="password"/>
 					</div>
 					<div className="row">
-						<button onClick={props.clickedSubmit}> Submit </button>
+						<button className="type-one" onClick={props.clickedSubmit}> Submit </button>
 					</div>
 				</FormWrapper>
 			</div>

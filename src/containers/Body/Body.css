@@ -10,55 +10,13 @@
 	display: flex;
 }
 
-.container-body .loading-message {
-	display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    font-size: 1.5em;
-}
-
-.container-body .read-error {
-	font-size: 1.5em;
-	color: #f77878;
-	text-align: center;
-	margin: 30px;
-}
-
 .body-sub-menu {
 	display: flex;
     padding: 10px;
 }
 
-.body-sub-menu button, .body-sub-menu a {
-	border: 1px solid lightgrey;
-    font-size: 1em;
-    color: black;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.body-sub-menu button:hover, .body-sub-menu a:hover {
-	color: lightgrey;
-}
-
-.body-sub-menu button:disabled, .body-sub-menu a:disabled {
-	color: lightgrey;
-}
-
-
 @media screen and (max-width: 450px) {
 	.body-sub-menu {
 		padding: 5px;
-	}
-
-	.body-sub-menu button, .body-sub-menu a {
-	    font-size: 0.9em;
-	    padding: 5px;
-	}
-
-	.container-body .read-error {
-		font-size: 1.2em;
 	}
 }

@@ -180,7 +180,7 @@ class Auth extends Component {
 		return (
 			<div className="container-auth">
 				<div className="body-sub-menu">
-					<button onClick={this.props.history.goBack}> Back </button>
+					<button className="type-one" onClick={this.props.history.goBack}> Back </button>
 				</div>
 				<Switch>
 					<Route exact path="/auth/login">

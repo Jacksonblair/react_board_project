@@ -1,17 +1,23 @@
 .container-calendar-dropdown {
 	display: none;
 	position: absolute;
-	top: 120%;
+	top: 45px;
 	left: 0;
 	border: 1px solid lightgrey;
 	background: white;
-    flex-direction: row;
     border-radius: 5px;
     overflow: hidden;
+    flex-direction: column;
+	font-size: 15px;
 }
 
 .container-calendar-dropdown.visible {
 	display: flex;
+}
+
+.container-calendar-dropdown .menu {
+	display: flex;
+	flex-direction: column;
 }
 
 .container-calendar-dropdown .calendar {
@@ -22,18 +28,35 @@
     width: 280px;
 }
 
-.container-calendar-dropdown .calendar .exit {
+.container-calendar-dropdown .menu .exit {
 	display: none;
-    font-size: 1em;
-    width: max-content;
-    border: 1px solid lightgrey;
+}
+
+.container-calendar-dropdown .menu .controller {
+	display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid lightgrey;
+}
+
+.container-calendar-dropdown .menu .controller .current-date {
+    text-transform: capitalize;
+    margin: 5px auto;
+}
+
+.container-calendar-dropdown .menu .header {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 1.3em;
+    margin: 0px;
+    color: black;
 }
 
 .container-calendar-dropdown .row button {
 	border: none;
 	margin: 0px;
 	padding: 0px;
-	font-size: 1em;
+	font-size: inherit;
 	height: 100%;
 	background: none;
 }
@@ -43,37 +66,6 @@
 	background: whitesmoke;
 	border: 1px solid lightgrey;
 	border-radius: 0px;
-}
-
-.container-calendar-dropdown .header {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-size: 1em;
-    margin: 0px;
-    margin-top: 5px;
-    font-weight: bold;
-}
-
-.container-calendar-dropdown .controller {
-	display: flex;
-    justify-content: space-between;
-    font-size: 0.9em;
-}
-
-.container-calendar-dropdown .controller button {
-	margin: 0px;
-	background: none;
-	border: none;
-}
-
-.container-calendar-dropdown .controller .current-date {
-	flex: 1;
-    text-transform: capitalize;
-    border: 1px solid lightgrey;
-    margin: 5px;
-    padding: 0px;
-    border-radius: 5px;
 }
 
 .container-calendar-dropdown .days {
@@ -89,7 +81,6 @@
 
 .container-calendar-dropdown .days .row .dotw {
 	text-align: center;
-    font-size: 0.8em;
     padding: 0px;
     min-width: 0px;
     width: 14.28%;
@@ -150,18 +141,19 @@
 
 @media screen and (max-width: 450px) {
 	.container-calendar-dropdown {
-		top: -1px;
+		top: 40px;
 		left: -1px;
 		width: 100%;
-		z-index: 100;
 	    border-radius: 0px;
+	    z-index: 420;
+	}
+
+	.container-calendar-dropdown .menu .exit {
+		display: flex;
 	}
 
 	.container-calendar-dropdown .calendar {
 	    width: 100%;
 	}
 
-	.container-calendar-dropdown .calendar .exit {
-		display: flex;
-	}
 }

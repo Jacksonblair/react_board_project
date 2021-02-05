@@ -70,7 +70,7 @@ class Body extends Component {
 								<Redirect to="/home"/>
 							</Route>
 						</Switch>
-						: <div className="init"><i className="fas fa-asterisk"></i></div>
+						: <div className="loading-message"><i className="fas fa-asterisk"></i></div>
 					}
 				</div>
 			</div>

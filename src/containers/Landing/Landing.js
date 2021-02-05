@@ -29,7 +29,7 @@ class Landing extends Component {
 					A React CRUD app, using Redux, a Node/Express backend, PostgreSQL database and JavaScript Web Tokens, served from Heroku.
 				</div>
 				<div className="buttons">
-					<Link className="register" to="/auth/register"> Sign up</Link>
+					<Link className="register type-two" to="/auth/register"> Sign up</Link>
 					<div>Or <Link to="/auth/login"> Log In </Link> with the guest account</div>
 				</div>
 			</div>

@@ -47,7 +47,7 @@ const PasswordEditor = props => {
 					</div>
 
 					<div className="row">
-						<button onClick={() => props.clickedSubmit(oldPassword, newPassword, confirmNewPassword)}> Submit </button>
+						<button className="type-three" onClick={() => props.clickedSubmit(oldPassword, newPassword, confirmNewPassword)}> Submit </button>
 				</div>
 				</React.Fragment> }
 			</FormWrapper>

@@ -154,7 +154,7 @@ class Profile extends Component {
 				readError={this.state.readError}
 				finishedLoading={this.state.finishedLoading}>
 					<div className="body-sub-menu">
-						<button onClick={this.props.history.goBack}> Back </button>
+						<button className="type-one" onClick={this.props.history.goBack}> Back </button>
 					</div>
 					<Switch>
 						{/*
@@ -207,10 +207,10 @@ class Profile extends Component {
 {/*										<Link to={`/profile/${this.props.match.params.userid}/edit/profile`} className="edit">
 											Edit Profile
 										</Link>*/}
-										<Link to={`/profile/${this.props.match.params.userid}/edit/email`} className="edit">
+										<Link to={`/profile/${this.props.match.params.userid}/edit/email`} className="edit type-one">
 											Change Email
 										</Link>
-										<Link to={`/profile/${this.props.match.params.userid}/edit/password`} className="edit">
+										<Link to={`/profile/${this.props.match.params.userid}/edit/password`} className="edit type-one">
 											Change Password
 										</Link>
 									</div>

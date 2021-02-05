@@ -20,7 +20,7 @@ const Contact = props => {
 	return (
 		<div className="container-contact"> 
 			<div className="body-sub-menu">
-				<button onClick={() => props.history.goBack()}> Back </button>
+				<button className="type-one" onClick={() => props.history.goBack()}> Back </button>
 			</div>
 			<div className="content">
 				<div className="header"> Contact </div>
@@ -28,14 +28,14 @@ const Contact = props => {
 					I'm a Computer Science student at Deakin University and an aspiring 'full-stack' web developer from the ACT, Australia.
 				</div>
 				<div className="buttons">
-					<button onClick={clickedCopy}>
+					<button onClick={clickedCopy} className="type-two">
 						{ copied ? "Copied to clipboard!" : 
 						<React.Fragment> 
 							<i className='fas fa-envelope'></i>&nbsp;
 							jackson.blair@live.com 
 						</React.Fragment>}
 					</button>
-					<a href=""><button> Github </button></a>
+					<a href="https://github.com/Jacksonblair" target="_blank"><button className="type-two"> Github </button></a>
 				</div>
 			</div>
 		</div>

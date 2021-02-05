@@ -6,13 +6,13 @@
     align-items: center;
 }
 
-.container-landing .title {
+.container-landing > .title {
 	font-size: 2.5em;
 	font-weight: bold;
     text-align: center;
 }
 
-.container-landing .blurb {
+.container-landing > .blurb {
 	font-size: 1.3em;
     font-style: italic;
     color: #8282dc;
@@ -22,25 +22,20 @@
     margin-bottom: 100px;
 }
 
-.container-landing .buttons .register {
+.container-landing > .buttons .register {
 	padding: 5px 10px;
     margin: 10px;
-    border: 1px solid lightgrey;
-    border-radius: 5px;
-    font-size: 1.5em;
-    font-weight: bold;
-    color: black;
 }
 
-.container-landing .buttons .register:hover {
-	color: grey;
-}
-
-.container-landing .buttons {
+.container-landing > .buttons {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+}
+
+.container-landing > .buttons > div {
+    font-style: italic;
 }
 
 .container-landing .buttons div a {

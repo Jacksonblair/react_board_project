@@ -6,7 +6,7 @@ const TermsAndConditions = props => {
 	return (
 		<div className="container-terms-and-conditions"> 
 			<div className="body-sub-menu">
-				<button onClick={() => props.history.goBack()}> Back </button>
+				<button className="type-one" onClick={() => props.history.goBack()}> Back </button>
 			</div>
 			<div className="content">
 				<div className="header"> Terms and Conditions </div>

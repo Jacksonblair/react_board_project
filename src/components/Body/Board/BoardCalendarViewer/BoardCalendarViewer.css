@@ -56,6 +56,15 @@
     display: flex;
 }
 
+.container-board-calendar-viewer .days .row .day.match {
+    animation: 1s match linear infinite;
+    border-width: 2px;
+}
+
+.container-board-calendar-viewer .days .row .day.nomatch {
+    opacity: 0.5;
+}
+
 .container-board-calendar-viewer .days .row .no-day {
     background: #fafafa;
     width: 12%;
@@ -95,6 +104,15 @@
     font-size: 2vw;
 }
 
+.container-board-calendar-viewer .months .row .month.match {
+    animation: 1s match linear infinite;
+    border-width: 2px;
+}
+
+.container-board-calendar-viewer .months .row .month.match {
+    opacity: 0.5;
+}
+
 .container-board-calendar-viewer .years {
 	flex-direction: column;
     display: flex;
@@ -122,8 +140,21 @@
     border-radius: 5px;
 }
 
+.container-board-calendar-viewer .years .row .year.match {
+    animation: 1s match linear infinite;
+    border-width: 2px;
+}
 
+.container-board-calendar-viewer .years .row .year.nomatch {
+    opacity: 0.5;
+}
 
+@keyframes match {
+    50% {
+        border-color: #5b8ded;
+        background: #e6e6fd;
+    }
+}
 
 @media screen and (max-width: 450px) {
 

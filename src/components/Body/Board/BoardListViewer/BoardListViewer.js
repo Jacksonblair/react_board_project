@@ -47,7 +47,7 @@ const BoardListViewer = props => {
 	: null
 
 	let newPostButton = (props.userDetails.user_id == props.currentBoard.created_by_user_id) ?
-		<Link to={`/board/${props.match.params.boardid}/post/new`} className="new">
+		<Link to={`/board/${props.match.params.boardid}/post/new`} className="type-two new">
 			<React.Fragment>
 			Add new post&nbsp;<i className="fas fa-plus-circle"></i>
 			</React.Fragment>

@@ -25,8 +25,8 @@ const BoardCreator = props => {
 					</div>
 					<div className="row">
 						<div className="toggle">
-							<button onClick={() => setBoardPublic(true)} className={`${boardPublic ? "on" : null}`}> Public <i className="fas fa-eye"></i> </button> 
-							<button onClick={() => setBoardPublic(false)} className={`private ${boardPublic ? null : "on"}`}> Private <i className="fas fa-eye-slash"></i></button>
+							<button onClick={() => setBoardPublic(true)} className={`type-three green ${boardPublic ? "on" : "off"}`}> Public <i className="fas fa-eye"></i> </button> 
+							<button onClick={() => setBoardPublic(false)} className={`type-three red ${boardPublic ? "off" : "on"}`}> Private <i className="fas fa-eye-slash"></i></button>
 						</div>
 					</div>
 					<div className="row">
@@ -40,7 +40,7 @@ const BoardCreator = props => {
 						onChange={() => setBoardDescription(event.target.value)}/>
 					</div>
 					<div className="row">
-						<button type="submit" onClick={() => props.clickedSubmit(boardName, boardDescription, boardPublic)}> Submit </button>
+						<button className="type-three" type="submit" onClick={() => props.clickedSubmit(boardName, boardDescription, boardPublic)}> Submit </button>
 					</div>
 
 				</FormWrapper>

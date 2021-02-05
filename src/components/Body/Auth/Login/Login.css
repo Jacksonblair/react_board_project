@@ -6,6 +6,11 @@
 	align-items: center;	
 }
 
+
+.container-login button {
+    margin-bottom: 20px;
+}
+
 .guest-details {
 	display: flex;
     justify-content: center;
@@ -25,3 +30,4 @@
 .guest-details > div div {
     color: #6868a3;
 }
+

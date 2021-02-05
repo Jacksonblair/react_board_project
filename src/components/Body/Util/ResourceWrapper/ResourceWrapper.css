@@ -1,0 +1,18 @@
+.read-error {
+	margin: 30px;
+	font-size: 1.5em;
+    margin: 10px;
+    color: #ef3b3b;
+    background: #ffe8ec;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #ef3b3b;
+    width: fit-content;
+    align-self: center;
+}
+
+@media screen and (max-width: 450px) {
+	.read-error {
+		font-size: 1.2em;
+	}
+}

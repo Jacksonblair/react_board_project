@@ -17,7 +17,7 @@ const CalendarDropdown = props => {
 	let [ year, setYear ] = useState(props.date ? props.date.getFullYear() : today.getFullYear())
 
 	/* 0: Days, 1: Months, 2: Years */ /* View days by default */
-	let [ dateUnit, setDateUnit ] = useState(0)
+	let [ dateUnit, setDateUnit ] = useState(1)
 
 	let months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
 	let years = new Array(9).fill().map((x, i) => { return 2020 + i })
@@ -234,21 +234,23 @@ const CalendarDropdown = props => {
 
 	return (
 		<div className={`container-calendar-dropdown ${props.visible ? "visible" : null}`} > 
-			<div className="calendar">
-				<button className="exit" onClick={props.clickedExit}>
+			<div className="menu">
+				<button className="type-three" onClick={props.clickedExit}>
 					Cancel
 				</button>
 				<div className="header">
 					{props.calendarTitle}
 				</div>
 				<div className="controller"> 
-					<button className="left" onClick={(event) => clickedLeftArrow(event)}> <i className="fas fa-arrow-left"/> </button>
-					<button className="current-date" onClick={(event) => clickedUnit(event)}> 
+					<button disabled={dateUnit != 0} className="type-three left" onClick={(event) => clickedLeftArrow(event)}> <i className="fas fa-arrow-left"/> </button>
+					<button className="type-three current-date" onClick={(event) => clickedUnit(event)}> 
 						{ months[month] }&nbsp;
 						{ year }
 					</button>
-					<button className="right" onClick={(event) => clickedRightArrow(event)}> <i className="fas fa-arrow-right"/>  </button>
+					<button disabled={dateUnit != 0} className="type-three right" onClick={(event) => clickedRightArrow(event)}> <i className="fas fa-arrow-right"/>  </button>
 				</div>
+			</div>
+			<div className="calendar">
 				{ dateUnit == 0 ? 
 					getDayElements(month, year, 0) 
 					: dateUnit == 1 ?

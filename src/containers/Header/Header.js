@@ -16,18 +16,6 @@ class Header extends Component {
 		showMenuOptions: false
 	}
 
-	componentDidMount = () => {
-
-	}
-
-	componentDidUpdate = (prevProps) => {
-
-	}
-
-	getInterface = (index) => {
-		
-	}
-
 	clickedNavigationOptions = () => {
 		this.setState({
 			showNavigationOptions: !this.state.showNavigationOptions
@@ -65,12 +53,14 @@ class Header extends Component {
 	    }
 	}
 
-	clickedOption = () => {
-		console.log("Clicked option")
+	pressedKeyLogout = (event) => {
+		if (event.charCode == 13) {
+			this.clickedLogout()
+		}
 	}
 
 	clickedLogout = () => {
-		console.log("CLICKED LOGOUT")
+		console.log("clicked logout")
 
 		axios.post('/logout')
 		.then((res) => {
@@ -128,7 +118,10 @@ class Header extends Component {
 							<div className="bar"/>
 							<div className={`options ${this.state.showMenuOptions ? "show" : null}`}>
 								{ this.props.userDetails.user_id ? 
-									<div onClick={this.clickedLogout} className="option" tabIndex={0}> Log Out </div>
+									<div onClick={this.clickedLogout} 
+									onKeyPress={this.pressedKeyLogout}
+									className="option" 
+									tabIndex={0}> Log Out </div>
 									: <React.Fragment>
 										<Link to="/auth/login" className={`option ${this.props.location.pathname.includes('/login') ? "disabled" : null}`}> Log in</Link>
 										<Link to="/auth/register" className={`option ${this.props.location.pathname.includes('/register') ? "disabled" : null}`}> Register </Link>
@@ -137,7 +130,7 @@ class Header extends Component {
 							</div>
 						</button>
 					</div>
-					: <div className="init"><i className="fas fa-asterisk"></i></div>
+					: <div className="loading-message"><i className="fas fa-asterisk"></i></div>
 				}
 			</div>
 		)

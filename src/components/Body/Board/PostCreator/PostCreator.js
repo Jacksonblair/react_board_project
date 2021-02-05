@@ -2,7 +2,7 @@ import React, { Component, useState } from 'react'
 import './PostCreator.css'
 
 import FormWrapper from '../../Util/FormWrapper/FormWrapper.js'
-import CalendarDropdown from '../CalendarDropdown/CalendarDropdown.js'
+import CalendarDropdown from '../../Util/CalendarDropdown/CalendarDropdown.js'
 
 const PostCreator = props => {
 
@@ -53,7 +53,7 @@ const PostCreator = props => {
 						Creating New Post
 					</div>
 					<div className="row">
-						<div className="target-date div-button" 
+						<div className="type-three target-date div-button" 
 						onKeyPress={pressedKeyCalendarDropdown}
 						onClick={clickedCalendarDropdown}
 						onBlur={blurredCalendarDropdown} 
@@ -79,7 +79,7 @@ const PostCreator = props => {
 						onChange={() => setContent(event.target.value)}/>
 					</div>
 					<div className="row">
-						<button type="submit" onClick={() => props.clickedSubmit(event, title, content, date)}> Submit </button>
+						<button className="type-three" type="submit" onClick={() => props.clickedSubmit(event, title, content, date)}> Submit </button>
 					</div>
 				</FormWrapper>
 			</form>

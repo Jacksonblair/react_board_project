@@ -44,18 +44,19 @@ input:focus, textarea:focus, select:focus, .div-button:focus {
     outline: none;
 }
 
-button {
-	box-shadow: none;
-	font-family: inherit;
-}
-
-button:hover {
-
-}
 
 button:focus {
 	outline: none;
 	box-shadow: 0px 0px 0px 2px blue inset;
+}
+
+.div-button {
+	cursor: pointer;
+}
+
+button {
+	box-shadow: none;
+	font-family: inherit;
 }
 
 .fas.fa-asterisk {
@@ -63,12 +64,13 @@ button:focus {
     color: grey;
 }
 
-.init {
-    height: 100%;
-    flex: 1;
-    display: flex;
+.loading-message {
+	display: flex;
     justify-content: center;
     align-items: center;
+    height: 100%;
+    font-size: 1em;
+    flex: 1;
 }
 
 @keyframes spin {
@@ -85,8 +87,8 @@ button:focus {
     flex: 1;
 }
 
-.board-form .header {
-	margin: 20px 10px 10px 10px;
+.board-form .row > .header, .board-form > .header {
+	margin: 10px;
     font-size: 1.5em;
     text-align: center;
 }
@@ -97,19 +99,15 @@ button:focus {
 	justify-content: center;
 }
 
-.board-form button, .board-form textarea, .board-form input {
-	font-family: inherit;
+.board-form textarea, .board-form input {
 	flex: 1;
 	font-size: 1.2em;
 	white-space: nowrap;
-}
-
-.board-form input, .board-form textarea {
-	padding: 5px 10px;
-	margin: 10px 50px;
-	border: 1px solid lightgrey;
+	margin: 15px;
 	border-radius: 5px;
-	color: black;
+	border: 1px solid lightgrey;
+	padding: 5px;
+	font-family: inherit;
 }
 
 .board-form textarea {
@@ -117,76 +115,94 @@ button:focus {
 	resize: vertical;
 }
 
-.board-form button, .board-form a, .board-form .div-button {
-	padding: 5px 10px;
-	margin: 10px;
-	border: 1px solid lightgrey;
-	border-radius: 5px;
-	width: auto;
-	flex: 0;
-	flex-basis: 150px;
-	background: whitesmoke;
-	font-size: 1.2em;
-	color: black;
-	flex-basis: auto;
-	min-width: 40px;
+
+button.type-one, a.type-one, .div-button.type-one {
+	font-family: inherit;
+    border: 1px solid lightgrey;
+    font-size: 1em;
+    color: #5a4f4f;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 5px;
+    background: whitesmoke;
+   	width: fit-content;
 }
 
-.board-form button:hover, .board-form a:hover {
+button.type-one:hover, a.type-one:hover, .div-button.type-one:hover {
 	color: grey;
 }
 
-.board-form .toggle {
-
-}
-
-.board-form .toggle button {
-    font-size: 1.2em;
+button.type-two, a.type-two, .div-button.type-two {
+	font-family: inherit;
+    border: 1px solid #4a951b;
+    font-size: 1em;
+    color: #4a951b;
     padding: 5px 10px;
-    margin: 10px;
-    color: grey;
-    font-weight: bold;
-    opacity: 0.8;
+    margin: 5px;
+    border-radius: 5px;
+    background: #eeffec;
+    width: fit-content;
 }
 
-.board-form .toggle button.on {
-	color: black;
-	border: 1px solid black;
-	font-weight: bold;
+button.type-two:hover, a.type-two:hover, .div-button.type-two:hover {
+	background: #fcfffc;
+	color: #87bf64;
 }
 
-.board-form .toggle button.private{
-	color: #f33030;
+button.type-three, a.type-three, .div-button.type-three {
+	font-family: inherit;
+    border: 1px solid lightgrey;
+    font-size: 1em;
+    color: #5a4f4f;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 5px;
+    background: whitesmoke;
+   	width: fit-content;
 }
 
-.board-form a.delete {
-	color: #f33030;
-    border: 1px solid #f33030;
-    background: #ffeef1;
-    margin-top: 100px;
+button.type-three:hover, a.type-three:hover, .div-button.type-three:hover {
+	color: grey;
+}
+
+button.type-three:disabled {
+	color: lightgrey;
+	border: 1px solid lightgrey;
+}
+
+button.type-three.red {
+	color: #d9411f;
+	border-color: #d9411f;
+	background: none;
+}
+
+button.type-three.green {
+	color: #55a10f;
+	border-color: #55a10f;
+	background: none;
+}
+
+button.type-three.on {
+	opacity: 1;
+	border-width: 2px;
+}
+
+button.type-three.off {
+	opacity: 0.5;
+}
+
+button.type-two:hover {
+
+}
+
+.type-three.delete {
+	margin-top: 40px;
+	color: red;
+    border-color: red;
+    background: #ffebef;
 }
 
 
-.board-form .form-error {
-	font-size: 1.2em;
-    margin: 10px;
-    color: #f18c24;
-}
-
-.board-form .form-success {
-	font-size: 1.2em;
-    color: green;
-}
-
-.board-form .server-error {
-	font-size: 1.2em;
-    margin: 10px;
-    color: #d94444;
-}
-
-.board-form .loading-message {
-	text-align: center;
-}
 
 
 
@@ -197,14 +213,9 @@ button:focus {
 		justify-content: unset;
 	}
 
-	.board-form .header {
+	.board-form .row > .header, .board-form > .header {
 	    margin: 20px 0px 0px 0px;
     	font-size: 1.2em;
-	}
-
-	.board-form .toggle button {
-	    font-size: 1em;
-	    margin: 5px;
 	}
 
 	.board-form input, .board-form textarea {
@@ -214,16 +225,6 @@ button:focus {
 	    border-left: 0px;
 	    border-right: 0px;
 	    font-size: 1em;
-	}
-
-	.board-form button, .board-form a {
-	    padding: 5px 10px;
-	    margin: 5px;
-	    font-size: 1em;
-	}
-
-	.board-form a.delete {
-	    margin-top: 50px;
 	}
 
 }
