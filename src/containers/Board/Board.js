@@ -39,32 +39,10 @@ class Board extends Component {
 		endDate: null
 	}
 
-	componentDidMount = () => {
-		/* 
-			On component mount, we check the store for a board with an id that matches the url
-			If it's not there, we try to get the board from the server
-		*/
-		this.getBoard()
-
-		console.log("Component mounted")
-	}
-
-	componentDidUpdate = (prevProps) => {
-		/*
-			On component update, we check if the :boardid in the url has changed.
-			If it has, we need to call getBoard again			
-		*/
-		if (prevProps.match.params.boardid != this.props.match.params.boardid) {
-			this.setState({
-				finishedLoading: false
-			})
-			this.getBoard()
-		}
-	}
-
 	getBoard = (callback) => {
 		this.setState({
-			finishedLoading: false
+			finishedLoading: false,
+			readError: ""
 		})
 
 		axios.get(`/board/${this.props.match.params.boardid}`)
@@ -282,6 +260,8 @@ class Board extends Component {
 			<div className="container-board">
 
 				<ResourceWrapper
+				getResourceCondition="boardid"
+				getResource={this.getBoard}
 				readError={this.state.readError}
 				finishedLoading={this.state.finishedLoading}>
 				
@@ -318,6 +298,7 @@ class Board extends Component {
 											<button className="type-one" onClick={() => this.props.history.push(`/`)}> Back </button>
 										</div>
 										<BoardMenu
+										searchTerm={this.state.searchTerm}
 										showCalendar={true}
 										userDetails={this.props.userDetails}
 										startDate={this.state.startDate}
@@ -342,6 +323,7 @@ class Board extends Component {
 										<BoardMenu 
 										userDetails={this.props.userDetails}
 										updateSearchTerm={this.updateSearchTermHandler}
+										searchTerm={this.state.searchTerm}
 										clickedListViewer={this.clickedListViewerHandler}
 										currentBoard={this.props.currentBoard}/>
 										<BoardCalendarViewer 

@@ -46,6 +46,10 @@
     align-items: center;
 }
 
+.container-board-menu .menu .clear-calendar:disabled {
+	color: lightgrey;
+}
+
 .container-board-menu .menu .calendar-button {
     border: 1px solid lightgrey;
     position: relative;

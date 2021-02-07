@@ -58,7 +58,7 @@ const PostEditor = props => {
 
 	return (
 		<div className="container-post-editor">
-			<div className="board-form">
+			<form className="board-form">
 				<FormWrapper
 				clearErrors={props.clearErrors}
 				serverError={props.serverError}
@@ -106,7 +106,7 @@ const PostEditor = props => {
 					</div>		
 
 				</FormWrapper>
-			</div>
+			</form>
 		</div>
 	)
 

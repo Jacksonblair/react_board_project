@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react'
+import React, { Component, useState, useEffect } from 'react'
 import './BoardCalendarViewer.css'
 
 import BoardCalendarViewerMenu from '../BoardCalendarViewerMenu/BoardCalendarViewerMenu.js'
@@ -19,31 +19,42 @@ const BoardCalendarViewer = props => {
 	/* 0: Days, 1: Months, 2: Years */ /* View days by default */
 	let [ dateUnit, setDateUnit ] = useState(0)
 
-	let clickedNextMonth = () => {
-		if (month == 11) {
-			setYear(year + 1)
-			setMonth(0)
-		} else {
-			setMonth(month + 1)
+	let clickedCalendarMenuUnitHandler = (unit) => {
+		setDateUnit(unit)
+	}
+
+	let clickedCalendarMenuNextUnitHandler = () => {
+		switch(dateUnit) {
+			case 0:
+				if (month == 11) {
+					setYear(year + 1)
+					setMonth(0)
+				} else {
+					setMonth(month + 1)
+				}
+				break;
+			case 1:
+				setYear(year + 1)
+				break;
 		}
 	}
 
-	let clickedPrevMonth = () => {
-		if (month == 0) {
-			setYear(year - 1)
-			setMonth(11)
-		} else {
-			setMonth(month - 1)
+	let clickedCalendarMenuPrevUnitHandler = () => {
+		switch(dateUnit) {
+			case 0:
+				if (month == 0) {
+					setYear(year - 1)
+					setMonth(11)
+				} else {
+					setMonth(month - 1)
+				}
+				break;
+			case 1:
+				setYear(year - 1)
+				break;
 		}
 	}
 
-	let clickedPrevYear = () => {
-		setYear(year - 1)
-	}
-
-	let clickedNextYear = () => {
-		setYear(year + 1)
-	}
 
 	let clickedMonth = (month) => {
 		setMonth(month)
@@ -59,29 +70,44 @@ const BoardCalendarViewer = props => {
 	    return 32 - new Date(year, month, 32).getDate()
 	}
 
-	let getFilteredDates = () => {
-		/* Filter by fuzzysearch */
+	let getDayPostCount = (day, month, year) => {
+		let count = 0
+		props.posts.forEach((post) => {
+			let date = post.target_date.split('/')
+			if (date[2] == year && date[1] == (month + 1) && date[0] == day) {
+				count++
+			}
+		})
+		return count
+	}
 
-		/*
-			Here we filter through posts using the search term, to get..
-			.. dates which match the terms, so we can highlight them..
-			.. on the calendar view.
-		*/
+	let getMonthPostCount = (month, year) => {
+		let count = 0
+		props.posts.forEach((post) => {
+			let date = post.target_date.split('/')
+			if (date[2] == year && date[1] == (month + 1)) {
+				count++
+			}
+		})
+		return count
+	}
 
-		const searcher = new FuzzySearch(props.posts, ['title', 'content'], {
-			caseSensitive: false,
-		});
-
-		let posts = searcher.search(props.searchTerm);
-
-		return posts.map((post) => post.target_date.split("/"))
+	let getYearPostCount = (year) => {
+		let count = 0
+		props.posts.forEach((post) => {
+			let date = post.target_date.split('/')
+			if (date[2] == year) {
+				count++
+			}
+		})
+		return count
 	}
 
 	let getDayMatch = (day, month, year) => {
 		let match = false
 		if (props.searchTerm) {
-			let dates = getFilteredDates()
-			dates.forEach((date) => {
+			props.posts.forEach((post) => {
+				let date = post.target_date.split('/')
 				if (date[2] == year && date[1] == (month + 1) && date[0] == day) {
 					match = true
 				}
@@ -93,8 +119,8 @@ const BoardCalendarViewer = props => {
 	let getMonthMatch = (month, year) => {
 		let match = false
 		if (props.searchTerm) {
-			let dates = getFilteredDates()
-			dates.forEach((date) => {
+			props.posts.forEach((post) => {
+				let date = post.target_date.split('/')
 				if (date[2] == year && date[1] == (month + 1)) {
 					match = true
 				}
@@ -106,8 +132,8 @@ const BoardCalendarViewer = props => {
 	let getYearMatch = (year) => {
 		let match = false
 		if (props.searchTerm) {
-			let dates = getFilteredDates()
-			dates.forEach((date) => {
+			props.posts.forEach((post) => {
+				let date = post.target_date.split('/')
 				if (date[2] == year) {
 					match = true
 				}
@@ -119,7 +145,7 @@ const BoardCalendarViewer = props => {
 	let getDayElements = () => {
 		let days = []
 
-		let firstDay = (new Date(props.year, props.month)).getDay();
+		let firstDay = (new Date(month, year)).getDay();
 		let day = 1
 		// For 6 possible rows of calendar
 		for (let i = 0; i < 6; i++) {
@@ -142,11 +168,13 @@ const BoardCalendarViewer = props => {
 					}
 				} else {
 					let _day = day
+					let postCount = getDayPostCount(_day, month, year)
 					dayElements.push( 
 						<button onClick={() => props.clickedDay(_day, month, year)} 
 						className={`day ${getDayMatch(_day, month, year) ? "match" : props.searchTerm ? "nomatch" : null}`} 
 						key={`day${i}${j}`}>
 							{day}
+							{ postCount > 0 ? <div className="post-count"> {postCount} <div>&nbsp;posts </div> </div> : null }
 						</button>
 					)
 					day++
@@ -178,11 +206,13 @@ const BoardCalendarViewer = props => {
 			// For 4 months in a row
 			for (let j = 0; j < 4; j++) {
 				let _monthIndex = monthIndex
+				let postCount = getMonthPostCount(_monthIndex, year)
 				monthElements.push(
 					<button onClick={() => clickedMonth(_monthIndex) } 
 					className={`month ${getMonthMatch(_monthIndex, year) ? "match" : props.searchTerm ? "nomatch" : null}`} 
 					key={`month${i}${j}`}>
 						{months[monthIndex].substr(0, 3)}
+						{ postCount > 0 ? <div className="post-count"> {postCount} <div>&nbsp;posts </div> </div> : null }
 					</button>
 				)
 				monthIndex++
@@ -213,11 +243,13 @@ const BoardCalendarViewer = props => {
 			// For 4 years in a row
 			for (let j = 0; j < 3; j++) {
 				let _year = years[yearIndex]
+				let postCount = getYearPostCount(_year)
 				yearElements.push(
 					<button onClick={() => clickedYear(_year)} 
 					className={`year ${getYearMatch(_year) ? "match" : props.searchTerm ? "nomatch" : null}`} 
 					key={`year${i}${j}`}>
 						{years[yearIndex]}
+						{ postCount > 0 ? <div className="post-count"> {postCount} <div>&nbsp;posts </div> </div> : null }
 					</button>
 				) 
 				yearIndex++
@@ -253,13 +285,9 @@ const BoardCalendarViewer = props => {
 	return (
 		<div className="container-board-calendar-viewer"> 
 			<BoardCalendarViewerMenu 
-			clickedNextMonth={clickedNextMonth}
-			clickedNextYear={clickedNextYear}
-			clickedPrevMonth={clickedPrevMonth}
-			clickedPrevYear={clickedPrevYear}
-			updateDateUnit={(unit) => setDateUnit(unit)}
-			month={month}
-			year={year}
+			clickedNextUnit={clickedCalendarMenuNextUnitHandler}
+			clickedPrevUnit={clickedCalendarMenuPrevUnitHandler}
+			clickedUnit={clickedCalendarMenuUnitHandler}
 			dateUnit={dateUnit}/>
 			<div className="header">  {months[month].toUpperCase()} {year} </div>
 			{content}

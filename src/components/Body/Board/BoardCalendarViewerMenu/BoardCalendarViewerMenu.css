@@ -1,3 +1,43 @@
 .container-board-calendar-viewer-menu {
-	
+	font-size: 15px;
+	display: flex;
+    padding: 5px 10px;
+    justify-content: center;
+}
+
+.container-board-calendar-viewer-menu .dropdown {
+	position: relative;
+    font-size: 1em;
+    color: #5a4f4f;
+    z-index: 20;
+}
+
+.container-board-calendar-viewer-menu .dropdown:hover {
+	color: #5a4f4f;
+}
+
+.container-board-calendar-viewer-menu .dropdown .options {
+	display: none;
+    flex-direction: column;
+    background: whitesmoke;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    /* padding: 5px; */
+    position: absolute;
+    top: 100%;
+    left: 0px;
+    top: 30px;
+}
+
+.container-board-calendar-viewer-menu .dropdown .options.visible {
+	display: flex;
+}
+
+.container-board-calendar-viewer-menu .dropdown .options .option {
+	padding: 5px 10px;
+    border-bottom: 1px solid lightgrey;
+}
+
+.container-board-calendar-viewer-menu .dropdown .options .option.disabled {
+	color: lightgrey;
 }

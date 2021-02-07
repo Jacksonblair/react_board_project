@@ -1,7 +1,7 @@
 import React, { Component, useEffect, useState } from 'react'
 import './EmailEditor.css'
-import {
-	Link
+import { 
+	withRouter 
 } from 'react-router-dom'
 
 import FormWrapper from '../../Util/FormWrapper/FormWrapper.js'
@@ -11,9 +11,15 @@ const EmailEditor = props => {
 	let [ email, setEmail ] = useState("")
 	let [ confirmEmail, setConfirmEmail ] = useState("")
 
+	let goBack = (event) => {
+		event.preventDefault()
+		props.getProfile()
+		props.history.push(`/profile/${props.match.params.userid}`)
+	}
+
 	return (
 		<div className="container-email-editor">
-			<div className="board-form">
+			<form className="board-form">
 			<FormWrapper
 			clearErrors={props.clearErrors}
 			serverError={props.serverError}
@@ -24,7 +30,8 @@ const EmailEditor = props => {
 				{ props.formSuccess ? 
 				<div className="row">
 					<div className="form-success"> 
-						{props.formSuccess}&nbsp;<Link to={`/profile/${props.profile.id}/`}> Back to Profile </Link>
+						{props.formSuccess}&nbsp;
+						<button className="type-three" onClick={goBack}> Go back to profile </button>
 					</div>
 				</div>
 				: <React.Fragment>
@@ -45,14 +52,14 @@ const EmailEditor = props => {
 					</div>
 
 					<div className="row">
-						<button className="type-three" onClick={() => props.clickedSubmit(email, confirmEmail)}> Submit </button>
+						<button type="submit" className="type-three" onClick={() => props.clickedSubmit(email, confirmEmail)}> Submit </button>
 					</div>
 				</React.Fragment> }
 			</FormWrapper>
-			</div>
+			</form>
 		</div>
 	)
 
 }
 
-export default EmailEditor
+export default withRouter(EmailEditor)

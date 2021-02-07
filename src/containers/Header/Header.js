@@ -12,7 +12,6 @@ class Header extends Component {
 
 	state = {
 		showNavigationOptions: false,
-		focusingNavigationOption: null,
 		showMenuOptions: false
 	}
 
@@ -85,7 +84,7 @@ class Header extends Component {
 			<div className="container-header">
 				{ this.props.hasInit ? 
 					<div className="menu">
-						<Link className="home" to="/home">
+						<Link className="home" to="/home" replace>
 							<i className="fas fa-home" title="Go home"></i>
 						</Link>
 						{ this.props.userDetails.user_id ? 

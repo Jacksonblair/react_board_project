@@ -1,10 +1,12 @@
 import React, { Component, useState } from 'react'
 import './PasswordEditor.css'
 import {
-	Link
+	withRouter
 } from 'react-router-dom'
 
 import FormWrapper from '../../Util/FormWrapper/FormWrapper.js'
+
+
 
 const PasswordEditor = props => {
 
@@ -12,9 +14,14 @@ const PasswordEditor = props => {
 	let [ newPassword, setNewPassword ] = useState("")
 	let [ confirmNewPassword, setConfirmNewPassword ] = useState("")
 
+	let goBack = (event) => {
+		event.preventDefault()
+		props.history.push(`/profile/${props.match.params.userid}`)
+	}
+
 	return (
 		<div className="container-profile-editor">
-			<div className="board-form">
+			<form className="board-form">
 			<FormWrapper
 				clearErrors={props.clearErrors}
 				serverError={props.serverError}
@@ -25,7 +32,7 @@ const PasswordEditor = props => {
 				{ props.formSuccess ? 
 				<div className="row">
 					<div className="form-success"> 
-						{props.formSuccess}&nbsp;<Link to={`/profile/${props.profile.id}/`}> Back to Profile </Link>
+						{props.formSuccess}&nbsp;<button className="type-three" onClick={goBack}> Go back to profile </button>
 					</div>
 				</div>
 				: <React.Fragment>
@@ -51,10 +58,10 @@ const PasswordEditor = props => {
 				</div>
 				</React.Fragment> }
 			</FormWrapper>
-			</div>
+			</form>
 		</div>
 	)
 
 }
 
-export default PasswordEditor
+export default withRouter(PasswordEditor)

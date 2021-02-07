@@ -15,7 +15,7 @@ const BoardEditor = props => {
 
 	return (
 		<div className="container-board-editor">
-			<div className="board-form">
+			<form className="board-form">
 				<FormWrapper
 				clearErrors={props.clearErrors}
 				serverError={props.serverError}
@@ -53,7 +53,7 @@ const BoardEditor = props => {
 						<Link to={`/board/${props.match.params.boardid}/delete`} className="type-three delete"> Delete Board&nbsp;<i className="fas fa-trash"></i></Link>
 					</div>			
 				</FormWrapper>
-			</div>
+			</form>
 		</div>
 	)
 

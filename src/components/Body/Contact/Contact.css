@@ -16,7 +16,7 @@
 
 .container-contact .header {
     font-size: 2em;
-    color: grey;
+    color: #6767ff;
 }
 
 .container-contact .paragraph {
@@ -25,10 +25,13 @@
 	font-size: 1.1em;
 	text-align: center;
 	margin: 5px 0px 30px 0px;
+	color: #8282dc;
 }
 
 .container-contact .buttons {
 	display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 @media screen and (max-width: 450px) {

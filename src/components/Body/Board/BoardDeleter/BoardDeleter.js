@@ -10,7 +10,7 @@ import {
 const BoardDeleter = props => {
 	return (
 		<div className="container-board-deleter">
-			<div className="board-form">
+			<form className="board-form">
 				<FormWrapper
 				clearErrors={props.clearErrors}
 				serverError={props.serverError}
@@ -25,7 +25,7 @@ const BoardDeleter = props => {
 					<Link className="type-three" to={`/board/${props.match.params.boardid}/edit`}> Cancel </Link>
 				</div>
 				</FormWrapper>
-			</div>
+			</form>
 		</div>
 	)
 

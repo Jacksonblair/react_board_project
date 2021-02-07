@@ -31,33 +31,10 @@ class Post extends Component {
 		currentPost: {}
 	}
 
-	componentDidMount = () => {
-		/* 
-		On component mount, we check the store for a post with an id that matches the url
-		If it's not there, we try to get the post from the server
-		We don't need to check in the board id because its checked in the <Board> component
-		.. before this component is allowed to load.
-		*/
-		this.getPost()
-	}
-
-	componentDidUpdate = (prevProps) => {
-		/*
-			On component update, we check if the :boardid in the url has changed.
-			If it has, we need to call getPost again			
-		*/
-		if (prevProps.match.params.postid != this.props.match.params.postid) {
-			this.setState({
-				finishedLoading: false
-			})
-			this.getPost()
-		}
-	}
-
-
 	getPost = (callback) => {
 		this.setState({
-			finishedLoading: false
+			finishedLoading: false,
+			readError: ""
 		})
 
 		axios.get(`/board/${this.props.match.params.boardid}/post/${this.props.match.params.postid}`)
@@ -78,7 +55,9 @@ class Post extends Component {
 	clickedSubmitEditedPostHandler = (event, title, content, targetDate) => {
 		event.preventDefault()
 		this.setState({
-			processing: true
+			processing: true,
+			formError: "",
+			serverError: ""
 		})
 
 		// TODO: Pass post through client side validation
@@ -136,6 +115,8 @@ class Post extends Component {
 		return (
 			<div className="container-post">
 				<ResourceWrapper
+				getResourceCondition="postid"
+				getResource={this.getPost}
 				readError={this.state.readError}
 				finishedLoading={this.state.finishedLoading}>
 					<Switch>

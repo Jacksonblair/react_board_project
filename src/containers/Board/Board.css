@@ -5,61 +5,8 @@
 	flex: 1;
 }
 
-.board-sub-menu {
-    display: flex;
-    justify-content: space-between;
-}
-
-.board-sub-menu .group {
-	display: flex;
-}
-
-.board-sub-menu button, .board-sub-menu a {
-	border: 1px solid lightgrey;
-    border-radius: 5px;
-    margin: 5px;
-    color: grey;
-    cursor: pointer;
-    background: none;
-    font-size: 1em;
-    min-width: 40px;
-}
-
-.board-sub-menu button:hover, .board-sub-menu a:hover {
-	color: lightgrey;
-}
-
-.board-sub-menu button:disabled, .board-sub-menu a:disabled {
-	color: lightgrey;
-}
-
-.board-sub-menu .edit {
-    margin: 0;
-    margin-left: auto;
-    font-size: 1.2em;
-    border: none;
-    color: black;
-    padding: 5px 0px;
-}
-
 
 @media screen and (max-width: 450px) {
-	.board-sub-menu {
-		flex-direction: column;
-		height: auto;
-		align-items: center;
-	    padding: 0px;
-	}
 
-	.board-sub-menu .group {
-		width: 100%;
-	}
-
-	.board-sub-menu button, .board-sub-menu a {
-		flex-grow: 1;
-	    font-size: 1em;
-   		margin: 0px;
-   		border-radius: 0px;
-	}
 
 }

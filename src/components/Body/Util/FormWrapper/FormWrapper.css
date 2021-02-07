@@ -9,8 +9,11 @@
 }
 
 .form-success {
-	font-size: 1.2em;
+    font-size: 1.2em;
     color: green;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .server-error {

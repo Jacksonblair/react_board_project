@@ -70,7 +70,7 @@ const BoardMenu = props => {
 					</button>
 
 					<div className="search-wrapper">
-						<input className="search" placeholder="Search..." onChange={() => props.updateSearchTerm(event.target.value)}/>
+						<input className="search" defaultValue={props.searchTerm} placeholder="Search..." onChange={() => props.updateSearchTerm(event.target.value)}/>
 					</div>
 				</div>
 

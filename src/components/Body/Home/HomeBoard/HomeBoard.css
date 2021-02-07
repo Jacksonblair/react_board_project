@@ -12,6 +12,7 @@
 .container-home-board .name {
 	font-size: 1.5em;
     margin: 0px 10px;
+    text-align: center;
 }
 
 .container-home-board .description {

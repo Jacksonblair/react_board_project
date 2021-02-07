@@ -7,7 +7,7 @@ const ProfileEditor = props => {
 
 	return (
 		<div className="container-profile-editor">
-			<div className="profile-form">
+			<form className="profile-form">
 			<FormWrapper
 				clearErrors={props.clearErrors}
 				serverError={props.serverError}
@@ -29,7 +29,7 @@ const ProfileEditor = props => {
 				</div>
 
 			</FormWrapper>
-			</div>
+			</form>
 		</div>
 	)
 

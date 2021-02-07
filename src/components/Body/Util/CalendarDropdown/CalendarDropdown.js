@@ -17,7 +17,7 @@ const CalendarDropdown = props => {
 	let [ year, setYear ] = useState(props.date ? props.date.getFullYear() : today.getFullYear())
 
 	/* 0: Days, 1: Months, 2: Years */ /* View days by default */
-	let [ dateUnit, setDateUnit ] = useState(1)
+	let [ dateUnit, setDateUnit ] = useState(0)
 
 	let months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
 	let years = new Array(9).fill().map((x, i) => { return 2020 + i })
@@ -243,7 +243,7 @@ const CalendarDropdown = props => {
 				</div>
 				<div className="controller"> 
 					<button disabled={dateUnit != 0} className="type-three left" onClick={(event) => clickedLeftArrow(event)}> <i className="fas fa-arrow-left"/> </button>
-					<button className="type-three current-date" onClick={(event) => clickedUnit(event)}> 
+					<button disabled={dateUnit == 2} className="type-three current-date" onClick={(event) => clickedUnit(event)}> 
 						{ months[month] }&nbsp;
 						{ year }
 					</button>

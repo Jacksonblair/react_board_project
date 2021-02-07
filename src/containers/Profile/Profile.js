@@ -39,19 +39,12 @@ class Profile extends Component {
 		processing: false
 	}
 
-	componentDidMount = () => {
-		/*
-		When the component mounts, we try to get the contents of the profile
-		for the user with the :userid in the url
-		*/
-		this.getProfile()
-	}
-
-	componentDidUpdate = (prevProps) => {
-
-	}
-
 	getProfile = (callback) => {
+		this.setState({
+			finishedLoading: false,
+			readError: null
+		})
+
 		axios.get(`/profile/${this.props.match.params.userid}`)
 		.then((res) => {
 			this.setState({
@@ -81,27 +74,23 @@ class Profile extends Component {
 
 	clickedSubmitEditedEmailHandler = (email, confirmEmail) => {
 		this.setState({
-			processing: true
+			processing: true,
 		})
 		this.clearErrors()
 
 		// TODO: Validate email
 		if (email != confirmEmail) {
 			this.setState({
-				formError: "E-mails do not match"
+				formError: "E-mails do not match",
+				processing: false
 			})
 		} else {
 			axios.put('/auth/email', {
 				email
 			})	
 			.then((res) => {
-				// Put the new email in the local state
+				// Get the profile again
 				this.setState({
-					profile: {
-						id: this.state.profile.id,
-						email: res.data.email,
-						profile_image_url: this.state.profile.profile_image_url
-					},
 					processing: false,
 					updateEmailSuccess: "Successfully updated email"
 				})
@@ -151,6 +140,8 @@ class Profile extends Component {
 			<div className="container-profile">
 
 				<ResourceWrapper
+				getResourceCondition={"userid"}
+				getResource={this.getProfile}
 				readError={this.state.readError}
 				finishedLoading={this.state.finishedLoading}>
 					<div className="body-sub-menu">
@@ -171,6 +162,7 @@ class Profile extends Component {
 						*/}
 						<Route exact path={`/profile/:userid/edit/email`}>
 							<EmailEditor
+							getProfile={this.getProfile}
 							formSuccess={this.state.updateEmailSuccess}
 							clickedSubmit={this.clickedSubmitEditedEmailHandler}
 							clearErrors={this.clearErrors}
@@ -182,6 +174,7 @@ class Profile extends Component {
 						</Route>
 						<Route exact path={`/profile/:userid/edit/password`}>
 							<PasswordEditor
+							getProfile={this.getProfile}
 							formSuccess={this.state.updatePasswordSuccess}
 							clickedSubmit={this.clickedSubmitEditedPasswordHandler}
 							clearErrors={this.clearErrors}
